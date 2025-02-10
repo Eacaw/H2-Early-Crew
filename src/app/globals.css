@@ -3,19 +3,23 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --background: #0a0a0a;
+  --foreground: #ededed;
+  --green-gradient: linear-gradient(90deg, #00ff00, #008000);
+  --green-ui: #00ff00;
 }
 
 body {
   color: var(--foreground);
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+button {
+  background: var(--green-ui);
+  color: var(--foreground);
+}
+
+input[type="checkbox"] {
+  accent-color: var(--green-ui);
 }
