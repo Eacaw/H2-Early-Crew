@@ -76,7 +76,7 @@ const EventForm = () => {
         ).toLocaleString(), // Voting will be open for 10 minutes
         participants: [...participants],
         votes: {}, // Will be a mapping of votedForUserId: voterUserId
-        winner: "", // Will be calcualted after the voting ends
+        winner: "", // Will be calculated after the voting ends
         createdAt: Date.now(),
         updatedAt: Date.now(),
       };
