@@ -16,8 +16,10 @@ const EventForm = () => {
   const [email, setEmail] = useState<string>("");
 
   useEffect(() => {
-    setIsSubmitDisabled(!(name && date && time && repeat));
-  }, [name, date, time, repeat]);
+    setIsSubmitDisabled(
+      !(name && date && time && repeat && participants.length >= 2)
+    );
+  }, [name, date, time, repeat, participants]);
 
   const toggleParticipant = (name: string) => {
     const email = participantEmails[name];
