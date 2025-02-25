@@ -43,12 +43,12 @@ const EventForm = () => {
 
       switch (repeat) {
         case "every weekday":
-          nextDate.setDate(startDate.getDate() + i);
-          while (nextDate.getDay() === 0 || nextDate.getDay() === 6) {
-            startDate.setDate(startDate.getDate() + 1);
-            nextDate = new Date(startDate);
-            nextDate.setDate(startDate.getDate() + i);
+          let tempDate = new Date(startDate);
+          tempDate.setDate(tempDate.getDate() + i);
+          while (tempDate.getDay() === 0 || tempDate.getDay() === 6) {
+            tempDate.setDate(tempDate.getDate() + 1);
           }
+          nextDate = tempDate;
           break;
         case "once a week":
           nextDate.setDate(startDate.getDate() + i * 7);
