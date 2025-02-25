@@ -14,10 +14,12 @@ const AdminPage = () => {
   const [loading, setLoading] = useState(true);
   const router = useRouter();
 
-  auth.onAuthStateChanged((user) => {
-    setUser(user);
-  });
-
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      setUser(user);
+    });
+    return () => unsubscribe();
+  }, []);
   useEffect(() => {
     const checkAdminStatus = async () => {
       setLoading(true);
