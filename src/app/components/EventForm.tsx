@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { participantEmails } from "@/app/constants";
+import { firestore } from "@/firebase";
+import { collection, addDoc, writeBatch, doc } from "firebase/firestore";
 
 const EventForm = () => {
   const [name, setName] = useState("");
@@ -9,6 +11,7 @@ const EventForm = () => {
   const [participants, setParticipants] = useState<string[]>([]);
   const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
   const [repeatCount, setRepeatCount] = useState(10);
+  const [isLoading, setIsLoading] = useState(false);
 
   const [email, setEmail] = useState<string>("");
 
@@ -25,10 +28,12 @@ const EventForm = () => {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (isSubmitDisabled) return;
+
+    setIsLoading(true);
 
     const startDate = new Date(date + "T" + time);
     const eventObjects = [];
@@ -78,11 +83,31 @@ const EventForm = () => {
       eventObjects.push(eventObject);
     }
 
-    console.log(JSON.stringify(eventObjects, null, 2));
+    try {
+      const batch = writeBatch(firestore);
+      const meetingsCollection = collection(firestore, "meetings");
+
+      for (const eventObject of eventObjects) {
+        const newDocRef = doc(meetingsCollection); // Generate a unique document reference
+        batch.set(newDocRef, eventObject); // Add the document to the batch
+      }
+
+      await batch.commit(); // Commit the batch
+      console.log("Meetings data pushed to Firestore in bulk");
+    } catch (error) {
+      console.error("Error pushing meetings data to Firestore:", error);
+    }
+
+    setIsLoading(false);
   };
 
   return (
-    <div className="bg-gray-800 shadow-xl shadow-green-500/40 rounded-md p-4 text-white">
+    <div className="bg-gray-800 shadow-xl shadow-green-500/40 rounded-md p-4 text-white relative">
+      {isLoading && (
+        <div className="absolute top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50 flex items-center justify-center">
+          <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-green-500"></div>
+        </div>
+      )}
       <h2 className="text-xl font-semibold mb-4">Add New Event</h2>
       <form className="grid grid-cols-1 gap-4" onSubmit={handleSubmit}>
         {/* Name Field (Full Width) */}
@@ -202,10 +227,12 @@ const EventForm = () => {
         <div className="flex justify-end">
           <button
             className={`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ${
-              isSubmitDisabled ? "opacity-50 cursor-not-allowed" : ""
+              isSubmitDisabled || isLoading
+                ? "opacity-50 cursor-not-allowed"
+                : ""
             }`}
             type="submit"
-            disabled={isSubmitDisabled}
+            disabled={isSubmitDisabled || isLoading}
           >
             Submit
           </button>
