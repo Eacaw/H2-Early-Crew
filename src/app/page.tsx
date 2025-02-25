@@ -5,10 +5,12 @@ import React, { useState } from "react";
 function Home() {
   const [user, setUser] = useState(auth.currentUser);
 
-  auth.onAuthStateChanged((user) => {
-    setUser(user);
-  });
-
+  React.useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      setUser(user);
+    });
+    return () => unsubscribe();
+  }, []);
   return (
     <main>
       <h1>Welcome to the game!</h1>
