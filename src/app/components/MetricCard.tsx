@@ -2,7 +2,7 @@ import React from "react";
 
 interface MetricCardProps {
   title: string;
-  description: string;
+  description: string | React.JSX.Element;
 }
 
 const MetricCard: React.FC<MetricCardProps> = ({ title, description }) => {
