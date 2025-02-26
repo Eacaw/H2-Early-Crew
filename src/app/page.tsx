@@ -131,6 +131,16 @@ function Home() {
         <div className="flex flex-row">
           {/* Main Card */}
           <div className="p-8 w-1/2">
+            {/* overlay mask with lock svg when the timer is not yet up */}
+            {countdown !== null && countdown >= 0 && (
+              <div className="absolute top-0 left-0 w-1/2 h-full bg-gray-900 bg-opacity-60 flex items-center justify-center z-10">
+                <img
+                  src="/locked-padlock.svg"
+                  alt="Lock"
+                  className="w-36 h-36 filter-white"
+                />
+              </div>
+            )}
             <h1 className="text-2xl font-bold mb-4">
               Welcome to H2 Early Crew!
             </h1>
@@ -171,7 +181,7 @@ function Home() {
           <div className="border-l-4 border-gray-950 p-4"></div>
 
           {/* Next Meeting Card */}
-          <div className="p-8 flex flex-col items-center">
+          <div className="p-8 flex flex-col items-center mx-auto">
             {user ? (
               <>
                 {nextMeeting ? (
