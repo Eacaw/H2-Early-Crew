@@ -21,6 +21,11 @@ const AdminPage = () => {
   const [isAdmin, setIsAdmin] = useState<boolean | null>(null);
   const [loading, setLoading] = useState(true);
   const [nextMeeting, setNextMeeting] = useState<any>(null);
+  const [totalVotes, setTotalVotes] = useState(0);
+  const [mostVotedPerson, setMostVotedPerson] = useState<string | null>(null);
+  const [mostVotedPersonVoteCount, setMostVotedPersonVoteCount] = useState(0);
+  const [mostWinsPerson, setMostWinsPerson] = useState<string | null>(null);
+  const [mostWinsPersonWinCount, setMostWinsPersonWinCount] = useState(0);
   const router = useRouter();
 
   useEffect(() => {
@@ -83,6 +88,90 @@ const AdminPage = () => {
     };
 
     fetchNextMeeting();
+  }, []);
+
+  useEffect(() => {
+    const fetchTotalVotes = async () => {
+      let total = 0;
+      const meetingsCollection = collection(firestore, "meetings");
+      const querySnapshot = await getDocs(meetingsCollection);
+
+      querySnapshot.forEach((doc) => {
+        const meetingData = doc.data();
+        if (meetingData.votes) {
+          total += Object.keys(meetingData.votes).length;
+        }
+      });
+
+      setTotalVotes(total);
+    };
+
+    fetchTotalVotes();
+  }, []);
+
+  useEffect(() => {
+    const fetchMostVotedPerson = async () => {
+      const meetingsCollection = collection(firestore, "meetings");
+      const querySnapshot = await getDocs(meetingsCollection);
+
+      const votesByPerson: { [person: string]: number } = {};
+
+      querySnapshot.forEach((doc) => {
+        const meetingData = doc.data();
+        if (meetingData.votes) {
+          for (const votedFor in meetingData.votes) {
+            votesByPerson[votedFor] = (votesByPerson[votedFor] || 0) + 1;
+          }
+        }
+      });
+
+      let topPerson: string | null = null;
+      let topVoteCount = 0;
+
+      for (const person in votesByPerson) {
+        if (votesByPerson[person] > topVoteCount) {
+          topPerson = person;
+          topVoteCount = votesByPerson[person];
+        }
+      }
+
+      setMostVotedPerson(topPerson);
+      setMostVotedPersonVoteCount(topVoteCount);
+    };
+
+    fetchMostVotedPerson();
+  }, []);
+
+  useEffect(() => {
+    const fetchMostWinsPerson = async () => {
+      const meetingsCollection = collection(firestore, "meetings");
+      const querySnapshot = await getDocs(meetingsCollection);
+
+      const winsByPerson: { [person: string]: number } = {};
+
+      querySnapshot.forEach((doc) => {
+        const meetingData = doc.data();
+        if (meetingData.winner) {
+          winsByPerson[meetingData.winner] =
+            (winsByPerson[meetingData.winner] || 0) + 1;
+        }
+      });
+
+      let topPerson: string | null = null;
+      let topWinCount = 0;
+
+      for (const person in winsByPerson) {
+        if (winsByPerson[person] > topWinCount) {
+          topPerson = person;
+          topWinCount = winsByPerson[person];
+        }
+      }
+
+      setMostWinsPerson(topPerson);
+      setMostWinsPersonWinCount(topWinCount);
+    };
+
+    fetchMostWinsPerson();
   }, []);
 
   if (loading) {
@@ -158,16 +247,18 @@ const AdminPage = () => {
 
         {/* Metric Card 2 */}
         <MetricCard
-          title="Metric 2"
-          description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua."
+          title="Total Votes Cast"
+          description={`Total: ${totalVotes}`}
         />
 
         {/* Metric Card 3 */}
         <MetricCard
-          title="Metric 3"
-          description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua."
+          title="Eager'est Beaver"
+          description={
+            mostWinsPerson
+              ? `Name: ${mostWinsPerson}, Wins: ${mostWinsPersonWinCount}`
+              : "No wins have been recorded"
+          }
         />
       </div>
 
