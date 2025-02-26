@@ -1,13 +1,24 @@
 "use client";
 
 import { auth, firestore } from "@/firebase";
-import { collection, query, orderBy, where, getDocs } from "firebase/firestore";
+import {
+  collection,
+  query,
+  orderBy,
+  where,
+  getDocs,
+  updateDoc,
+  doc,
+} from "firebase/firestore";
 import React, { useState, useEffect } from "react";
+import { participantEmails } from "@/app/constants";
 
 function Home() {
   const [user, setUser] = useState(auth.currentUser);
+  const [nextMeetingId, setNextMeetingId] = useState<string>("");
   const [nextMeeting, setNextMeeting] = useState<any>(null);
   const [countdown, setCountdown] = useState<number | null>(null);
+  const [hasVoted, setHasVoted] = useState(false);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -27,14 +38,18 @@ function Home() {
           where("startTime", ">=", now.getTime()),
           where("participants", "array-contains", "dpinchen@certinia.com")
         );
-        console.log("user.email :", user.email);
 
         const querySnapshot = await getDocs(q);
 
         if (!querySnapshot.empty) {
           const nextMeetingData = querySnapshot.docs[0].data();
+          setNextMeetingId(querySnapshot.docs[0].id);
           setNextMeeting(nextMeetingData);
-          console.log("nextMeetingData :", nextMeetingData);
+          if (nextMeetingData.votes && nextMeetingData.votes[user.uid]) {
+            setHasVoted(true);
+          } else {
+            setHasVoted(false);
+          }
         } else {
           setNextMeeting(null);
         }
@@ -65,18 +80,20 @@ function Home() {
     }
   }, [nextMeeting]);
 
-  const formatCountdown = (countdown: number | null) => {
-    if (countdown === null)
+  const formatCountdown = (countdownValue: number | null) => {
+    if (countdownValue === null)
       return { days: "00", hours: "00", minutes: "00", seconds: "00" };
-    if (countdown <= 0)
+    if (countdownValue <= 0)
       return { days: "00", hours: "00", minutes: "00", seconds: "00" };
 
-    const days = Math.floor(countdown / (1000 * 60 * 60 * 24));
+    const days = Math.floor(countdownValue / (1000 * 60 * 60 * 24));
     const hours = Math.floor(
-      (countdown % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+      (countdownValue % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
     );
-    const minutes = Math.floor((countdown % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((countdown % (1000 * 60)) / 1000);
+    const minutes = Math.floor(
+      (countdownValue % (1000 * 60 * 60)) / (1000 * 60)
+    );
+    const seconds = Math.floor((countdownValue % (1000 * 60)) / 1000);
 
     return {
       days: String(days).padStart(2, "0"),
@@ -88,32 +105,60 @@ function Home() {
 
   const countdownValues = formatCountdown(countdown);
 
+  const handleVote = async (votedFor: string) => {
+    if (!user || !nextMeeting) return;
+
+    console.log("nextMeeting :", nextMeeting);
+    console.log("nextMeetingId :", nextMeetingId);
+    const meetingDocRef = doc(firestore, "meetings", nextMeetingId);
+    console.log("meetingDocRef :", meetingDocRef);
+    console.log("Voted for:", votedFor);
+
+    try {
+      await updateDoc(meetingDocRef, {
+        votes: { ...nextMeeting.votes, [user.uid]: votedFor },
+      });
+      setHasVoted(true);
+      console.log("Vote submitted successfully!");
+    } catch (error) {
+      console.error("Error submitting vote:", error);
+    }
+  };
+
   return (
     <main className="container mx-auto py-8">
-      <div className="bg-gray-800 shadow-2xl shadow-green-400/20 rounded-2xl p-4 text-white">
+      <div className="bg-gray-800 shadow-2xl shadow-green-400/20 rounded-2xl p-4 text-white h-full relative">
         <div className="flex flex-row">
           {/* Main Card */}
-          <div className="p-8 w-3/4">
+          <div className="p-8 w-1/2">
             <h1 className="text-2xl font-bold mb-4">
               Welcome to H2 Early Crew!
             </h1>
             {user && nextMeeting ? (
-              <div>
-                <h2 className="text-2xl font-semibold mb-4 text-gray-600">
-                  Upcoming Meetings
-                </h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {nextMeeting && (
-                    <div className="bg-gray-900 p-4 rounded-lg">
-                      <h3 className="text-lg font-semibold text-gray-300">
-                        {nextMeeting.meetingName}
-                      </h3>
-                      <p className="text-gray-400">
-                        {new Date(nextMeeting.startTime).toLocaleString()}
-                      </p>
-                    </div>
-                  )}
+              <div className="flex flex-col items-center mt-20 relative">
+                <div className="grid grid-cols-4 gap-4">
+                  {Object.entries(participantEmails).map(([name, email]) => (
+                    <button
+                      key={email}
+                      className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2 mb-2 w-full relative"
+                      onClick={() => {
+                        console.log("clicked");
+                        handleVote(email);
+                      }}
+                      disabled={
+                        hasVoted ||
+                        !nextMeeting ||
+                        countdown === null ||
+                        countdown >= 0
+                      }
+                    >
+                      {name}
+                    </button>
+                  ))}
                 </div>
+                <h2 className="text-2xl font-semibold mt-4 text-gray-600 text-center relative">
+                  Cast your vote!
+                </h2>
               </div>
             ) : (
               <p className="text-gray-300">
