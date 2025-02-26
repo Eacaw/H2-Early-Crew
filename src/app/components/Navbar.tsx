@@ -83,7 +83,7 @@ const Navbar = () => {
   const isAdmin = userEmail === "davidpinchen@gmail.com";
 
   return (
-    <nav className="bg-purple-800 text-white py-4 px-6 fixed top-0 left-0 w-full z-50">
+    <nav className=" text-white py-4 px-6 fixed top-0 left-0 w-full z-50">
       <div className="container mx-auto flex items-center justify-between">
         <div className="text-xl font-semibold">
           <Link href="/">H2 Early Crew</Link>
@@ -180,11 +180,6 @@ const PlayGameButton = ({
 }) => {
   return (
     <div className="flex items-center">
-      <Link href="/quiz">
-        <button className="bg-green-600 hover:bg-green-800 text-white font-bold py-2 px-6 rounded-2xl flex items-center">
-          See Calendar
-        </button>
-      </Link>
       <div className="ml-4 relative avatar-container">
         <button onClick={onAvatarClick}>
           <img
