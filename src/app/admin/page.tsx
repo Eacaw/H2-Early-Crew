@@ -19,11 +19,14 @@ import EventForm from "@/app/components/EventForm";
 const AdminPage = () => {
   const [user, setUser] = useState(auth.currentUser);
   const [isAdmin, setIsAdmin] = useState<boolean | null>(null);
+  console.log("isAdmin :", isAdmin);
   const [loading, setLoading] = useState(true);
   const [nextMeeting, setNextMeeting] = useState<any>(null);
   const [totalVotes, setTotalVotes] = useState(0);
   const [mostVotedPerson, setMostVotedPerson] = useState<string | null>(null);
+  console.log("mostVotedPerson :", mostVotedPerson);
   const [mostVotedPersonVoteCount, setMostVotedPersonVoteCount] = useState(0);
+  console.log("mostVotedPersonVoteCount :", mostVotedPersonVoteCount);
   const [mostWinsPerson, setMostWinsPerson] = useState<string | null>(null);
   const [mostWinsPersonWinCount, setMostWinsPersonWinCount] = useState(0);
   const router = useRouter();
@@ -59,11 +62,11 @@ const AdminPage = () => {
     checkAdminStatus();
   }, [user]);
 
-  //   useEffect(() => {
-  //     if (!loading && isAdmin === false) {
-  //       router.push("/");
-  //     }
-  //   }, [isAdmin, loading]);
+  useEffect(() => {
+    if (!loading && isAdmin === false) {
+      router.push("/");
+    }
+  }, [isAdmin, loading]);
 
   useEffect(() => {
     const fetchNextMeeting = async () => {
@@ -182,9 +185,9 @@ const AdminPage = () => {
     );
   }
 
-  //   if (!isAdmin) {
-  //     return null; // Redirecting, so don't render anything
-  //   }
+  if (!isAdmin) {
+    return null; // Redirecting, so don't render anything
+  }
 
   const formatMeetingTime = (startTime: Date) => {
     console.log("startTime :", startTime);

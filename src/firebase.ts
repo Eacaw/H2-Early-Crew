@@ -1,4 +1,4 @@
-import fb, { getApp, initializeApp } from "firebase/app";
+import { getApp, initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
 import { FirebaseOptions, FirebaseApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
@@ -28,7 +28,7 @@ function createFirebaseApp(config: FirebaseConfig): FirebaseApp {
     return initializeApp(config);
   }
 }
-const firebaseApp = createFirebaseApp(firebaseConfig);
+createFirebaseApp(firebaseConfig);
 
 const auth = getAuth();
 const googleAuthProvider = new GoogleAuthProvider();

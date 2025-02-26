@@ -48,7 +48,7 @@ const Navbar = () => {
     };
   }, [isDropdownOpen]);
 
-  const createUserDocument = async (user: any) => {
+  const createUserDocument = async (user) => {
     const userDocRef = doc(firestore, "users", user.uid);
     const userDoc = await getDoc(userDocRef);
 

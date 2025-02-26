@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { participantEmails } from "@/app/constants";
 import { firestore } from "@/firebase";
-import { collection, addDoc, writeBatch, doc } from "firebase/firestore";
+import { collection, writeBatch, doc } from "firebase/firestore";
 
 const EventForm = () => {
   const [name, setName] = useState("");
@@ -12,8 +12,6 @@ const EventForm = () => {
   const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
   const [repeatCount, setRepeatCount] = useState(10);
   const [isLoading, setIsLoading] = useState(false);
-
-  const [email, setEmail] = useState<string>("");
 
   useEffect(() => {
     setIsSubmitDisabled(
@@ -45,7 +43,7 @@ const EventForm = () => {
 
       switch (repeat) {
         case "every weekday":
-          let tempDate = new Date(startDate);
+          const tempDate = new Date(startDate);
           tempDate.setDate(tempDate.getDate() + i);
           while (tempDate.getDay() === 0 || tempDate.getDay() === 6) {
             tempDate.setDate(tempDate.getDate() + 1);

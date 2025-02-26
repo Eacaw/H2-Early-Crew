@@ -14,9 +14,18 @@ import React, { useState, useEffect } from "react";
 import { participantEmails } from "@/app/constants";
 
 function Home() {
+  interface Meeting {
+    meetingName: string;
+    startTime: number;
+    votingStartTime: number;
+    votingEndTime: number;
+    participants: string[];
+    votes?: { [userId: string]: string };
+  }
+
   const [user, setUser] = useState(auth.currentUser);
   const [nextMeetingId, setNextMeetingId] = useState<string>("");
-  const [nextMeeting, setNextMeeting] = useState<any>(null);
+  const [nextMeeting, setNextMeeting] = useState<Meeting | null>(null);
   const [countdown, setCountdown] = useState<number | null>(null);
   const [hasVoted, setHasVoted] = useState(false);
   const [votingStatus, setVotingStatus] = useState<
