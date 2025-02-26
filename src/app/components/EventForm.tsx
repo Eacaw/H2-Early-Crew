@@ -104,7 +104,7 @@ const EventForm = () => {
   };
 
   return (
-    <div className="bg-gray-800 shadow-xl shadow-green-500/40 rounded-md p-4 text-white relative">
+    <div className="bg-gray-800 shadow-xl shadow-green-500/40 rounded-lg p-4 text-white relative">
       {isLoading && (
         <div className="absolute top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50 flex items-center justify-center">
           <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-green-500"></div>
@@ -123,7 +123,7 @@ const EventForm = () => {
           <input
             type="text"
             id="name"
-            className="shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-gray-700 text-white"
+            className="shadow appearance-none border rounded-lg w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-gray-700 text-white"
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
@@ -141,7 +141,7 @@ const EventForm = () => {
             <input
               type="date"
               id="date"
-              className="shadow appearance-none border rounded w-full py-2 px-3  leading-tight focus:outline-none focus:shadow-outline bg-gray-700 text-white"
+              className="shadow appearance-none border rounded-lg w-full py-2 px-3  leading-tight focus:outline-none focus:shadow-outline bg-gray-700 text-white"
               value={date}
               onChange={(e) => setDate(e.target.value)}
             />
@@ -156,7 +156,7 @@ const EventForm = () => {
             <input
               type="time"
               id="time"
-              className="shadow appearance-none border rounded w-full py-2 px-3  leading-tight focus:outline-none focus:shadow-outline bg-gray-700 text-white"
+              className="shadow appearance-none border rounded-lg w-full py-2 px-3  leading-tight focus:outline-none focus:shadow-outline bg-gray-700 text-white"
               value={time}
               onChange={(e) => setTime(e.target.value)}
             />
@@ -170,7 +170,7 @@ const EventForm = () => {
             </label>
             <select
               id="repeat"
-              className="shadow appearance-none border rounded w-full py-2 px-3  leading-tight focus:outline-none focus:shadow-outline bg-gray-700 text-white"
+              className="shadow appearance-none border rounded-lg w-full py-2 px-3  leading-tight focus:outline-none focus:shadow-outline bg-gray-700 text-white"
               value={repeat}
               onChange={(e) => setRepeat(e.target.value)}
             >
@@ -216,7 +216,7 @@ const EventForm = () => {
             <input
               type="number"
               id="repeatCount"
-              className="shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-gray-700 text-white"
+              className="shadow appearance-none border rounded-lg w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-gray-700 text-white"
               value={repeatCount}
               onChange={(e) =>
                 setRepeatCount(parseInt(e.target.value, 10) || 10)
