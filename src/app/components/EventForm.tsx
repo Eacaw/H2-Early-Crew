@@ -69,13 +69,11 @@ const EventForm = () => {
 
       const eventObject = {
         meetingName: name,
-        startTime: nextDateCopy.toLocaleString(),
+        startTime: nextDateCopy.getTime(),
         votingStartTime: new Date(
           nextDateCopy.getTime() - 5 * 60000 // Voting will start 5 minutes before the meeting
-        ).toLocaleString(),
-        votingEndTime: new Date(
-          nextDateCopy.getTime() + 5 * 60000
-        ).toLocaleString(), // Voting will be open for 10 minutes
+        ).getTime(),
+        votingEndTime: new Date(nextDateCopy.getTime() + 5 * 60000).getTime(), // Voting will be open for 10 minutes
         participants: [...participants],
         votes: {}, // Will be a mapping of votedForUserId: voterUserId
         winner: "", // Will be calculated after the voting ends
