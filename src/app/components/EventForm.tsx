@@ -79,6 +79,7 @@ const EventForm = () => {
         winner: "", // Will be calculated after the voting ends
         createdAt: Date.now(),
         updatedAt: Date.now(),
+        winnerDeclared: false,
       };
       eventObjects.push(eventObject);
     }
