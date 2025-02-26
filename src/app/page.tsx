@@ -19,6 +19,9 @@ function Home() {
   const [nextMeeting, setNextMeeting] = useState<any>(null);
   const [countdown, setCountdown] = useState<number | null>(null);
   const [hasVoted, setHasVoted] = useState(false);
+  const [votingStatus, setVotingStatus] = useState<
+    "before" | "during" | "after"
+  >("before");
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -50,6 +53,23 @@ function Home() {
           } else {
             setHasVoted(false);
           }
+
+          // Determine voting status
+          const nowTime = now.getTime();
+          const votingStartTime = new Date(
+            nextMeetingData.votingStartTime
+          ).getTime();
+          const votingEndTime = new Date(
+            nextMeetingData.votingEndTime
+          ).getTime();
+
+          if (nowTime < votingStartTime) {
+            setVotingStatus("before");
+          } else if (nowTime >= votingStartTime && nowTime < votingEndTime) {
+            setVotingStatus("during");
+          } else {
+            setVotingStatus("after");
+          }
         } else {
           setNextMeeting(null);
         }
@@ -62,9 +82,20 @@ function Home() {
   useEffect(() => {
     if (nextMeeting) {
       const calculateCountdown = () => {
-        const votingStartTime = new Date(nextMeeting.votingStartTime).getTime();
+        let targetTime;
+        let countdownText;
+
+        if (votingStatus === "before") {
+          targetTime = new Date(nextMeeting.votingStartTime).getTime();
+        } else if (votingStatus === "during") {
+          targetTime = new Date(nextMeeting.votingEndTime).getTime();
+        } else {
+          setCountdown(0);
+          return;
+        }
+
         const now = new Date().getTime();
-        const difference = votingStartTime - now;
+        const difference = targetTime - now;
 
         if (difference > 0) {
           setCountdown(difference);
@@ -78,7 +109,7 @@ function Home() {
 
       return () => clearInterval(intervalId);
     }
-  }, [nextMeeting]);
+  }, [nextMeeting, votingStatus]);
 
   const formatCountdown = (countdownValue: number | null) => {
     if (countdownValue === null)
@@ -125,22 +156,31 @@ function Home() {
     }
   };
 
+  let countdownMessage = "Voting starts in:";
+  if (votingStatus === "during") {
+    countdownMessage = "Voting ends in:";
+  } else if (votingStatus === "after") {
+    countdownMessage = "Voting has ended!";
+  }
+
   return (
     <main className="container mx-auto py-8">
-      <div className="bg-gray-800 shadow-2xl shadow-green-400/20 rounded-2xl p-4 text-white h-full relative">
+      <div className="bg-gray-800 shadow-2xl shadow-grey-400/20 rounded-2xl p-4 text-white h-full relative">
         <div className="flex flex-row">
           {/* Main Card */}
           <div className="p-8 w-1/2">
             {/* overlay mask with lock svg when the timer is not yet up */}
-            {countdown !== null && countdown >= 0 && (
-              <div className="absolute top-0 left-0 w-1/2 h-full bg-gray-900 bg-opacity-60 flex items-center justify-center z-10">
-                <img
-                  src="/locked-padlock.svg"
-                  alt="Lock"
-                  className="w-36 h-36 filter-white"
-                />
-              </div>
-            )}
+            {countdown !== null &&
+              countdown > 0 &&
+              votingStatus === "before" && (
+                <div className="absolute top-0 left-0 w-1/2 h-full bg-gray-900 bg-opacity-60 flex items-center justify-center z-10">
+                  <img
+                    src="/locked-padlock.svg"
+                    alt="Lock"
+                    className="w-36 h-36 filter-white"
+                  />
+                </div>
+              )}
             <h1 className="text-2xl font-bold mb-4">
               Welcome to H2 Early Crew!
             </h1>
@@ -151,10 +191,7 @@ function Home() {
                     <button
                       key={email}
                       className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2 mb-2 w-full relative"
-                      onClick={() => {
-                        console.log("clicked");
-                        handleVote(email);
-                      }}
+                      onClick={() => handleVote(email)}
                       disabled={
                         hasVoted ||
                         !nextMeeting ||
@@ -203,10 +240,10 @@ function Home() {
                       Next Meeting
                     </h2>
                     <p className="text-xl text-gray-200 pb-2">
-                      Voting opens in:
+                      {countdownMessage}
                     </p>
                     <div className="grid grid-flow-col gap-5 text-center auto-cols-max">
-                      <div className="flex flex-col p-2 bg-neutral rounded-box text-neutral-content shadow-lg shadow-green-400/20">
+                      <div className="flex flex-col p-2 bg-neutral rounded-box text-neutral-content shadow-xl shadow-grey-400/20">
                         <span className="countdown font-mono text-5xl ">
                           <span
                             style={
@@ -218,7 +255,7 @@ function Home() {
                         </span>
                         days
                       </div>
-                      <div className="flex flex-col p-2 bg-neutral rounded-box text-neutral-content shadow-lg shadow-green-400/20">
+                      <div className="flex flex-col p-2 bg-neutral rounded-box text-neutral-content shadow-xl shadow-grey-400/20">
                         <span className="countdown font-mono text-5xl ">
                           <span
                             style={
@@ -230,7 +267,7 @@ function Home() {
                         </span>
                         hours
                       </div>
-                      <div className="flex flex-col p-2 bg-neutral rounded-box text-neutral-content shadow-lg shadow-green-400/20">
+                      <div className="flex flex-col p-2 bg-neutral rounded-box text-neutral-content shadow-xl shadow-grey-400/20">
                         <span className="countdown font-mono text-5xl ">
                           <span
                             style={
@@ -242,7 +279,7 @@ function Home() {
                         </span>
                         min
                       </div>
-                      <div className="flex flex-col p-2 bg-neutral rounded-box text-neutral-content shadow-lg shadow-green-400/20">
+                      <div className="flex flex-col p-2 bg-neutral rounded-box text-neutral-content shadow-xl shadow-grey-400/20">
                         <span className="countdown font-mono text-5xl ">
                           <span
                             style={
