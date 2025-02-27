@@ -148,15 +148,11 @@ function Home() {
   const handleVote = async (votedFor: string) => {
     if (!user || !nextMeeting) return;
 
-    console.log("nextMeeting :", nextMeeting);
-    console.log("nextMeetingId :", nextMeetingId);
     const meetingDocRef = doc(firestore, "meetings", nextMeetingId);
-    console.log("meetingDocRef :", meetingDocRef);
-    console.log("Voted for:", votedFor);
 
     try {
       await updateDoc(meetingDocRef, {
-        votes: { ...nextMeeting.votes, [user.uid]: votedFor },
+        [`votes.${user.uid}`]: votedFor,
       });
       setHasVoted(true);
       console.log("Vote submitted successfully!");
@@ -174,7 +170,7 @@ function Home() {
 
   return (
     <main className="container mx-auto py-8">
-      <div className="bg-gray-800 shadow-2xl shadow-grey-400/20 rounded-2xl p-4 text-white h-full relative">
+      <div className="bg-gray-800 shadow-2xl shadow-green-400/20 rounded-2xl p-4 text-white h-full relative">
         <div className="flex flex-row">
           {/* Main Card */}
           <div className="p-8 w-1/2">
@@ -196,21 +192,36 @@ function Home() {
             {user && nextMeeting ? (
               <div className="flex flex-col items-center mt-20 relative">
                 <div className="grid grid-cols-4 gap-4">
-                  {Object.entries(participantEmails).map(([name, email]) => (
-                    <button
-                      key={email}
-                      className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2 mb-2 w-full relative"
-                      onClick={() => handleVote(email)}
-                      disabled={
-                        hasVoted ||
-                        !nextMeeting ||
-                        countdown === null ||
-                        countdown >= 0
-                      }
-                    >
-                      {name}
-                    </button>
-                  ))}
+                  {Object.entries(participantEmails).map(([name, email]) => {
+                    let buttonStyle =
+                      "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2 mb-2 w-full relative";
+                    if (
+                      hasVoted &&
+                      nextMeeting.votes &&
+                      nextMeeting.votes[user.uid] === email
+                    ) {
+                      buttonStyle =
+                        "bg-green-500 text-white font-bold py-2 px-4 rounded mr-2 mb-2 w-full relative";
+                    } else if (hasVoted) {
+                      buttonStyle =
+                        "bg-red-700 text-white font-bold py-2 px-4 rounded mr-2 mb-2 w-full relative opacity-50 cursor-not-allowed";
+                    }
+                    return (
+                      <button
+                        key={email}
+                        className={buttonStyle}
+                        onClick={() => handleVote(email)}
+                        disabled={
+                          hasVoted ||
+                          !nextMeeting ||
+                          countdown === null ||
+                          countdown > 0
+                        }
+                      >
+                        {name}
+                      </button>
+                    );
+                  })}
                 </div>
                 <h2 className="text-2xl font-semibold mt-4 text-gray-600 text-center relative">
                   Cast your vote!
