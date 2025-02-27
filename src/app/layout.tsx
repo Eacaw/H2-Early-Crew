@@ -25,7 +25,9 @@ async function declareWinners() {
   querySnapshot.forEach(async (meetingDoc) => {
     const meetingDataId = meetingDoc.id;
     const meetingData = meetingDoc.data();
+    console.log("meetingData :", meetingData);
     const votes = meetingData.votes || {};
+    console.log("votes :", votes);
 
     let winner: string | null = null;
     let maxVotes = 0;
@@ -40,6 +42,7 @@ async function declareWinners() {
       }
     }
 
+    console.log("winner :", winner);
     if (winner) {
       const meetingDocRef = doc(firestore, "meetings", meetingDataId);
       await updateDoc(meetingDocRef, {
