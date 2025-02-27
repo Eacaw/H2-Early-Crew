@@ -13,7 +13,6 @@ import {
 
 async function declareWinners() {
   const now = Date.now();
-  console.log("now :", now);
   const meetingsCollection = collection(firestore, "meetings");
   const q = query(
     meetingsCollection,
@@ -26,9 +25,7 @@ async function declareWinners() {
   querySnapshot.forEach(async (meetingDoc) => {
     const meetingDataId = meetingDoc.id;
     const meetingData = meetingDoc.data();
-    console.log("meetingData :", meetingData);
     const votes = meetingData.votes || {};
-    console.log("votes :", votes);
 
     let winner: string | null = null;
     let maxVotes = 0;
@@ -43,7 +40,6 @@ async function declareWinners() {
       }
     }
 
-    console.log("winner :", winner);
     if (winner) {
       const meetingDocRef = doc(firestore, "meetings", meetingDataId);
       await updateDoc(meetingDocRef, {
@@ -68,7 +64,6 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   await declareWinners();
-  console.log("declareWinners() called");
 
   return (
     <html lang="en">
