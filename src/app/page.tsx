@@ -56,7 +56,7 @@ function Home() {
           meetingsCollection,
           orderBy("startTime"),
           where("startTime", ">=", now.getTime()),
-          where("participants", "array-contains", "dpinchen@certinia.com")
+          where("participants", "array-contains", user.email)
         );
 
         const querySnapshot = await getDocs(q);
