@@ -56,7 +56,7 @@ function Home() {
         if (!querySnapshot.empty) {
           const nextMeetingData = querySnapshot.docs[0].data();
           setNextMeetingId(querySnapshot.docs[0].id);
-          setNextMeeting(nextMeetingData);
+          setNextMeeting(nextMeetingData as Meeting);
           if (nextMeetingData.votes && nextMeetingData.votes[user.uid]) {
             setHasVoted(true);
           } else {
