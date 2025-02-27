@@ -9,9 +9,11 @@ import {
   getDocs,
   updateDoc,
   doc,
+  limit,
 } from "firebase/firestore";
 import React, { useState, useEffect } from "react";
 import { participantEmails } from "@/app/constants";
+import MetricCard from "@/app/components/MetricCard";
 
 function Home() {
   interface Meeting {
@@ -21,6 +23,7 @@ function Home() {
     votingEndTime: number;
     participants: string[];
     votes?: { [userId: string]: string };
+    winner?: string;
   }
 
   const [user, setUser] = useState(auth.currentUser);
@@ -31,6 +34,11 @@ function Home() {
   const [votingStatus, setVotingStatus] = useState<
     "before" | "during" | "after"
   >("before");
+  const [mostRecentMeeting, setMostRecentMeeting] = useState<Meeting | null>(
+    null
+  );
+  const [totalVotes, setTotalVotes] = useState(0);
+  const [totalUsers, setTotalUsers] = useState(0);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -48,7 +56,7 @@ function Home() {
           meetingsCollection,
           orderBy("startTime"),
           where("startTime", ">=", now.getTime()),
-          where("participants", "array-contains", user.email)
+          where("participants", "array-contains", "dpinchen@certinia.com")
         );
 
         const querySnapshot = await getDocs(q);
@@ -89,6 +97,27 @@ function Home() {
   }, [user]);
 
   useEffect(() => {
+    const fetchMostRecentMeeting = async () => {
+      const now = new Date();
+      const meetingsCollection = collection(firestore, "meetings");
+      const q = query(
+        meetingsCollection,
+        orderBy("startTime", "desc"),
+        where("startTime", "<=", now.getTime()),
+        limit(1)
+      );
+      const querySnapshot = await getDocs(q);
+
+      if (!querySnapshot.empty) {
+        setMostRecentMeeting(querySnapshot.docs[0].data() as Meeting);
+      } else {
+        setMostRecentMeeting(null);
+      }
+    };
+    fetchMostRecentMeeting();
+  }, []);
+
+  useEffect(() => {
     if (nextMeeting) {
       const calculateCountdown = () => {
         let targetTime;
@@ -119,6 +148,36 @@ function Home() {
       return () => clearInterval(intervalId);
     }
   }, [nextMeeting, votingStatus]);
+
+  useEffect(() => {
+    const fetchTotalVotes = async () => {
+      let total = 0;
+      const meetingsCollection = collection(firestore, "meetings");
+      const querySnapshot = await getDocs(meetingsCollection);
+
+      querySnapshot.forEach((doc) => {
+        const meetingData = doc.data();
+        if (meetingData.votes) {
+          total += Object.keys(meetingData.votes).length;
+        }
+      });
+
+      setTotalVotes(total);
+    };
+
+    fetchTotalVotes();
+  }, []);
+
+  useEffect(() => {
+    const fetchTotalUsers = async () => {
+      const usersCollection = collection(firestore, "users");
+      const querySnapshot = await getDocs(usersCollection);
+      const userCount = querySnapshot.size > 0 ? querySnapshot.size - 1 : 0;
+      setTotalUsers(userCount);
+    };
+
+    fetchTotalUsers();
+  }, []);
 
   const formatCountdown = (countdownValue: number | null) => {
     if (countdownValue === null)
@@ -324,6 +383,31 @@ function Home() {
             )}
           </div>
         </div>
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+        <MetricCard
+          title="Most Recent Meeting"
+          description={
+            mostRecentMeeting ? (
+              <>
+                <div>Name: {mostRecentMeeting.meetingName}</div>
+                <div>
+                  {"Winner: "}
+                  {Object.entries(participantEmails).find(
+                    ([name, email]) => email === mostRecentMeeting.winner
+                  )?.[0] || "N/A"}
+                </div>
+              </>
+            ) : (
+              "No past meetings"
+            )
+          }
+        />
+        <MetricCard
+          title="Total Votes Cast"
+          description={`Votes: ${totalVotes}`}
+        />
+        <MetricCard title="Total Users" description={`Users: ${totalUsers}`} />
       </div>
     </main>
   );
