@@ -58,7 +58,7 @@ const Navbar = () => {
         displayName: user.displayName || "John Doe",
         email: user.email || "test@example.com",
         photoURL: user.photoURL || "https://example.com/johndoe.jpg",
-        isAdmin: user.email === "davidpinchen@gmail.com",
+        isAdmin: false,
       };
 
       await setDoc(userDocRef, userData);
@@ -80,7 +80,9 @@ const Navbar = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
 
-  const isAdmin = userEmail === "davidpinchen@gmail.com";
+  const isAdmin =
+    userEmail === "davidpinchen@gmail.com" ||
+    userEmail === "dpinchen@certinia.com";
 
   return (
     <nav className=" text-white py-4 px-6 fixed top-0 left-0 w-full z-50">
@@ -128,7 +130,6 @@ const GoogleSignInButton = () => {
     try {
       const result = await signInWithPopup(auth, googleAuthProvider);
       const user = result.user;
-      console.log("User Info:", user);
     } catch (error) {
       console.error("Error during sign-in:", error);
     }
