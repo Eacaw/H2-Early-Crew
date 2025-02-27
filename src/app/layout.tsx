@@ -23,6 +23,7 @@ async function declareWinners() {
   const querySnapshot = await getDocs(q);
 
   querySnapshot.forEach(async (meetingDoc) => {
+    const meetingDataId = meetingDoc.id;
     const meetingData = meetingDoc.data();
     const votes = meetingData.votes || {};
 
@@ -40,14 +41,14 @@ async function declareWinners() {
     }
 
     if (winner) {
-      const meetingDocRef = doc(firestore, "meetings", meetingDoc.id);
+      const meetingDocRef = doc(firestore, "meetings", meetingDataId);
       await updateDoc(meetingDocRef, {
         winner: winner,
         winnerDeclared: true,
       });
-      console.log(`Winner declared for meeting ${meetingDoc.id}: ${winner}`);
+      console.log(`Winner declared for meeting ${meetingDataId}: ${winner}`);
     } else {
-      console.log(`No votes for meeting ${meetingDoc.id}`);
+      console.log(`No votes for meeting ${meetingDataId}`);
     }
   });
 }
