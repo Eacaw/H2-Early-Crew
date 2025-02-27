@@ -13,6 +13,7 @@ import {
 
 async function declareWinners() {
   const now = Date.now();
+  console.log("now :", now);
   const meetingsCollection = collection(firestore, "meetings");
   const q = query(
     meetingsCollection,
@@ -67,6 +68,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   await declareWinners();
+  console.log("declareWinners() called");
 
   return (
     <html lang="en">
