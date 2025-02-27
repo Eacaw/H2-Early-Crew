@@ -1,7 +1,22 @@
 import React, { useState, useEffect } from "react";
-import { participantEmails } from "@/app/constants";
+import { participantEmails as participantEmailsObject } from "@/app/constants";
 import { firestore } from "@/firebase";
 import { collection, writeBatch, doc } from "firebase/firestore";
+
+// Define the type for participantEmails
+interface ParticipantEmails {
+  Rick: string;
+  Dave: string;
+  Alex: string;
+  Lilia: string;
+  Mihai: string;
+  Anne: string;
+  Wordie: string;
+  Gemma: string;
+}
+
+// Use the type to define participantEmails
+const participantEmails: ParticipantEmails = participantEmailsObject;
 
 const EventForm = () => {
   const [name, setName] = useState("");
