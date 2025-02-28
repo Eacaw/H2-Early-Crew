@@ -141,7 +141,7 @@ function Home() {
             {countdown !== null &&
               countdown > 0 &&
               votingStatus === "before" && (
-                <div className="absolute top-0 left-0 w-1/2 h-full bg-gray-900 bg-opacity-60 flex items-center justify-center z-10 rounded-2xl">
+                <div className="absolute top-0 left-0 w-1/2 h-full bg-gray-900 bg-opacity-60 flex items-center justify-center z-10 rounded-tl-2xl rounded-bl-2xl">
                   <img
                     src="/locked-padlock.svg"
                     alt="Lock"
