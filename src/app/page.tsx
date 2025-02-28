@@ -1,19 +1,11 @@
 "use client";
 
-import { auth, firestore } from "@/firebase";
-import {
-  collection,
-  query,
-  orderBy,
-  where,
-  getDocs,
-  updateDoc,
-  doc,
-  limit,
-} from "firebase/firestore";
 import React, { useState, useEffect } from "react";
 import { participantEmails } from "@/app/constants";
 import MetricCard from "@/app/components/MetricCard";
+import { useData } from "@/app/context/DataContext";
+import { doc, updateDoc } from "firebase/firestore";
+import { firestore } from "@/firebase";
 
 function Home() {
   interface Meeting {
@@ -26,102 +18,44 @@ function Home() {
     winner?: string;
   }
 
-  const [user, setUser] = useState(auth.currentUser);
+  const { user, nextMeeting, mostRecentMeeting, totalVotes, totalUsers } =
+    useData();
+
   const [nextMeetingId, setNextMeetingId] = useState<string>("");
-  const [nextMeeting, setNextMeeting] = useState<Meeting | null>(null);
   const [countdown, setCountdown] = useState<number | null>(null);
   const [hasVoted, setHasVoted] = useState(false);
   const [votingStatus, setVotingStatus] = useState<
     "before" | "during" | "after"
   >("before");
-  const [mostRecentMeeting, setMostRecentMeeting] = useState<Meeting | null>(
-    null
-  );
-  const [totalVotes, setTotalVotes] = useState(0);
-  const [totalUsers, setTotalUsers] = useState(0);
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      setUser(user);
-    });
-    return () => unsubscribe();
-  }, []);
-
-  useEffect(() => {
-    const fetchNextMeeting = async () => {
-      if (user) {
-        const now = new Date();
-        const meetingsCollection = collection(firestore, "meetings");
-        const q = query(
-          meetingsCollection,
-          orderBy("startTime"),
-          where("startTime", ">=", now.getTime()),
-          where("participants", "array-contains", user.email)
-        );
-
-        const querySnapshot = await getDocs(q);
-
-        if (!querySnapshot.empty) {
-          const nextMeetingData = querySnapshot.docs[0].data();
-          setNextMeetingId(querySnapshot.docs[0].id);
-          setNextMeeting(nextMeetingData as Meeting);
-          if (nextMeetingData.votes && nextMeetingData.votes[user.uid]) {
-            setHasVoted(true);
-          } else {
-            setHasVoted(false);
-          }
-
-          // Determine voting status
-          const nowTime = now.getTime();
-          const votingStartTime = new Date(
-            nextMeetingData.votingStartTime
-          ).getTime();
-          const votingEndTime = new Date(
-            nextMeetingData.votingEndTime
-          ).getTime();
-
-          if (nowTime < votingStartTime) {
-            setVotingStatus("before");
-          } else if (nowTime >= votingStartTime && nowTime < votingEndTime) {
-            setVotingStatus("during");
-          } else {
-            setVotingStatus("after");
-          }
-        } else {
-          setNextMeeting(null);
-        }
-      }
-    };
-
-    fetchNextMeeting();
-  }, [user]);
-
-  useEffect(() => {
-    const fetchMostRecentMeeting = async () => {
-      const now = new Date();
-      const meetingsCollection = collection(firestore, "meetings");
-      const q = query(
-        meetingsCollection,
-        orderBy("startTime", "desc"),
-        where("startTime", "<=", now.getTime()),
-        limit(1)
-      );
-      const querySnapshot = await getDocs(q);
-
-      if (!querySnapshot.empty) {
-        setMostRecentMeeting(querySnapshot.docs[0].data() as Meeting);
+    if (nextMeeting) {
+      setNextMeetingId(nextMeeting.id);
+      if (nextMeeting.votes && nextMeeting.votes[user.uid]) {
+        setHasVoted(true);
       } else {
-        setMostRecentMeeting(null);
+        setHasVoted(false);
       }
-    };
-    fetchMostRecentMeeting();
-  }, []);
+
+      // Determine voting status
+      const nowTime = new Date().getTime();
+      const votingStartTime = new Date(nextMeeting.votingStartTime).getTime();
+      const votingEndTime = new Date(nextMeeting.votingEndTime).getTime();
+
+      if (nowTime < votingStartTime) {
+        setVotingStatus("before");
+      } else if (nowTime >= votingStartTime && nowTime < votingEndTime) {
+        setVotingStatus("during");
+      } else {
+        setVotingStatus("after");
+      }
+    }
+  }, [nextMeeting, user]);
 
   useEffect(() => {
     if (nextMeeting) {
       const calculateCountdown = () => {
         let targetTime;
-        let countdownText;
 
         if (votingStatus === "before") {
           targetTime = new Date(nextMeeting.votingStartTime).getTime();
@@ -148,36 +82,6 @@ function Home() {
       return () => clearInterval(intervalId);
     }
   }, [nextMeeting, votingStatus]);
-
-  useEffect(() => {
-    const fetchTotalVotes = async () => {
-      let total = 0;
-      const meetingsCollection = collection(firestore, "meetings");
-      const querySnapshot = await getDocs(meetingsCollection);
-
-      querySnapshot.forEach((doc) => {
-        const meetingData = doc.data();
-        if (meetingData.votes) {
-          total += Object.keys(meetingData.votes).length;
-        }
-      });
-
-      setTotalVotes(total);
-    };
-
-    fetchTotalVotes();
-  }, []);
-
-  useEffect(() => {
-    const fetchTotalUsers = async () => {
-      const usersCollection = collection(firestore, "users");
-      const querySnapshot = await getDocs(usersCollection);
-      const userCount = querySnapshot.size > 0 ? querySnapshot.size - 1 : 0;
-      setTotalUsers(userCount);
-    };
-
-    fetchTotalUsers();
-  }, []);
 
   const formatCountdown = (countdownValue: number | null) => {
     if (countdownValue === null)
