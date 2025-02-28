@@ -4,6 +4,8 @@ import React, { useState, useEffect } from "react";
 import { participantEmails } from "@/app/constants";
 import MetricCard from "@/app/components/MetricCard";
 import { useData } from "@/app/context/DataContext";
+import { doc, updateDoc } from "firebase/firestore";
+import { firestore } from "@/firebase";
 
 function Home() {
   interface Meeting {
@@ -20,6 +22,7 @@ function Home() {
     user,
     nextMeeting,
     totalVotes,
+    totalUsers,
     mostVotedPerson,
     mostWinsPerson,
   } = useData();
@@ -33,7 +36,6 @@ function Home() {
   const [mostRecentMeeting, setMostRecentMeeting] = useState<Meeting | null>(
     null
   );
-  const [totalUsers, setTotalUsers] = useState(0);
 
   useEffect(() => {
     if (nextMeeting) {
@@ -56,8 +58,6 @@ function Home() {
       } else {
         setVotingStatus("after");
       }
-    } else {
-      setNextMeeting(null);
     }
   }, [nextMeeting, user]);
 
@@ -92,17 +92,6 @@ function Home() {
       return () => clearInterval(intervalId);
     }
   }, [nextMeeting, votingStatus]);
-
-  useEffect(() => {
-    const fetchTotalUsers = async () => {
-      const usersCollection = collection(firestore, "users");
-      const querySnapshot = await getDocs(usersCollection);
-      const userCount = querySnapshot.size > 0 ? querySnapshot.size - 1 : 0;
-      setTotalUsers(userCount);
-    };
-
-    fetchTotalUsers();
-  }, []);
 
   const formatCountdown = (countdownValue: number | null) => {
     if (countdownValue === null)

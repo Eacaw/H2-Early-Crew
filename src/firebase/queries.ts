@@ -30,6 +30,12 @@ export const fetchNextMeeting = async () => {
   return !querySnapshot.empty ? querySnapshot.docs[0].data() : null;
 };
 
+export const fetchTotalUsers = async () => {
+  const usersCollection = collection(firestore, "users");
+  const querySnapshot = await getDocs(usersCollection);
+  return querySnapshot.size;
+};
+
 export const fetchTotalVotes = async () => {
   let total = 0;
   const meetingsCollection = collection(firestore, "meetings");

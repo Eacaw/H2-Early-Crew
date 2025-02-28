@@ -6,6 +6,7 @@ import {
   fetchUserData,
   fetchNextMeeting,
   fetchTotalVotes,
+  fetchTotalUsers,
   fetchMostVotedPerson,
   fetchMostWinsPerson,
 } from "@/firebase/queries";
@@ -17,6 +18,7 @@ export const DataProvider = ({ children }) => {
   const [userData, setUserData] = useState(null);
   const [nextMeeting, setNextMeeting] = useState(null);
   const [totalVotes, setTotalVotes] = useState(0);
+  const [totalUsers, setTotalUsers] = useState(0);
   const [mostVotedPerson, setMostVotedPerson] = useState(null);
   const [mostWinsPerson, setMostWinsPerson] = useState(null);
 
@@ -44,6 +46,9 @@ export const DataProvider = ({ children }) => {
 
         const mostWinsPersonData = await fetchMostWinsPerson();
         setMostWinsPerson(mostWinsPersonData);
+
+        const totalUsersData = await fetchTotalUsers();
+        setTotalUsers(totalUsersData);
       }
     };
 
@@ -57,6 +62,7 @@ export const DataProvider = ({ children }) => {
         userData,
         nextMeeting,
         totalVotes,
+        totalUsers,
         mostVotedPerson,
         mostWinsPerson,
       }}
