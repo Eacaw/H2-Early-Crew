@@ -10,6 +10,7 @@ import {
   updateDoc,
   doc,
 } from "firebase/firestore";
+import { DataProvider } from "./context/DataContext";
 
 async function declareWinners() {
   const now = Date.now();
@@ -68,10 +69,12 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body suppressHydrationWarning className="bg-gray-950 h-screen">
-        <Navbar />
-        <div className="mx-auto max-w-6xl pt-20">
-          <div>{children}</div>
-        </div>
+        <DataProvider>
+          <Navbar />
+          <div className="mx-auto max-w-6xl pt-20">
+            <div>{children}</div>
+          </div>
+        </DataProvider>
       </body>
     </html>
   );

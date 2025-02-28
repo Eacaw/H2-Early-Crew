@@ -1,16 +1,11 @@
 "use client";
 
-import { auth, firestore } from "@/firebase";
+import { auth } from "@/firebase";
 import {
-  collection,
-  query,
-  orderBy,
-  where,
-  getDocs,
-  updateDoc,
-  doc,
-  limit,
-} from "firebase/firestore";
+  fetchNextMeeting,
+  fetchTotalVotes,
+  fetchUserData,
+} from "@/firebase/queries";
 import React, { useState, useEffect } from "react";
 import { participantEmails } from "@/app/constants";
 import MetricCard from "@/app/components/MetricCard";
@@ -48,22 +43,11 @@ function Home() {
   }, []);
 
   useEffect(() => {
-    const fetchNextMeeting = async () => {
+    const fetchNextMeetingData = async () => {
       if (user) {
-        const now = new Date();
-        const meetingsCollection = collection(firestore, "meetings");
-        const q = query(
-          meetingsCollection,
-          orderBy("startTime"),
-          where("startTime", ">=", now.getTime()),
-          where("participants", "array-contains", user.email)
-        );
-
-        const querySnapshot = await getDocs(q);
-
-        if (!querySnapshot.empty) {
-          const nextMeetingData = querySnapshot.docs[0].data();
-          setNextMeetingId(querySnapshot.docs[0].id);
+        const nextMeetingData = await fetchNextMeeting();
+        if (nextMeetingData) {
+          setNextMeetingId(nextMeetingData.id);
           setNextMeeting(nextMeetingData as Meeting);
           if (nextMeetingData.votes && nextMeetingData.votes[user.uid]) {
             setHasVoted(true);
@@ -72,7 +56,7 @@ function Home() {
           }
 
           // Determine voting status
-          const nowTime = now.getTime();
+          const nowTime = new Date().getTime();
           const votingStartTime = new Date(
             nextMeetingData.votingStartTime
           ).getTime();
@@ -93,7 +77,7 @@ function Home() {
       }
     };
 
-    fetchNextMeeting();
+    fetchNextMeetingData();
   }, [user]);
 
   useEffect(() => {
@@ -150,22 +134,12 @@ function Home() {
   }, [nextMeeting, votingStatus]);
 
   useEffect(() => {
-    const fetchTotalVotes = async () => {
-      let total = 0;
-      const meetingsCollection = collection(firestore, "meetings");
-      const querySnapshot = await getDocs(meetingsCollection);
-
-      querySnapshot.forEach((doc) => {
-        const meetingData = doc.data();
-        if (meetingData.votes) {
-          total += Object.keys(meetingData.votes).length;
-        }
-      });
-
+    const fetchTotalVotesData = async () => {
+      const total = await fetchTotalVotes();
       setTotalVotes(total);
     };
 
-    fetchTotalVotes();
+    fetchTotalVotesData();
   }, []);
 
   useEffect(() => {

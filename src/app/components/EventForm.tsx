@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { participantEmails as participantEmailsObject } from "@/app/constants";
 import { firestore } from "@/firebase";
 import { collection, writeBatch, doc } from "firebase/firestore";
+import { fetchUserData } from "@/firebase/queries";
 
 // Define the type for participantEmails
 interface ParticipantEmails {

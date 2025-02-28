@@ -1,16 +1,13 @@
 "use client";
 
-import { auth, firestore } from "@/firebase";
+import { auth } from "@/firebase";
 import {
-  doc,
-  getDoc,
-  collection,
-  query,
-  orderBy,
-  limit,
-  getDocs,
-  where,
-} from "firebase/firestore";
+  fetchUserData,
+  fetchNextMeeting,
+  fetchTotalVotes,
+  fetchMostVotedPerson,
+  fetchMostWinsPerson,
+} from "@/firebase/queries";
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import MetricCard from "@/app/components/MetricCard";
@@ -43,11 +40,8 @@ const AdminPage = () => {
       setLoading(true);
 
       if (user) {
-        const userDocRef = doc(firestore, "users", user.uid);
-        const userDoc = await getDoc(userDocRef);
-
-        if (userDoc.exists()) {
-          const userData = userDoc.data();
+        const userData = await fetchUserData(user.uid);
+        if (userData) {
           setIsAdmin(userData.isAdmin);
         } else {
           setIsAdmin(false);
@@ -69,112 +63,41 @@ const AdminPage = () => {
   }, [isAdmin, loading]);
 
   useEffect(() => {
-    const fetchNextMeeting = async () => {
-      const now = new Date();
-      const meetingsCollection = collection(firestore, "meetings");
-      const q = query(
-        meetingsCollection,
-        orderBy("startTime"),
-        where("startTime", ">=", now.getTime()),
-        limit(1)
-      );
-
-      const querySnapshot = await getDocs(q);
-
-      if (!querySnapshot.empty) {
-        const nextMeetingData = querySnapshot.docs[0].data();
-        console.log("nextMeetingData :", nextMeetingData);
-        setNextMeeting(nextMeetingData);
-      } else {
-        setNextMeeting(null);
-      }
+    const fetchNextMeetingData = async () => {
+      const nextMeetingData = await fetchNextMeeting();
+      setNextMeeting(nextMeetingData);
     };
 
-    fetchNextMeeting();
+    fetchNextMeetingData();
   }, []);
 
   useEffect(() => {
-    const fetchTotalVotes = async () => {
-      let total = 0;
-      const meetingsCollection = collection(firestore, "meetings");
-      const querySnapshot = await getDocs(meetingsCollection);
-
-      querySnapshot.forEach((doc) => {
-        const meetingData = doc.data();
-        if (meetingData.votes) {
-          total += Object.keys(meetingData.votes).length;
-        }
-      });
-
+    const fetchTotalVotesData = async () => {
+      const total = await fetchTotalVotes();
       setTotalVotes(total);
     };
 
-    fetchTotalVotes();
+    fetchTotalVotesData();
   }, []);
 
   useEffect(() => {
-    const fetchMostVotedPerson = async () => {
-      const meetingsCollection = collection(firestore, "meetings");
-      const querySnapshot = await getDocs(meetingsCollection);
-
-      const votesByPerson: { [person: string]: number } = {};
-
-      querySnapshot.forEach((doc) => {
-        const meetingData = doc.data();
-        if (meetingData.votes) {
-          for (const votedFor in meetingData.votes) {
-            votesByPerson[votedFor] = (votesByPerson[votedFor] || 0) + 1;
-          }
-        }
-      });
-
-      let topPerson: string | null = null;
-      let topVoteCount = 0;
-
-      for (const person in votesByPerson) {
-        if (votesByPerson[person] > topVoteCount) {
-          topPerson = person;
-          topVoteCount = votesByPerson[person];
-        }
-      }
-
+    const fetchMostVotedPersonData = async () => {
+      const { topPerson, topVoteCount } = await fetchMostVotedPerson();
       setMostVotedPerson(topPerson);
       setMostVotedPersonVoteCount(topVoteCount);
     };
 
-    fetchMostVotedPerson();
+    fetchMostVotedPersonData();
   }, []);
 
   useEffect(() => {
-    const fetchMostWinsPerson = async () => {
-      const meetingsCollection = collection(firestore, "meetings");
-      const querySnapshot = await getDocs(meetingsCollection);
-
-      const winsByPerson: { [person: string]: number } = {};
-
-      querySnapshot.forEach((doc) => {
-        const meetingData = doc.data();
-        if (meetingData.winner) {
-          winsByPerson[meetingData.winner] =
-            (winsByPerson[meetingData.winner] || 0) + 1;
-        }
-      });
-
-      let topPerson: string | null = null;
-      let topWinCount = 0;
-
-      for (const person in winsByPerson) {
-        if (winsByPerson[person] > topWinCount) {
-          topPerson = person;
-          topWinCount = winsByPerson[person];
-        }
-      }
-
+    const fetchMostWinsPersonData = async () => {
+      const { topPerson, topWinCount } = await fetchMostWinsPerson();
       setMostWinsPerson(topPerson);
       setMostWinsPersonWinCount(topWinCount);
     };
 
-    fetchMostWinsPerson();
+    fetchMostWinsPersonData();
   }, []);
 
   if (loading) {
