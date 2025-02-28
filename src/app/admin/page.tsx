@@ -12,40 +12,20 @@ import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import MetricCard from "@/app/components/MetricCard";
 import EventForm from "@/app/components/EventForm";
+import { useData } from "@/app/context/DataContext";
 
 const AdminPage = () => {
-  const [user, setUser] = useState(auth.currentUser);
+  const { user, userData, nextMeeting, totalVotes, mostVotedPerson, mostWinsPerson } = useData();
   const [isAdmin, setIsAdmin] = useState<boolean | null>(null);
-  console.log("isAdmin :", isAdmin);
   const [loading, setLoading] = useState(true);
-  const [nextMeeting, setNextMeeting] = useState<any>(null);
-  const [totalVotes, setTotalVotes] = useState(0);
-  const [mostVotedPerson, setMostVotedPerson] = useState<string | null>(null);
-  console.log("mostVotedPerson :", mostVotedPerson);
-  const [mostVotedPersonVoteCount, setMostVotedPersonVoteCount] = useState(0);
-  console.log("mostVotedPersonVoteCount :", mostVotedPersonVoteCount);
-  const [mostWinsPerson, setMostWinsPerson] = useState<string | null>(null);
-  const [mostWinsPersonWinCount, setMostWinsPersonWinCount] = useState(0);
   const router = useRouter();
-
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      setUser(user);
-    });
-    return () => unsubscribe();
-  }, []);
 
   useEffect(() => {
     const checkAdminStatus = async () => {
       setLoading(true);
 
-      if (user) {
-        const userData = await fetchUserData(user.uid);
-        if (userData) {
-          setIsAdmin(userData.isAdmin);
-        } else {
-          setIsAdmin(false);
-        }
+      if (userData) {
+        setIsAdmin(userData.isAdmin);
       } else {
         setIsAdmin(false);
       }
@@ -54,51 +34,13 @@ const AdminPage = () => {
     };
 
     checkAdminStatus();
-  }, [user]);
+  }, [userData]);
 
   useEffect(() => {
     if (!loading && isAdmin === false) {
       router.push("/");
     }
   }, [isAdmin, loading]);
-
-  useEffect(() => {
-    const fetchNextMeetingData = async () => {
-      const nextMeetingData = await fetchNextMeeting();
-      setNextMeeting(nextMeetingData);
-    };
-
-    fetchNextMeetingData();
-  }, []);
-
-  useEffect(() => {
-    const fetchTotalVotesData = async () => {
-      const total = await fetchTotalVotes();
-      setTotalVotes(total);
-    };
-
-    fetchTotalVotesData();
-  }, []);
-
-  useEffect(() => {
-    const fetchMostVotedPersonData = async () => {
-      const { topPerson, topVoteCount } = await fetchMostVotedPerson();
-      setMostVotedPerson(topPerson);
-      setMostVotedPersonVoteCount(topVoteCount);
-    };
-
-    fetchMostVotedPersonData();
-  }, []);
-
-  useEffect(() => {
-    const fetchMostWinsPersonData = async () => {
-      const { topPerson, topWinCount } = await fetchMostWinsPerson();
-      setMostWinsPerson(topPerson);
-      setMostWinsPersonWinCount(topWinCount);
-    };
-
-    fetchMostWinsPersonData();
-  }, []);
 
   if (loading) {
     return (
@@ -113,7 +55,6 @@ const AdminPage = () => {
   }
 
   const formatMeetingTime = (startTime: Date) => {
-    console.log("startTime :", startTime);
     const meetingDate = new Date(startTime);
     const today = new Date();
     const tomorrow = new Date(today);
@@ -182,7 +123,7 @@ const AdminPage = () => {
           title="Eager'est Beaver"
           description={
             mostWinsPerson
-              ? `Name: ${mostWinsPerson}, Wins: ${mostWinsPersonWinCount}`
+              ? `Name: ${mostWinsPerson.name}, Wins: ${mostWinsPerson.winCount}`
               : "No wins have been recorded"
           }
         />

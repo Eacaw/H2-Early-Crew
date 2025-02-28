@@ -1,14 +1,9 @@
 "use client";
 
-import { auth } from "@/firebase";
-import {
-  fetchNextMeeting,
-  fetchTotalVotes,
-  fetchUserData,
-} from "@/firebase/queries";
 import React, { useState, useEffect } from "react";
 import { participantEmails } from "@/app/constants";
 import MetricCard from "@/app/components/MetricCard";
+import { useData } from "@/app/context/DataContext";
 
 function Home() {
   interface Meeting {
@@ -21,9 +16,15 @@ function Home() {
     winner?: string;
   }
 
-  const [user, setUser] = useState(auth.currentUser);
+  const {
+    user,
+    nextMeeting,
+    totalVotes,
+    mostVotedPerson,
+    mostWinsPerson,
+  } = useData();
+
   const [nextMeetingId, setNextMeetingId] = useState<string>("");
-  const [nextMeeting, setNextMeeting] = useState<Meeting | null>(null);
   const [countdown, setCountdown] = useState<number | null>(null);
   const [hasVoted, setHasVoted] = useState(false);
   const [votingStatus, setVotingStatus] = useState<
@@ -32,74 +33,33 @@ function Home() {
   const [mostRecentMeeting, setMostRecentMeeting] = useState<Meeting | null>(
     null
   );
-  const [totalVotes, setTotalVotes] = useState(0);
   const [totalUsers, setTotalUsers] = useState(0);
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      setUser(user);
-    });
-    return () => unsubscribe();
-  }, []);
-
-  useEffect(() => {
-    const fetchNextMeetingData = async () => {
-      if (user) {
-        const nextMeetingData = await fetchNextMeeting();
-        if (nextMeetingData) {
-          setNextMeetingId(nextMeetingData.id);
-          setNextMeeting(nextMeetingData as Meeting);
-          if (nextMeetingData.votes && nextMeetingData.votes[user.uid]) {
-            setHasVoted(true);
-          } else {
-            setHasVoted(false);
-          }
-
-          // Determine voting status
-          const nowTime = new Date().getTime();
-          const votingStartTime = new Date(
-            nextMeetingData.votingStartTime
-          ).getTime();
-          const votingEndTime = new Date(
-            nextMeetingData.votingEndTime
-          ).getTime();
-
-          if (nowTime < votingStartTime) {
-            setVotingStatus("before");
-          } else if (nowTime >= votingStartTime && nowTime < votingEndTime) {
-            setVotingStatus("during");
-          } else {
-            setVotingStatus("after");
-          }
-        } else {
-          setNextMeeting(null);
-        }
-      }
-    };
-
-    fetchNextMeetingData();
-  }, [user]);
-
-  useEffect(() => {
-    const fetchMostRecentMeeting = async () => {
-      const now = new Date();
-      const meetingsCollection = collection(firestore, "meetings");
-      const q = query(
-        meetingsCollection,
-        orderBy("startTime", "desc"),
-        where("startTime", "<=", now.getTime()),
-        limit(1)
-      );
-      const querySnapshot = await getDocs(q);
-
-      if (!querySnapshot.empty) {
-        setMostRecentMeeting(querySnapshot.docs[0].data() as Meeting);
+    if (nextMeeting) {
+      setNextMeetingId(nextMeeting.id);
+      if (nextMeeting.votes && nextMeeting.votes[user.uid]) {
+        setHasVoted(true);
       } else {
-        setMostRecentMeeting(null);
+        setHasVoted(false);
       }
-    };
-    fetchMostRecentMeeting();
-  }, []);
+
+      // Determine voting status
+      const nowTime = new Date().getTime();
+      const votingStartTime = new Date(nextMeeting.votingStartTime).getTime();
+      const votingEndTime = new Date(nextMeeting.votingEndTime).getTime();
+
+      if (nowTime < votingStartTime) {
+        setVotingStatus("before");
+      } else if (nowTime >= votingStartTime && nowTime < votingEndTime) {
+        setVotingStatus("during");
+      } else {
+        setVotingStatus("after");
+      }
+    } else {
+      setNextMeeting(null);
+    }
+  }, [nextMeeting, user]);
 
   useEffect(() => {
     if (nextMeeting) {
@@ -132,15 +92,6 @@ function Home() {
       return () => clearInterval(intervalId);
     }
   }, [nextMeeting, votingStatus]);
-
-  useEffect(() => {
-    const fetchTotalVotesData = async () => {
-      const total = await fetchTotalVotes();
-      setTotalVotes(total);
-    };
-
-    fetchTotalVotesData();
-  }, []);
 
   useEffect(() => {
     const fetchTotalUsers = async () => {

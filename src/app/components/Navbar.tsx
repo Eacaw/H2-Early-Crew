@@ -4,28 +4,25 @@ import { auth, googleAuthProvider, firestore } from "@/firebase";
 import { signInWithPopup, signOut } from "firebase/auth";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import Link from "next/link";
+import { useData } from "@/app/context/DataContext";
 
 const Navbar = () => {
+  const { user, userData } = useData();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userPhotoURL, setUserPhotoURL] = useState("");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [userEmail, setUserEmail] = useState<string | null>(null);
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged(async (user) => {
-      if (user) {
-        setIsAuthenticated(true);
-        setUserPhotoURL(user.photoURL || "");
-        setUserEmail(user.email); // Store the user's email
-        await createUserDocument(user);
-      } else {
-        setIsAuthenticated(false);
-        setUserEmail(null);
-      }
-    });
-
-    return () => unsubscribe();
-  }, []);
+    if (user) {
+      setIsAuthenticated(true);
+      setUserPhotoURL(user.photoURL || "");
+      setUserEmail(user.email); // Store the user's email
+    } else {
+      setIsAuthenticated(false);
+      setUserEmail(null);
+    }
+  }, [user]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -48,23 +45,6 @@ const Navbar = () => {
     };
   }, [isDropdownOpen]);
 
-  const createUserDocument = async (user) => {
-    const userDocRef = doc(firestore, "users", user.uid);
-    const userDoc = await getDoc(userDocRef);
-
-    if (!userDoc.exists()) {
-      const userData = {
-        uid: user.uid,
-        displayName: user.displayName || "John Doe",
-        email: user.email || "test@example.com",
-        photoURL: user.photoURL || "https://example.com/johndoe.jpg",
-        isAdmin: false,
-      };
-
-      await setDoc(userDocRef, userData);
-    }
-  };
-
   const handleLogout = async () => {
     try {
       await signOut(auth);
@@ -80,9 +60,7 @@ const Navbar = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
 
-  const isAdmin =
-    userEmail === "davidpinchen@gmail.com" ||
-    userEmail === "dpinchen@certinia.com";
+  const isAdmin = userData?.isAdmin;
 
   return (
     <nav className=" text-white py-4 px-6 fixed top-0 left-0 w-full z-50">
