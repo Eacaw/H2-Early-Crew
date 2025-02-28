@@ -30,6 +30,20 @@ export const fetchNextMeeting = async () => {
   return !querySnapshot.empty ? querySnapshot.docs[0].data() : null;
 };
 
+export const fetchMostRecentMeetings = async () => {
+  const now = new Date();
+  const meetingsCollection = collection(firestore, "meetings");
+  const q = query(
+    meetingsCollection,
+    orderBy("startTime", "desc"),
+    where("startTime", "<", now.getTime()),
+    limit(1)
+  );
+
+  const querySnapshot = await getDocs(q);
+  return !querySnapshot.empty ? querySnapshot.docs[0].data() : null;
+};
+
 export const fetchTotalUsers = async () => {
   const usersCollection = collection(firestore, "users");
   const querySnapshot = await getDocs(usersCollection);

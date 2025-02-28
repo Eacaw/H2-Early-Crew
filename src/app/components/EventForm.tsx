@@ -2,10 +2,6 @@ import React, { useState, useEffect } from "react";
 import { participantEmails as participantEmailsObject } from "@/app/constants";
 import { firestore } from "@/firebase";
 import { collection, writeBatch, doc } from "firebase/firestore";
-import { fetchUserData } from "@/firebase/queries";
-import { useData } from "@/app/context/DataContext";
-
-// Define the type for participantEmails
 interface ParticipantEmails {
   Rick: string;
   Dave: string;
@@ -16,12 +12,9 @@ interface ParticipantEmails {
   Wordie: string;
   Gemma: string;
 }
-
-// Use the type to define participantEmails
 const participantEmails: ParticipantEmails = participantEmailsObject;
 
 const EventForm = () => {
-  const { user, userData, nextMeeting, totalVotes, mostVotedPerson, mostWinsPerson } = useData();
   const [name, setName] = useState("");
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");

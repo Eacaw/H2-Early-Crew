@@ -9,6 +9,7 @@ import {
   fetchTotalUsers,
   fetchMostVotedPerson,
   fetchMostWinsPerson,
+  fetchMostRecentMeetings,
 } from "@/firebase/queries";
 
 const DataContext = createContext(null);
@@ -17,6 +18,7 @@ export const DataProvider = ({ children }) => {
   const [user, setUser] = useState(auth.currentUser);
   const [userData, setUserData] = useState(null);
   const [nextMeeting, setNextMeeting] = useState(null);
+  const [mostRecentMeeting, setMostRecentMeeting] = useState(null);
   const [totalVotes, setTotalVotes] = useState(0);
   const [totalUsers, setTotalUsers] = useState(0);
   const [mostVotedPerson, setMostVotedPerson] = useState(null);
@@ -37,6 +39,9 @@ export const DataProvider = ({ children }) => {
 
         const nextMeetingData = await fetchNextMeeting();
         setNextMeeting(nextMeetingData);
+
+        const mostRecentMeetingData = await fetchMostRecentMeetings();
+        setMostRecentMeeting(mostRecentMeetingData);
 
         const totalVotesData = await fetchTotalVotes();
         setTotalVotes(totalVotesData);
@@ -61,6 +66,7 @@ export const DataProvider = ({ children }) => {
         user,
         userData,
         nextMeeting,
+        mostRecentMeeting,
         totalVotes,
         totalUsers,
         mostVotedPerson,

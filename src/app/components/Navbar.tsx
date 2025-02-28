@@ -11,16 +11,14 @@ const Navbar = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userPhotoURL, setUserPhotoURL] = useState("");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [userEmail, setUserEmail] = useState<string | null>(null);
 
   useEffect(() => {
     if (user) {
       setIsAuthenticated(true);
       setUserPhotoURL(user.photoURL || "");
-      setUserEmail(user.email); // Store the user's email
     } else {
       setIsAuthenticated(false);
-      setUserEmail(null);
+      setUserPhotoURL("");
     }
   }, [user]);
 

@@ -18,14 +18,8 @@ function Home() {
     winner?: string;
   }
 
-  const {
-    user,
-    nextMeeting,
-    totalVotes,
-    totalUsers,
-    mostVotedPerson,
-    mostWinsPerson,
-  } = useData();
+  const { user, nextMeeting, mostRecentMeeting, totalVotes, totalUsers } =
+    useData();
 
   const [nextMeetingId, setNextMeetingId] = useState<string>("");
   const [countdown, setCountdown] = useState<number | null>(null);
@@ -33,9 +27,6 @@ function Home() {
   const [votingStatus, setVotingStatus] = useState<
     "before" | "during" | "after"
   >("before");
-  const [mostRecentMeeting, setMostRecentMeeting] = useState<Meeting | null>(
-    null
-  );
 
   useEffect(() => {
     if (nextMeeting) {
@@ -65,7 +56,6 @@ function Home() {
     if (nextMeeting) {
       const calculateCountdown = () => {
         let targetTime;
-        let countdownText;
 
         if (votingStatus === "before") {
           targetTime = new Date(nextMeeting.votingStartTime).getTime();
