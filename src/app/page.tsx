@@ -31,7 +31,7 @@ function Home() {
   useEffect(() => {
     if (nextMeeting) {
       setNextMeetingId(nextMeeting.id);
-      if (nextMeeting.votes && nextMeeting.votes[user.uid]) {
+      if (nextMeeting.votes && nextMeeting.votes[user?.uid]) {
         setHasVoted(true);
       } else {
         setHasVoted(false);
@@ -62,6 +62,7 @@ function Home() {
         } else if (votingStatus === "during") {
           targetTime = new Date(nextMeeting.votingEndTime).getTime();
         } else {
+          setCountdown(null);
           setCountdown(0);
           return;
         }
@@ -132,6 +133,8 @@ function Home() {
     countdownMessage = "Voting has ended!";
   }
 
+  const isVotingActive = votingStatus === "during";
+
   return (
     <main className="container mx-auto py-8">
       <div className="bg-gray-800 shadow-2xl shadow-green-400/20 rounded-2xl p-4 text-white h-full relative">
@@ -175,12 +178,7 @@ function Home() {
                         key={email}
                         className={buttonStyle}
                         onClick={() => handleVote(email)}
-                        disabled={
-                          hasVoted ||
-                          !nextMeeting ||
-                          countdown === null ||
-                          countdown > 0
-                        }
+                        disabled={hasVoted || !nextMeeting || !isVotingActive}
                       >
                         {name}
                       </button>
