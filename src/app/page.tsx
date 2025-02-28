@@ -109,6 +109,7 @@ function Home() {
   const countdownValues = formatCountdown(countdown);
 
   const handleVote = async (votedFor: string) => {
+    console.log("votedFor :", votedFor);
     if (!user || !nextMeeting) return;
 
     const meetingDocRef = doc(firestore, "meetings", nextMeetingId);
