@@ -1,21 +1,14 @@
 "use client";
 
-import { auth } from "@/firebase";
-import {
-  fetchUserData,
-  fetchNextMeeting,
-  fetchTotalVotes,
-  fetchMostVotedPerson,
-  fetchMostWinsPerson,
-} from "@/firebase/queries";
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import MetricCard from "@/app/components/MetricCard";
 import EventForm from "@/app/components/EventForm";
 import { useData } from "@/app/context/DataContext";
+import { participantEmails } from "../constants";
 
 const AdminPage = () => {
-  const { user, userData, nextMeeting, totalVotes, mostVotedPerson, mostWinsPerson } = useData();
+  const { userData, nextMeeting, totalVotes, mostWinsPerson } = useData();
   const [isAdmin, setIsAdmin] = useState<boolean | null>(null);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
@@ -123,7 +116,11 @@ const AdminPage = () => {
           title="Eager'est Beaver"
           description={
             mostWinsPerson
-              ? `Name: ${mostWinsPerson.name}, Wins: ${mostWinsPerson.winCount}`
+              ? `Name: ${
+                  Object.entries(participantEmails).find(
+                    ([name, email]) => email === mostWinsPerson.topPerson
+                  )?.[0]
+                }, Wins: ${mostWinsPerson.topWinCount}`
               : "No wins have been recorded"
           }
         />
