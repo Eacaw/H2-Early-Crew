@@ -62,7 +62,7 @@ export const fetchTotalVotes = async () => {
     }
   });
 
-  return total;
+  return total - 1;
 };
 
 export const fetchMostVotedPerson = async () => {
@@ -118,4 +118,22 @@ export const fetchMostWinsPerson = async () => {
   }
 
   return { topPerson, topWinCount };
+};
+
+export const fetchNextTwoMeetings = async () => {
+  const now = new Date();
+  const meetingsCollection = collection(firestore, "meetings");
+  const q = query(
+    meetingsCollection,
+    orderBy("startTime"),
+    where("startTime", ">=", now.getTime()),
+    limit(2)
+  );
+
+  const querySnapshot = await getDocs(q);
+  const meetings = querySnapshot.docs.map((doc) => ({
+    id: doc.id,
+    ...doc.data(),
+  }));
+  return meetings;
 };
