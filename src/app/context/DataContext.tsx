@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 import { auth } from "@/firebase";
 import {
   fetchUserData,
@@ -10,19 +10,41 @@ import {
   fetchMostVotedPerson,
   fetchMostWinsPerson,
   fetchMostRecentMeetings,
+  fetchNextTwoMeetings,
 } from "@/firebase/queries";
 
-const DataContext = createContext(null);
+interface DataContextProps {
+  user: any;
+  userData: any;
+  nextMeeting: any;
+  nextTwoMeetings: any[];
+  mostRecentMeeting: any;
+  totalVotes: number;
+  totalUsers: number;
+  mostVotedPerson: any;
+  mostWinsPerson: any;
+}
 
-export const DataProvider = ({ children }) => {
+const DataContext = createContext<DataContextProps | undefined>(undefined);
+
+export const useData = () => {
+  const context = useContext(DataContext);
+  if (!context) {
+    throw new Error("useData must be used within a DataProvider");
+  }
+  return context;
+};
+
+export const DataProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState(auth.currentUser);
-  const [userData, setUserData] = useState(null);
-  const [nextMeeting, setNextMeeting] = useState(null);
-  const [mostRecentMeeting, setMostRecentMeeting] = useState(null);
-  const [totalVotes, setTotalVotes] = useState(0);
-  const [totalUsers, setTotalUsers] = useState(0);
-  const [mostVotedPerson, setMostVotedPerson] = useState(null);
-  const [mostWinsPerson, setMostWinsPerson] = useState(null);
+  const [userData, setUserData] = useState<any>(null);
+  const [nextMeeting, setNextMeeting] = useState<any>(null);
+  const [nextTwoMeetings, setNextTwoMeetings] = useState<any[]>([]);
+  const [mostRecentMeeting, setMostRecentMeeting] = useState<any>(null);
+  const [totalVotes, setTotalVotes] = useState<number>(0);
+  const [totalUsers, setTotalUsers] = useState<number>(0);
+  const [mostVotedPerson, setMostVotedPerson] = useState<any>(null);
+  const [mostWinsPerson, setMostWinsPerson] = useState<any>(null);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -39,6 +61,9 @@ export const DataProvider = ({ children }) => {
 
         const nextMeetingData = await fetchNextMeeting();
         setNextMeeting(nextMeetingData);
+
+        const nextTwoMeetingsData = await fetchNextTwoMeetings();
+        setNextTwoMeetings(nextTwoMeetingsData);
 
         const mostRecentMeetingData = await fetchMostRecentMeetings();
         setMostRecentMeeting(mostRecentMeetingData);
@@ -60,22 +85,17 @@ export const DataProvider = ({ children }) => {
     fetchData();
   }, [user]);
 
-  return (
-    <DataContext.Provider
-      value={{
-        user,
-        userData,
-        nextMeeting,
-        mostRecentMeeting,
-        totalVotes,
-        totalUsers,
-        mostVotedPerson,
-        mostWinsPerson,
-      }}
-    >
-      {children}
-    </DataContext.Provider>
-  );
-};
+  const value: DataContextProps = {
+    user,
+    userData,
+    nextMeeting,
+    nextTwoMeetings,
+    mostRecentMeeting,
+    totalVotes,
+    totalUsers,
+    mostVotedPerson,
+    mostWinsPerson,
+  };
 
-export const useData = () => useContext(DataContext);
+  return <DataContext.Provider value={value}>{children}</DataContext.Provider>;
+};
