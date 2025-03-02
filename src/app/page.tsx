@@ -18,8 +18,14 @@ function Home() {
     winner?: string;
   }
 
-  const { user, nextMeeting, mostRecentMeeting, totalVotes, totalUsers } =
-    useData();
+  const {
+    user,
+    nextMeeting,
+    mostRecentMeeting,
+    totalVotes,
+    totalUsers,
+    nextTwoMeetings,
+  } = useData();
 
   const [nextMeetingId, setNextMeetingId] = useState<string>("");
   const [countdown, setCountdown] = useState<number | null>(null);
@@ -63,7 +69,6 @@ function Home() {
           targetTime = new Date(nextMeeting.votingEndTime).getTime();
         } else {
           setCountdown(null);
-          setCountdown(0);
           return;
         }
 
@@ -83,6 +88,12 @@ function Home() {
       return () => clearInterval(intervalId);
     }
   }, [nextMeeting, votingStatus]);
+
+  useEffect(() => {
+    if (countdown === 0 && nextMeeting && votingStatus === "during") {
+      setVotingStatus("after");
+    }
+  }, [countdown, nextMeeting, votingStatus]);
 
   const formatCountdown = (countdownValue: number | null) => {
     if (countdownValue === null)
