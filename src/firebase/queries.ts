@@ -27,7 +27,9 @@ export const fetchNextMeeting = async () => {
   );
 
   const querySnapshot = await getDocs(q);
-  return !querySnapshot.empty ? querySnapshot.docs[0].data() : null;
+  return !querySnapshot.empty
+    ? { id: querySnapshot.docs[0].id, ...querySnapshot.docs[0].data() }
+    : null;
 };
 
 export const fetchMostRecentMeetings = async () => {
@@ -47,7 +49,7 @@ export const fetchMostRecentMeetings = async () => {
 export const fetchTotalUsers = async () => {
   const usersCollection = collection(firestore, "users");
   const querySnapshot = await getDocs(usersCollection);
-  return querySnapshot.size;
+  return querySnapshot.size - 1;
 };
 
 export const fetchTotalVotes = async () => {
@@ -62,7 +64,7 @@ export const fetchTotalVotes = async () => {
     }
   });
 
-  return total - 1;
+  return total;
 };
 
 export const fetchMostVotedPerson = async () => {
@@ -136,4 +138,30 @@ export const fetchNextTwoMeetings = async () => {
     ...doc.data(),
   }));
   return meetings;
+};
+
+export const fetchAllUsersWithWins = async () => {
+  const usersCollection = collection(firestore, "users");
+  const usersSnapshot = await getDocs(usersCollection);
+  const usersData = usersSnapshot.docs.map((doc) => doc.data());
+
+  const meetingsCollection = collection(firestore, "meetings");
+  const meetingsSnapshot = await getDocs(meetingsCollection);
+
+  const winsByUser: { [userId: string]: number } = {};
+  meetingsSnapshot.forEach((doc) => {
+    const meetingData = doc.data();
+    if (meetingData.winner) {
+      winsByUser[meetingData.winner] =
+        (winsByUser[meetingData.winner] || 0) + 1;
+    }
+  });
+
+  const usersWithWins = usersData
+    .filter((user) => user.email !== "davidpinchen@gmail.com")
+    .map((user) => ({
+      photoURL: user.photoURL,
+      winCount: winsByUser[user.email] || 0,
+    }));
+  return usersWithWins;
 };
