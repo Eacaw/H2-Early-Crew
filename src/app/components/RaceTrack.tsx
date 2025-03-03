@@ -12,7 +12,7 @@ const RaceTrack: React.FC<RaceTrackProps> = ({ users }) => {
 
   return (
     <div className="bg-gray-800 rounded-2xl p-4 text-white mt-4">
-      <h2 className="text-xl font-bold mb-4">Race to the Top!</h2>
+      <h2 className="text-xl font-bold mb-4">Race to the Top! (Wins)</h2>
       <div className="flex flex-col">
         {users.map((user, index) => {
           const percentage = maxWins > 0 ? (user.winCount / maxWins) * 100 : 0;
@@ -29,11 +29,11 @@ const RaceTrack: React.FC<RaceTrackProps> = ({ users }) => {
                   style={{ width: `${percentage}%` }}
                 ></div>
               </div>
-              <span className="ml-2 text-sm">{user.winCount} Wins</span>
+              <span className="ml-2 text-sm">{user.winCount}</span>
             </div>
           );
         })}
-        <div className="flex justify-between text-gray-500 text-xs mt-2">
+        <div className="flex justify-between text-gray-500 text-xs mt-2 mr-12 ml-4">
           <span>0</span>
           <span>25</span>
           <span>50</span>
