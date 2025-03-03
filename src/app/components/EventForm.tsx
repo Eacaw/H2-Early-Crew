@@ -112,7 +112,7 @@ const EventForm = () => {
   };
 
   return (
-    <div className="bg-gray-800 shadow-xl shadow-green-500/40 rounded-lg p-4 text-white relative">
+    <div className="bg-gray-800 rounded-lg p-4 text-white relative">
       {isLoading && (
         <div className="absolute top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50 flex items-center justify-center">
           <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-green-500"></div>
