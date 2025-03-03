@@ -8,7 +8,7 @@ interface RaceTrackProps {
 }
 
 const RaceTrack: React.FC<RaceTrackProps> = ({ users }) => {
-  const maxWins = Math.max(...users.map((user) => user.winCount), 0);
+  const maxWins = 100;
 
   return (
     <div className="bg-gray-800 rounded-2xl p-4 text-white mt-4">
@@ -33,7 +33,7 @@ const RaceTrack: React.FC<RaceTrackProps> = ({ users }) => {
             </div>
           );
         })}
-        <div className="flex justify-between text-gray-500 text-xs mt-2 mr-12 ml-4">
+        <div className="flex justify-between text-gray-500 text-xs mt-2 mr-4 ml-10">
           <span>0</span>
           <span>25</span>
           <span>50</span>
