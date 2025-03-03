@@ -162,6 +162,7 @@ export const fetchAllUsersWithWins = async () => {
     .map((user) => ({
       photoURL: user.photoURL,
       winCount: winsByUser[user.email] || 0,
-    }));
+    }))
+    .sort((a, b) => b.winCount - a.winCount);
   return usersWithWins;
 };
