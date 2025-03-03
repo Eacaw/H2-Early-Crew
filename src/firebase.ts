@@ -1,7 +1,11 @@
 import { getApp, initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
 import { FirebaseOptions, FirebaseApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
+import {
+  getFirestore,
+  initializeFirestore,
+  persistentLocalCache,
+} from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBbDmmkCaTF3z2v2Z_Ol5OHfBAuJOICVZ4",
@@ -25,7 +29,9 @@ function createFirebaseApp(config: FirebaseConfig): FirebaseApp {
   try {
     return getApp();
   } catch {
-    return initializeApp(config);
+    const app = initializeApp(config);
+    initializeFirestore(app, { localCache: persistentLocalCache() });
+    return app;
   }
 }
 createFirebaseApp(firebaseConfig);

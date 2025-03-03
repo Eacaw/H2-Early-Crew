@@ -6,6 +6,15 @@ import MetricCard from "@/app/components/MetricCard";
 import EventForm from "@/app/components/EventForm";
 import { useData } from "@/app/context/DataContext";
 import { participantEmails } from "../constants";
+import { firestore, auth } from "@/firebase";
+import {
+  collection,
+  query,
+  where,
+  getDocs,
+  updateDoc,
+  doc,
+} from "firebase/firestore";
 
 const AdminPage = () => {
   const { userData, nextMeeting, totalVotes, mostWinsPerson } = useData();
@@ -34,18 +43,6 @@ const AdminPage = () => {
       router.push("/");
     }
   }, [isAdmin, loading]);
-
-  if (loading) {
-    return (
-      <div className="flex justify-center items-center">
-        <p>Loading...</p>
-      </div>
-    );
-  }
-
-  if (!isAdmin) {
-    return null; // Redirecting, so don't render anything
-  }
 
   const formatMeetingTime = (startTime: Date) => {
     const meetingDate = new Date(startTime);
@@ -82,6 +79,48 @@ const AdminPage = () => {
       const formattedDate = meetingDate.toLocaleDateString("en-GB", dateFormat);
       return `${formattedDate} at ${formattedTime}`;
     }
+  };
+
+  const handleUpdateWinners = async () => {
+    const now = Date.now();
+    const meetingsCollection = collection(firestore, "meetings");
+    const q = query(
+      meetingsCollection,
+      where("votingEndTime", "<", now),
+      where("winnerDeclared", "==", false)
+    );
+
+    const querySnapshot = await getDocs(q);
+
+    querySnapshot.forEach(async (meetingDoc) => {
+      const meetingDataId = meetingDoc.id;
+      const meetingData = meetingDoc.data();
+      const votes = meetingData.votes || {};
+
+      let winner: string | null = null;
+      let maxVotes = 0;
+      const voteCounts: { [key: string]: number } = {};
+
+      for (const voter in votes) {
+        const votedFor = meetingData.votes[voter];
+        voteCounts[votedFor] = (voteCounts[votedFor] || 0) + 1;
+        if (voteCounts[votedFor] > maxVotes) {
+          maxVotes = voteCounts[votedFor];
+          winner = votedFor;
+        }
+      }
+
+      if (winner) {
+        const meetingDocRef = doc(firestore, "meetings", meetingDataId);
+        await updateDoc(meetingDocRef, {
+          winner: winner,
+          winnerDeclared: true,
+        });
+        console.log(`Winner declared for meeting ${meetingDataId}: ${winner}`);
+      } else {
+        console.log(`No votes for meeting ${meetingDataId}`);
+      }
+    });
   };
 
   return (
@@ -125,6 +164,13 @@ const AdminPage = () => {
           }
         />
       </div>
+
+      <button
+        className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4"
+        onClick={handleUpdateWinners}
+      >
+        Update Recent Winners
+      </button>
 
       {/* Input Form */}
       <div className="mt-8"></div>

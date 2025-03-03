@@ -157,6 +157,9 @@ export const fetchAllUsersWithWins = async () => {
     }
   });
 
+  const source = meetingsSnapshot.metadata.fromCache ? "local cache" : "server";
+  console.log("Data came from " + source);
+
   const usersWithWins = usersData
     .filter((user) => user.email !== "davidpinchen@gmail.com")
     .map((user) => ({
