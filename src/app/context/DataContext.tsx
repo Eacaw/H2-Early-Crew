@@ -1,17 +1,18 @@
 "use client";
 
-import { createContext, useContext, useState, useEffect } from "react";
 import { auth } from "@/firebase";
 import {
-  fetchUserData,
-  fetchNextMeeting,
-  fetchTotalVotes,
-  fetchTotalUsers,
+  fetchAllUsersWithWins,
+  fetchMostRecentMeetings,
   fetchMostVotedPerson,
   fetchMostWinsPerson,
-  fetchMostRecentMeetings,
+  fetchNextMeeting,
   fetchNextTwoMeetings,
+  fetchTotalUsers,
+  fetchTotalVotes,
+  fetchUserData,
 } from "@/firebase/queries";
+import { createContext, useContext, useEffect, useState } from "react";
 
 interface DataContextProps {
   user: any;
@@ -23,6 +24,7 @@ interface DataContextProps {
   totalUsers: number;
   mostVotedPerson: any;
   mostWinsPerson: any;
+  allUsersWithWins: any[];
 }
 
 const DataContext = createContext<DataContextProps | undefined>(undefined);
@@ -45,6 +47,7 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
   const [totalUsers, setTotalUsers] = useState<number>(0);
   const [mostVotedPerson, setMostVotedPerson] = useState<any>(null);
   const [mostWinsPerson, setMostWinsPerson] = useState<any>(null);
+  const [allUsersWithWins, setAllUsersWithWins] = useState<any[]>([]);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -79,6 +82,9 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
 
         const totalUsersData = await fetchTotalUsers();
         setTotalUsers(totalUsersData);
+
+        const allUsersWithWinsData = await fetchAllUsersWithWins();
+        setAllUsersWithWins(allUsersWithWinsData);
       }
     };
 
@@ -95,6 +101,7 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
     totalUsers,
     mostVotedPerson,
     mostWinsPerson,
+    allUsersWithWins,
   };
 
   return <DataContext.Provider value={value}>{children}</DataContext.Provider>;
