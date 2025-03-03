@@ -11,7 +11,7 @@ const RaceTrack: React.FC<RaceTrackProps> = ({ users }) => {
   const maxWins = Math.max(...users.map((user) => user.winCount), 0);
 
   return (
-    <div className="bg-gray-800 shadow-2xl shadow-green-400/20 rounded-2xl p-4 text-white mt-4">
+    <div className="bg-gray-800 rounded-2xl p-4 text-white mt-4">
       <h2 className="text-xl font-bold mb-4">Race to the Top!</h2>
       <div className="flex flex-col">
         {users.map((user, index) => {
