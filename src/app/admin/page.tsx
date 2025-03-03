@@ -37,7 +37,7 @@ const AdminPage = () => {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center h-screen">
+      <div className="flex justify-center items-center">
         <p>Loading...</p>
       </div>
     );
