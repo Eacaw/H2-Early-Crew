@@ -6,6 +6,7 @@ import MetricCard from "@/app/components/MetricCard";
 import { useData } from "@/app/context/DataContext";
 import { doc, updateDoc } from "firebase/firestore";
 import { firestore } from "@/firebase";
+import RaceTrack from "./components/RaceTrack";
 
 function Home() {
   interface Meeting {
@@ -25,6 +26,7 @@ function Home() {
     totalVotes,
     totalUsers,
     nextTwoMeetings,
+    allUsersWithWins,
   } = useData();
 
   const [nextMeetingId, setNextMeetingId] = useState<string>("");
@@ -33,6 +35,21 @@ function Home() {
   const [votingStatus, setVotingStatus] = useState<
     "before" | "during" | "after"
   >("before");
+
+  const determineVotingStatus = () => {
+    // Determine voting status
+    const nowTime = new Date().getTime();
+    const votingStartTime = new Date(nextMeeting.votingStartTime).getTime();
+    const votingEndTime = new Date(nextMeeting.votingEndTime).getTime();
+
+    if (nowTime < votingStartTime) {
+      setVotingStatus("before");
+    } else if (nowTime >= votingStartTime && nowTime < votingEndTime) {
+      setVotingStatus("during");
+    } else {
+      setVotingStatus("after");
+    }
+  };
 
   useEffect(() => {
     if (nextMeeting) {
@@ -43,18 +60,7 @@ function Home() {
         setHasVoted(false);
       }
 
-      // Determine voting status
-      const nowTime = new Date().getTime();
-      const votingStartTime = new Date(nextMeeting.votingStartTime).getTime();
-      const votingEndTime = new Date(nextMeeting.votingEndTime).getTime();
-
-      if (nowTime < votingStartTime) {
-        setVotingStatus("before");
-      } else if (nowTime >= votingStartTime && nowTime < votingEndTime) {
-        setVotingStatus("during");
-      } else {
-        setVotingStatus("after");
-      }
+      determineVotingStatus();
     }
   }, [nextMeeting, user]);
 
@@ -62,6 +68,8 @@ function Home() {
     if (nextMeeting) {
       const calculateCountdown = () => {
         let targetTime;
+
+        determineVotingStatus();
 
         if (votingStatus === "before") {
           targetTime = new Date(nextMeeting.votingStartTime).getTime();
@@ -148,7 +156,7 @@ function Home() {
 
   return (
     <main className="container mx-auto py-8">
-      <div className="bg-gray-800 shadow-2xl shadow-green-400/20 rounded-2xl p-4 text-white h-full relative">
+      <div className="bg-gray-800 rounded-2xl p-4 text-white h-full relative">
         <div className="flex flex-row">
           {/* Main Card */}
           <div className="p-8 w-1/2">
@@ -297,6 +305,9 @@ function Home() {
             )}
           </div>
         </div>
+      </div>
+      <div>
+        <RaceTrack users={allUsersWithWins} />
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
         <MetricCard
