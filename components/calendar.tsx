@@ -22,10 +22,12 @@ type Meeting = {
   [key: string]: any;
 };
 
-interface CalendarProps {
+export interface CalendarProps {
   meetings: Meeting[];
   isAdmin: boolean;
   onAddMeeting: (date: Date, hour: number) => void;
+  currentWeekStart: Date;
+  onWeekChange: (weekStart: Date) => void;
 }
 
 export function Calendar({ meetings, isAdmin, onAddMeeting }: CalendarProps) {
