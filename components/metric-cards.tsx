@@ -1,10 +1,28 @@
-"use client"
+"use client";
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Skeleton } from "@/components/ui/skeleton"
-import { Users, Vote, Trophy } from "lucide-react"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Users, Vote, Trophy } from "lucide-react";
 
-export function MetricCards({ totalUsers, totalVotes, topWinner, loading }) {
+type MetricCardsProps = {
+  totalUsers: number;
+  totalVotes: number;
+  topWinner: { displayName: string; wins: number };
+  loading: boolean;
+};
+
+export function MetricCards({
+  totalUsers,
+  totalVotes,
+  topWinner,
+  loading,
+}: MetricCardsProps) {
   const metrics = [
     {
       title: "Total Users",
@@ -24,7 +42,7 @@ export function MetricCards({ totalUsers, totalVotes, topWinner, loading }) {
       description: `${topWinner.wins} wins`,
       icon: <Trophy className="h-4 w-4 text-green-500" />,
     },
-  ]
+  ];
 
   if (loading) {
     return (
@@ -42,15 +60,20 @@ export function MetricCards({ totalUsers, totalVotes, topWinner, loading }) {
           </Card>
         ))}
       </div>
-    )
+    );
   }
 
   return (
     <div className="grid gap-4 md:grid-cols-3">
       {metrics.map((metric, index) => (
-        <Card key={index} className="overflow-hidden transition-all hover:shadow-md">
+        <Card
+          key={index}
+          className="overflow-hidden transition-all hover:shadow-md"
+        >
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">{metric.title}</CardTitle>
+            <CardTitle className="text-sm font-medium">
+              {metric.title}
+            </CardTitle>
             {metric.icon}
           </CardHeader>
           <CardContent>
@@ -60,5 +83,5 @@ export function MetricCards({ totalUsers, totalVotes, topWinner, loading }) {
         </Card>
       ))}
     </div>
-  )
+  );
 }
