@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/components/auth-provider";
 import { Calendar } from "@/components/calendar";
@@ -42,6 +42,57 @@ export default function CalendarPage() {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [selectedTime, setSelectedTime] = useState<number | null>(null);
 
+  const [currentWeekStart, setCurrentWeekStart] = useState<Date>(() => {
+    const now = new Date();
+    const start = new Date(now);
+    start.setDate(now.getDate() - now.getDay());
+    start.setHours(0, 0, 0, 0);
+    return start;
+  });
+
+  // Fetch meetings for a given week
+  const fetchMeetingsForWeek = useCallback(async (weekStart: Date) => {
+    setDataLoading(true);
+    try {
+      const startOfWeek = new Date(weekStart);
+      startOfWeek.setHours(0, 0, 0, 0);
+
+      const endOfWeek = new Date(startOfWeek);
+      endOfWeek.setDate(startOfWeek.getDate() + 7);
+      endOfWeek.setHours(23, 59, 59, 999);
+
+      const meetingsQuery = query(
+        collection(db, "meetings"),
+        where("startTime", ">=", startOfWeek.getTime()),
+        where("startTime", "<=", endOfWeek.getTime()),
+        orderBy("startTime", "asc")
+      );
+      const meetingsSnapshot = await getDocs(meetingsQuery);
+      const meetingsData = meetingsSnapshot.docs.map((doc) => {
+        const data = doc.data();
+        return {
+          id: doc.id,
+          meetingName: data.meetingName,
+          startTime: data.startTime,
+          ...data,
+        };
+      });
+
+      setMeetings(meetingsData);
+    } catch (error) {
+      console.error("Error fetching meetings:", error);
+    } finally {
+      setDataLoading(false);
+    }
+  }, []);
+
+  // Always fetch meetings when currentWeekStart changes
+  useEffect(() => {
+    if (user && !loading) {
+      fetchMeetingsForWeek(currentWeekStart);
+    }
+  }, [user, loading, currentWeekStart, fetchMeetingsForWeek]);
+
   useEffect(() => {
     const checkAdminStatus = async () => {
       if (user) {
@@ -56,53 +107,19 @@ export default function CalendarPage() {
       }
     };
 
-    const fetchMeetings = async () => {
-      try {
-        // Get current week's start and end dates
-        const now = new Date();
-        const startOfWeek = new Date(now);
-        startOfWeek.setDate(now.getDate() - now.getDay()); // Sunday
-        startOfWeek.setHours(0, 0, 0, 0);
-
-        const endOfWeek = new Date(startOfWeek);
-        endOfWeek.setDate(startOfWeek.getDate() + 7); // Next Sunday
-        endOfWeek.setHours(23, 59, 59, 999);
-
-        // Query meetings for the current week
-        const meetingsQuery = query(
-          collection(db, "meetings"),
-          where("startTime", ">=", startOfWeek.getTime()),
-          where("startTime", "<=", endOfWeek.getTime()),
-          orderBy("startTime", "asc")
-        );
-        const meetingsSnapshot = await getDocs(meetingsQuery);
-        const meetingsData = meetingsSnapshot.docs.map((doc) => {
-          const data = doc.data();
-          return {
-            id: doc.id,
-            meetingName: data.meetingName,
-            startTime: data.startTime,
-            ...data,
-          };
-        });
-
-        setMeetings(meetingsData);
-        setDataLoading(false);
-      } catch (error) {
-        console.error("Error fetching meetings:", error);
-        setDataLoading(false);
-      }
-    };
-
     if (!loading) {
       if (!user) {
         router.push("/login");
       } else {
         checkAdminStatus();
-        fetchMeetings();
       }
     }
   }, [user, loading, router]);
+
+  // Handler for calendar navigation (prev/next week)
+  const handleWeekChange = (weekStart: Date) => {
+    setCurrentWeekStart(weekStart);
+  };
 
   const handleAddMeeting = (date: Date, hour: number) => {
     setSelectedDate(date);
@@ -123,7 +140,28 @@ export default function CalendarPage() {
           <Skeleton className="h-10 w-48" />
           <Skeleton className="h-10 w-32" />
         </div>
-        <Skeleton className="h-[600px]" />
+        <div className="flex justify-center items-center h-[600px]">
+          <svg
+            className="animate-spin h-10 w-10 text-green-500"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <circle
+              className="opacity-25"
+              cx="12"
+              cy="12"
+              r="10"
+              stroke="currentColor"
+              strokeWidth="4"
+            ></circle>
+            <path
+              className="opacity-75"
+              fill="currentColor"
+              d="M4 12a8 8 0 018-8v8z"
+            ></path>
+          </svg>
+        </div>
       </div>
     );
   }
@@ -137,7 +175,6 @@ export default function CalendarPage() {
         {isAdmin && (
           <Button
             onClick={() => {
-              // Provide default values for date and hour when adding a meeting from the button
               handleAddMeeting(new Date(), 9);
             }}
             className="bg-green-700 hover:bg-green-600"
@@ -152,6 +189,8 @@ export default function CalendarPage() {
         meetings={meetings}
         isAdmin={isAdmin}
         onAddMeeting={handleAddMeeting}
+        onWeekChange={handleWeekChange}
+        currentWeekStart={currentWeekStart}
       />
 
       {isAdmin && showNewMeetingModal && (
