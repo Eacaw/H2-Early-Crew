@@ -72,7 +72,9 @@ export default function AccountPage() {
           const votes = meeting.votes || [];
 
           // Find votes by this user
-          const userVotes = votes.filter((vote) => vote.userId === user.uid);
+          const userVotes = Object.entries(votes)
+            .filter(([voterId]) => voterId === user.uid)
+            .map(([, recipientEmail]) => ({ email: recipientEmail }));
 
           userVotes.forEach((vote) => {
             totalVotes++;
@@ -240,7 +242,9 @@ export default function AccountPage() {
           <CardTitle>Voting Activity</CardTitle>
         </CardHeader>
         <CardContent>
-          <VotingHeatmap votesByDate={votingData.votesByDate} />
+          <div className="flex flex-col items-center justify-center py-6 text-center">
+            <VotingHeatmap votesByDate={votingData.votesByDate} />
+          </div>
         </CardContent>
       </Card>
     </div>
