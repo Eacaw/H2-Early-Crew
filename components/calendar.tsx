@@ -194,7 +194,11 @@ export function Calendar({
           ))}
         </div>
 
-        <div className="overflow-auto max-h-[600px]">
+        {/* Prevent layout shift by always reserving space for the scrollbar */}
+        <div
+          className="overflow-y-scroll max-h-[600px]"
+          style={{ scrollbarWidth: "none" }}
+        >
           {/* Time slots */}
           {timeSlots.map((hour) => (
             <div
