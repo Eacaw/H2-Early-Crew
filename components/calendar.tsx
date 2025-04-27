@@ -14,11 +14,15 @@ import {
   isToday,
 } from "date-fns";
 import { cn } from "@/lib/utils";
+import { db } from "@/lib/firebase";
+import { MeetingBlock } from "@/components/MeetingBlock";
+import { EditMeetingModal } from "@/components/EditMeetingModal";
 
 type Meeting = {
   id: string | number;
   meetingName: string;
   startTime: number;
+  participants?: string[];
   [key: string]: any;
 };
 
@@ -45,6 +49,9 @@ export function Calendar({
   );
   const [currentWeek, setCurrentWeek] = useState<Date[]>([]);
   const [timeSlots, setTimeSlots] = useState<number[]>([]);
+  const [editMeeting, setEditMeeting] = useState<Meeting | null>(null);
+  const [editModalOpen, setEditModalOpen] = useState(false);
+  const [localMeetings, setLocalMeetings] = useState<Meeting[]>(meetings);
 
   useEffect(() => {
     setCurrentDate(currentWeekStart || new Date());
@@ -65,6 +72,10 @@ export function Calendar({
     setTimeSlots(slots);
   }, [currentDate]);
 
+  useEffect(() => {
+    setLocalMeetings(meetings);
+  }, [meetings]);
+
   const nextWeek = () => {
     const next = addWeeks(currentDate, 1);
     setCurrentDate(next);
@@ -84,41 +95,44 @@ export function Calendar({
     onWeekChange(currentSunday, "current");
   };
 
-  interface FormatTimeSlot {
-    (hour: number): string;
-  }
-
-  const formatTimeSlot: FormatTimeSlot = (hour) => {
+  const formatTimeSlot = (hour: number) => {
     return format(new Date().setHours(hour, 0, 0, 0), "h:mm a");
   };
 
-  interface GetMeetingsForTimeSlot {
-    (day: Date, hour: number): Meeting[];
-  }
-
-  const getMeetingsForTimeSlot: GetMeetingsForTimeSlot = (day, hour) => {
+  const getMeetingsForTimeSlot = (day: Date, hour: number): Meeting[] => {
     const dayStart = new Date(day);
     dayStart.setHours(hour, 0, 0, 0);
 
     const dayEnd = new Date(day);
     dayEnd.setHours(hour, 59, 59, 999);
 
-    return meetings.filter((meeting) => {
+    return localMeetings.filter((meeting) => {
       const meetingDate = new Date(meeting.startTime);
       return meetingDate >= dayStart && meetingDate <= dayEnd;
     });
   };
 
-  interface HandleTimeSlotClick {
-    (day: Date, hour: number): void;
-  }
-
-  const handleTimeSlotClick: HandleTimeSlotClick = (day, hour) => {
+  const handleTimeSlotClick = (day: Date, hour: number) => {
     if (isAdmin) {
       const selectedDate = new Date(day);
       selectedDate.setHours(hour, 0, 0, 0);
       onAddMeeting(selectedDate, hour);
     }
+  };
+
+  const handleEditMeeting = (meeting: Meeting) => {
+    setEditMeeting(meeting);
+    setEditModalOpen(true);
+  };
+
+  const handleMeetingUpdated = (updated: Meeting) => {
+    setLocalMeetings((prev) =>
+      prev.map((m) => (m.id === updated.id ? updated : m))
+    );
+  };
+
+  const handleMeetingDeleted = (id: string | number) => {
+    setLocalMeetings((prev) => prev.filter((m) => m.id !== id));
   };
 
   return (
@@ -200,19 +214,19 @@ export function Calendar({
                   <div
                     key={day.toString()}
                     className={cn(
-                      "border-r last:border-r-0 p-1 min-h-[60px]",
+                      "border-r last:border-r-0 p-1 min-h-[60px] relative",
                       isAdmin && "cursor-pointer hover:bg-muted/50",
-                      isToday(day) && "bg-green-50/50"
+                      isToday(day) &&
+                        "bg-blue-400/5 border-l-2 border-r-2  border-red-500/30"
                     )}
                     onClick={() => handleTimeSlotClick(day, hour)}
                   >
                     {meetingsInSlot.map((meeting) => (
-                      <div
+                      <MeetingBlock
                         key={meeting.id}
-                        className="bg-green-900/30 text-green-300 p-1 text-xs rounded mb-1 overflow-hidden text-ellipsis"
-                      >
-                        {meeting.meetingName}
-                      </div>
+                        meeting={meeting}
+                        onEdit={() => handleEditMeeting(meeting)}
+                      />
                     ))}
                   </div>
                 );
@@ -221,6 +235,13 @@ export function Calendar({
           ))}
         </div>
       </CardContent>
+      <EditMeetingModal
+        open={editModalOpen}
+        onClose={() => setEditModalOpen(false)}
+        meeting={editMeeting}
+        onMeetingUpdated={handleMeetingUpdated}
+        onMeetingDeleted={handleMeetingDeleted}
+      />
     </Card>
   );
 }
