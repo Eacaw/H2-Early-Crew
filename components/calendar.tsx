@@ -27,13 +27,28 @@ export interface CalendarProps {
   isAdmin: boolean;
   onAddMeeting: (date: Date, hour: number) => void;
   currentWeekStart: Date;
-  onWeekChange: (weekStart: Date) => void;
+  onWeekChange: (
+    weekStart: Date,
+    direction: "prev" | "next" | "current"
+  ) => void;
 }
 
-export function Calendar({ meetings, isAdmin, onAddMeeting }: CalendarProps) {
-  const [currentDate, setCurrentDate] = useState(new Date());
+export function Calendar({
+  meetings,
+  isAdmin,
+  onAddMeeting,
+  currentWeekStart,
+  onWeekChange,
+}: CalendarProps) {
+  const [currentDate, setCurrentDate] = useState(
+    currentWeekStart || new Date()
+  );
   const [currentWeek, setCurrentWeek] = useState<Date[]>([]);
   const [timeSlots, setTimeSlots] = useState<number[]>([]);
+
+  useEffect(() => {
+    setCurrentDate(currentWeekStart || new Date());
+  }, [currentWeekStart]);
 
   useEffect(() => {
     // Generate days for the current week
@@ -51,11 +66,22 @@ export function Calendar({ meetings, isAdmin, onAddMeeting }: CalendarProps) {
   }, [currentDate]);
 
   const nextWeek = () => {
-    setCurrentDate(addWeeks(currentDate, 1));
+    const next = addWeeks(currentDate, 1);
+    setCurrentDate(next);
+    onWeekChange(startOfWeek(next, { weekStartsOn: 0 }), "next");
   };
 
   const prevWeek = () => {
-    setCurrentDate(subWeeks(currentDate, 1));
+    const prev = subWeeks(currentDate, 1);
+    setCurrentDate(prev);
+    onWeekChange(startOfWeek(prev, { weekStartsOn: 0 }), "prev");
+  };
+
+  const goToCurrentWeek = () => {
+    const today = new Date();
+    const currentSunday = startOfWeek(today, { weekStartsOn: 0 });
+    setCurrentDate(currentSunday);
+    onWeekChange(currentSunday, "current");
   };
 
   interface FormatTimeSlot {
@@ -109,6 +135,13 @@ export function Calendar({ meetings, isAdmin, onAddMeeting }: CalendarProps) {
         <div className="flex items-center space-x-2">
           <Button variant="outline" size="icon" onClick={prevWeek}>
             <ChevronLeft className="h-4 w-4" />
+          </Button>
+          <Button
+            variant="outline"
+            onClick={goToCurrentWeek}
+            aria-label="Go to current week"
+          >
+            <span className="font-bold text-lg">This Week</span>
           </Button>
           <Button variant="outline" size="icon" onClick={nextWeek}>
             <ChevronRight className="h-4 w-4" />
