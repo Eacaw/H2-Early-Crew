@@ -1,206 +1,50 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
-import { useRouter } from "next/navigation";
-import { useAuth } from "@/components/auth-provider";
-import { Calendar } from "@/components/calendar";
-import { NewMeetingModal } from "@/components/new-meeting-modal";
-import { Button } from "@/components/ui/button";
-import { PlusCircle } from "lucide-react";
-import { Skeleton } from "@/components/ui/skeleton";
-import { db } from "@/lib/firebase";
-import {
-  collection,
-  getDocs,
-  getDoc,
-  doc,
-  query,
-  where,
-  orderBy,
-} from "firebase/firestore";
+import { useEffect } from "react";
+import { useRouter, usePathname } from "next/navigation";
+// ...rest of your imports
 
 export default function CalendarPage() {
-  interface AuthUser {
-    uid: string;
-    [key: string]: any;
-  }
-  const { user, loading } = useAuth() as {
-    user: AuthUser | null;
-    loading: boolean;
-  };
+  // ...existing code
+
   const router = useRouter();
-  const [isAdmin, setIsAdmin] = useState(false);
-  interface Meeting {
-    id: string;
-    meetingName: string;
-    startTime: number;
-    [key: string]: any;
-  }
-  const [meetings, setMeetings] = useState<Meeting[]>([]);
-  const [dataLoading, setDataLoading] = useState(true);
-  const [showNewMeetingModal, setShowNewMeetingModal] = useState(false);
-  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
-  const [selectedTime, setSelectedTime] = useState<number | null>(null);
-
-  const [currentWeekStart, setCurrentWeekStart] = useState<Date>(() => {
-    const now = new Date();
-    const start = new Date(now);
-    start.setDate(now.getDate() - now.getDay());
-    start.setHours(0, 0, 0, 0);
-    return start;
-  });
-
-  // Fetch meetings for a given week
-  const fetchMeetingsForWeek = useCallback(async (weekStart: Date) => {
-    setDataLoading(true);
-    try {
-      const startOfWeek = new Date(weekStart);
-      startOfWeek.setHours(0, 0, 0, 0);
-
-      const endOfWeek = new Date(startOfWeek);
-      endOfWeek.setDate(startOfWeek.getDate() + 7);
-      endOfWeek.setHours(23, 59, 59, 999);
-
-      const meetingsQuery = query(
-        collection(db, "meetings"),
-        where("startTime", ">=", startOfWeek.getTime()),
-        where("startTime", "<=", endOfWeek.getTime()),
-        orderBy("startTime", "asc")
-      );
-      const meetingsSnapshot = await getDocs(meetingsQuery);
-      const meetingsData = meetingsSnapshot.docs.map((doc) => {
-        const data = doc.data();
-        return {
-          id: doc.id,
-          meetingName: data.meetingName,
-          startTime: data.startTime,
-          ...data,
-        };
-      });
-
-      setMeetings(meetingsData);
-    } catch (error) {
-      console.error("Error fetching meetings:", error);
-    } finally {
-      setDataLoading(false);
-    }
-  }, []);
-
-  // Always fetch meetings when currentWeekStart changes
-  useEffect(() => {
-    if (user && !loading) {
-      fetchMeetingsForWeek(currentWeekStart);
-    }
-  }, [user, loading, currentWeekStart, fetchMeetingsForWeek]);
+  const pathname = usePathname();
 
   useEffect(() => {
-    const checkAdminStatus = async () => {
-      if (user) {
-        try {
-          const userDoc = await getDoc(doc(db, "users", user.uid));
-          if (userDoc.exists()) {
-            setIsAdmin(userDoc.data().isAdmin || false);
-          }
-        } catch (error) {
-          console.error("Error checking admin status:", error);
-        }
-      }
-    };
-
-    if (!loading) {
-      if (!user) {
-        router.push("/login");
-      } else {
-        checkAdminStatus();
-      }
+    // Only redirect if we're at /calendar (not a sub-route)
+    if (pathname === "/calendar") {
+      const now = new Date();
+      const sunday = new Date(now);
+      sunday.setDate(now.getDate() - now.getDay());
+      const month = sunday.getMonth() + 1; // JS months are 0-based
+      const day = sunday.getDate();
+      router.replace(`/calendar/${month}/${day}`);
     }
-  }, [user, loading, router]);
-
-  // Handler for calendar navigation (prev/next week)
-  const handleWeekChange = (weekStart: Date) => {
-    setCurrentWeekStart(weekStart);
-  };
-
-  const handleAddMeeting = (date: Date, hour: number) => {
-    setSelectedDate(date);
-    setSelectedTime(hour);
-    setShowNewMeetingModal(true);
-  };
-
-  const handleCloseModal = () => {
-    setShowNewMeetingModal(false);
-    setSelectedDate(null);
-    setSelectedTime(null);
-  };
-
-  if (loading || dataLoading) {
-    return (
-      <div className="space-y-8">
-        <div className="flex justify-between items-center">
-          <Skeleton className="h-10 w-48" />
-          <Skeleton className="h-10 w-32" />
-        </div>
-        <div className="flex justify-center items-center h-[600px]">
-          <svg
-            className="animate-spin h-10 w-10 text-green-500"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-          >
-            <circle
-              className="opacity-25"
-              cx="12"
-              cy="12"
-              r="10"
-              stroke="currentColor"
-              strokeWidth="4"
-            ></circle>
-            <path
-              className="opacity-75"
-              fill="currentColor"
-              d="M4 12a8 8 0 018-8v8z"
-            ></path>
-          </svg>
-        </div>
-      </div>
-    );
-  }
+  }, [pathname, router]);
 
   return (
-    <div className="space-y-6">
-      <div className="flex justify-between items-center">
-        <h1 className="text-3xl font-bold tracking-tight text-white">
-          Meeting Calendar
-        </h1>
-        {isAdmin && (
-          <Button
-            onClick={() => {
-              handleAddMeeting(new Date(), 9);
-            }}
-            className="bg-green-700 hover:bg-green-600"
-          >
-            <PlusCircle className="mr-2 h-4 w-4" />
-            Add Meeting
-          </Button>
-        )}
-      </div>
-
-      <Calendar
-        meetings={meetings}
-        isAdmin={isAdmin}
-        onAddMeeting={handleAddMeeting}
-        onWeekChange={handleWeekChange}
-        currentWeekStart={currentWeekStart}
-      />
-
-      {isAdmin && showNewMeetingModal && (
-        <NewMeetingModal
-          open={showNewMeetingModal}
-          onClose={handleCloseModal}
-          initialDate={selectedDate ?? null}
-          initialTime={selectedTime ?? null}
-        />
+    <>
+      {pathname === "/calendar" ? (
+        <div
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            background: "rgba(255,255,255,0.7)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            zIndex: 1000,
+          }}
+        >
+          <span>Loading calendar...</span>
+        </div>
+      ) : (
+        // Render your actual calendar content here
+        <div>{/* Calendar content goes here */}</div>
       )}
-    </div>
+    </>
   );
 }
