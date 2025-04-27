@@ -34,6 +34,10 @@ export default function AccountPage() {
     votesByRecipient: {},
     votesByDate: {},
   });
+  const [votesForUser, setVotesForUser] = useState<Record<string, number>>({});
+  const [votesForUserNames, setVotesForUserNames] = useState<
+    Record<string, number>
+  >({});
   const [dataLoading, setDataLoading] = useState(true);
 
   useEffect(() => {
@@ -66,6 +70,7 @@ export default function AccountPage() {
         let totalVotes = 0;
         const votesByRecipient = {};
         const votesByDate = {};
+        const votesForUserCount: Record<string, number> = {};
 
         meetingsSnapshot.forEach((doc) => {
           const meeting = doc.data();
@@ -90,6 +95,14 @@ export default function AccountPage() {
             );
             votesByDate[meetingDate] = (votesByDate[meetingDate] || 0) + 1;
           });
+
+          // Count votes for the user
+          Object.entries(votes).forEach(([voterUid, votedForEmail]) => {
+            if (votedForEmail === user.email) {
+              votesForUserCount[voterUid] =
+                (votesForUserCount[voterUid] || 0) + 1;
+            }
+          });
         });
 
         setVotingData({
@@ -97,6 +110,26 @@ export default function AccountPage() {
           votesByRecipient,
           votesByDate,
         });
+
+        setVotesForUser(votesForUserCount);
+
+        // Fetch user display names for those who voted for this user
+        const userIds = Object.keys(votesForUserCount);
+        const usersSnapshot = await getDocs(collection(db, "users"));
+        const uidToName: Record<string, string> = {};
+        usersSnapshot.forEach((userDoc) => {
+          const data = userDoc.data();
+          if (data && data.displayName && userIds.includes(userDoc.id)) {
+            uidToName[userDoc.id] = data.displayName;
+          }
+        });
+        // Map to displayName: count
+        const votesForUserNamesObj: Record<string, number> = {};
+        Object.entries(votesForUserCount).forEach(([uid, count]) => {
+          const name = uidToName[uid] || uid;
+          votesForUserNamesObj[name] = count;
+        });
+        setVotesForUserNames(votesForUserNamesObj);
 
         setDataLoading(false);
       } catch (error) {
@@ -204,6 +237,7 @@ export default function AccountPage() {
               <TabsContent value="chart" className="pt-4">
                 <VotingPreferencesChart
                   votesByRecipient={votingData.votesByRecipient}
+                  votesForUser={votesForUserNames}
                 />
               </TabsContent>
 
