@@ -32,7 +32,7 @@ export default function CalendarPage() {
             left: 0,
             right: 0,
             bottom: 0,
-            background: "rgba(255,255,255,0.7)",
+            background: "rgba(0,64,32,0.2)", // transparent deep green
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
@@ -43,7 +43,9 @@ export default function CalendarPage() {
         </div>
       ) : (
         // Render your actual calendar content here
-        <div>{/* Calendar content goes here */}</div>
+        <div>
+          <span>Loading calendar...</span>
+        </div>
       )}
     </>
   );
