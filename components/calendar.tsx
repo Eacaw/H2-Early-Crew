@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
@@ -52,6 +52,12 @@ export function Calendar({
   const [editMeeting, setEditMeeting] = useState<Meeting | null>(null);
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [localMeetings, setLocalMeetings] = useState<Meeting[]>(meetings);
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [nowLine, setNowLine] = useState<{
+    hour: number;
+    top: number;
+    todayIdx?: number;
+  } | null>(null);
 
   useEffect(() => {
     setCurrentDate(currentWeekStart || new Date());
@@ -75,6 +81,54 @@ export function Calendar({
   useEffect(() => {
     setLocalMeetings(meetings);
   }, [meetings]);
+
+  useEffect(() => {
+    const updateNowLine = () => {
+      const now = new Date();
+      const currentHour = now.getHours();
+      const currentMinutes = now.getMinutes();
+      // Snap to closest 10 minutes
+      const snappedMinutes = Math.round(currentMinutes / 10) * 10;
+      const hour = currentHour;
+      const minuteFraction = snappedMinutes / 60;
+
+      // Only show the line if today is in the current week
+      const weekStart = startOfWeek(currentDate, { weekStartsOn: 0 });
+      const weekEnd = endOfWeek(currentDate, { weekStartsOn: 0 });
+      if (now < weekStart || now > weekEnd) {
+        setNowLine(null);
+        return;
+      }
+
+      // Only show if within the time slots
+      if (hour < 8 || hour > 18) {
+        setNowLine(null);
+        return;
+      }
+
+      // Find the index of today in the currentWeek array
+      const todayIdx = currentWeek.findIndex(
+        (d) =>
+          d &&
+          d.getFullYear() === now.getFullYear() &&
+          d.getMonth() === now.getMonth() &&
+          d.getDate() === now.getDate()
+      );
+      if (todayIdx === -1) {
+        setNowLine(null);
+        return;
+      }
+
+      // Calculate the vertical position
+      const slotHeight = 60;
+      const top = (hour - 8 + minuteFraction) * slotHeight;
+      setNowLine({ hour, top, todayIdx: todayIdx + 1 });
+    };
+
+    updateNowLine();
+    const interval = setInterval(updateNowLine, 60 * 1000); // update every minute
+    return () => clearInterval(interval);
+  }, [currentDate, currentWeek]);
 
   const nextWeek = () => {
     const next = addWeeks(currentDate, 1);
@@ -196,9 +250,36 @@ export function Calendar({
 
         {/* Prevent layout shift by always reserving space for the scrollbar */}
         <div
-          className="overflow-y-scroll max-h-[600px]"
+          ref={scrollRef}
+          className="overflow-y-scroll max-h-[600px] relative"
           style={{ scrollbarWidth: "none" }}
         >
+          {/* Red "now" line: only on current day column, 1px thick */}
+          {nowLine && typeof nowLine.todayIdx === "number" && (
+            <div
+              className="absolute z-20 pointer-events-none"
+              style={{
+                top: `${nowLine.top}px`,
+                left: `calc((100% / 8) * ${nowLine.todayIdx + 1})`,
+                width: "calc(100% / 8)",
+                height: "0px",
+                transform: "translateX(-100%)",
+              }}
+            >
+              <div
+                className="w-full border-t border-red-500 relative"
+                style={{ borderWidth: "1px 0 0 0" }}
+              >
+                <span
+                  className="absolute -top-3 right-0.5 bg-red-600/50 text-white text-[8px] px-1 rounded-tl-sm rounded-tr-sm shadow pointer-events-none"
+                  style={{ fontWeight: 400, letterSpacing: "0.05em" }}
+                >
+                  Now
+                </span>
+              </div>
+            </div>
+          )}
+
           {/* Time slots */}
           {timeSlots.map((hour) => (
             <div
