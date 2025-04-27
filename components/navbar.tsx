@@ -14,7 +14,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Clock, Calendar, LogOut, User } from "lucide-react";
+import { Clock, Calendar, LogOut, User, LayoutDashboard } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "@/lib/firebase";
@@ -71,11 +71,20 @@ export default function Navbar() {
   }, [user, loading]);
 
   const navItems = [
-    { href: "/", label: "Dashboard", icon: <Clock className="h-4 w-4 mr-2" /> },
+    {
+      href: "/",
+      label: "Dashboard",
+      icon: <LayoutDashboard className="h-4 w-4 mr-2 ml-8" />,
+    },
     {
       href: "/calendar",
       label: "Calendar",
       icon: <Calendar className="h-4 w-4 mr-2" />,
+    },
+    {
+      href: "/account",
+      label: "Profile",
+      icon: <User className="h-4 w-4 mr-2" />,
     },
   ];
 
@@ -103,7 +112,7 @@ export default function Navbar() {
             </span>
           </Link>
 
-          <nav className="flex items-center space-x-4 ml-6">
+          <nav className="flex items-center space-x-4">
             {navItems.map((item) => (
               <Link
                 key={item.href}
