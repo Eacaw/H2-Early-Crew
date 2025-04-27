@@ -1,9 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { useAuth } from "@/components/auth-provider";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -13,11 +11,20 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Clock, Calendar, LogOut, User, LayoutDashboard } from "lucide-react";
+import { db } from "@/lib/firebase";
 import { cn } from "@/lib/utils";
 import { doc, getDoc } from "firebase/firestore";
-import { db } from "@/lib/firebase";
+import {
+  Calendar,
+  Clock,
+  LayoutDashboard,
+  LogOut,
+  PartyPopper,
+  User,
+} from "lucide-react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export default function Navbar() {
   const { user, signOut, loading } = useAuth() as {
@@ -126,6 +133,13 @@ export default function Navbar() {
               >
                 {item.icon}
                 {item.label}
+                {item.label === "Profile" && (
+                  <div className="flex items-center space-x-1 text-xs text-green-400 -ml-16 -mb-8">
+                    <PartyPopper className="h-3 w-3 mr-1" />
+                    New!
+                    <PartyPopper className="h-3 w-3 ml-1" />
+                  </div>
+                )}
               </Link>
             ))}
           </nav>
