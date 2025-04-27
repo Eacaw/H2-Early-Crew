@@ -144,8 +144,10 @@ export default function Navbar() {
               <DropdownMenuLabel>My Account</DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuItem className="flex items-center">
-                <User className="mr-2 h-4 w-4" />
-                <span>{displayName}</span>
+                <Link href="/account" className="flex items-center w-full">
+                  <User className="mr-2 h-4 w-4" />
+                  <span>{displayName}</span>
+                </Link>
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem onClick={signOut} className="text-red-600">
