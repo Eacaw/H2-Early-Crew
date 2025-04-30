@@ -1,0 +1,2663 @@
+{
+  "users": [
+    {
+      "id": "9oWcaE0t41SRFLEAwZk3cfJ3z1t1",
+      "displayName": "Mihai Agache",
+      "isAdmin": false,
+      "email": "magache@certinia.com",
+      "photoURL": "https://lh3.googleusercontent.com/a/ACg8ocKhSG5S8Zvo9OpQ8BDAirg3HCWbcYy3wUFHehBiAh5-HuYpAQ=s96-c",
+      "uid": "9oWcaE0t41SRFLEAwZk3cfJ3z1t1"
+    },
+    {
+      "id": "GexXUMYeRadO9qrgUh7AdiZsY7l2",
+      "isAdmin": false,
+      "displayName": "Lilia Fisk",
+      "photoURL": "https://lh3.googleusercontent.com/a/ACg8ocJvPNnlmS8n4R_9Ei0Ou_1caQGTXbE_KX0CMtA66VKDdWUwSTI=s96-c",
+      "email": "lfisk@certinia.com",
+      "uid": "GexXUMYeRadO9qrgUh7AdiZsY7l2"
+    },
+    {
+      "id": "GxOyjK5f8JePTQBLr0kdZaGLhi03",
+      "isAdmin": false,
+      "photoURL": "http://placehold.co/200x200",
+      "displayName": "Alex Lenthall",
+      "uid": "GxOyjK5f8JePTQBLr0kdZaGLhi03",
+      "email": "alenthall@certinia.com"
+    },
+    {
+      "id": "HE62m76RRabblz5z4dZXn9PY05k2",
+      "uid": "HE62m76RRabblz5z4dZXn9PY05k2",
+      "email": "rspencer@certinia.com",
+      "isAdmin": true,
+      "photoURL": "https://lh3.googleusercontent.com/a/ACg8ocLhoAGkhFL1iHbWJMA4NTyri_FlsEfu-TrwVjYLbmvt7LAgfbKM=s96-c",
+      "displayName": "Rick Spencer"
+    },
+    {
+      "id": "lc06fHfLwYgNtY0m66r0QmOHuu52",
+      "displayName": "David Pinchen",
+      "photoURL": "https://lh3.googleusercontent.com/a/ACg8ocKk3Ca6nYpEnBEKvpklZDrBuQtulr4BND4rCzgprBpfzMMhjg=s96-c",
+      "isAdmin": true,
+      "uid": "lc06fHfLwYgNtY0m66r0QmOHuu52",
+      "email": "dpinchen@certinia.com"
+    },
+    {
+      "id": "uMkKkGE8ohhtKngCmK0o1Pe5d2v2",
+      "photoURL": "https://lh3.googleusercontent.com/a/ACg8ocJucDMaagPhBZU4TsqLHU5J7at7scWLP8tm7CJKLO3qSrzFrXP40Q=s96-c",
+      "displayName": "David Pinchen",
+      "uid": "uMkKkGE8ohhtKngCmK0o1Pe5d2v2",
+      "isAdmin": true,
+      "email": "davidpinchen@gmail.com"
+    }
+  ],
+  "meetings": [
+    {
+      "id": "07iqylHUE3ASSEcXcUHE",
+      "votingEndTime": 1744618800000,
+      "startTime": 1744618500000,
+      "votes": {
+        "9oWcaE0t41SRFLEAwZk3cfJ3z1t1": "magache@certinia.com"
+      },
+      "winnerDeclared": true,
+      "votingStartTime": 1744618200000,
+      "updatedAt": 1743668173390,
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "lfisk@certinia.com",
+        "magache@certinia.com",
+        "ashields@certinia.com",
+        "award@certinia.com",
+        "lyim@certinia.com"
+      ],
+      "meetingName": "Stand Up",
+      "winner": "magache@certinia.com",
+      "createdAt": 1743668173390
+    },
+    {
+      "id": "0SWm4Zw7jjIDvCbA9aus",
+      "votingEndTime": 1745249700000,
+      "winnerDeclared": false,
+      "startTime": 1745249400000,
+      "winner": "",
+      "createdAt": 1744644794675,
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "magache@certinia.com",
+        "lfisk@certinia.com"
+      ],
+      "votingStartTime": 1745249100000,
+      "votes": {},
+      "meetingName": "Mob Review",
+      "updatedAt": 1744644794675
+    },
+    {
+      "id": "0VAxhhpHqPJCRbYiVh8n",
+      "winnerDeclared": true,
+      "startTime": 1743066900000,
+      "meetingName": "Stand up",
+      "votingStartTime": 1743066600000,
+      "winner": "magache@certinia.com",
+      "votes": {
+        "9oWcaE0t41SRFLEAwZk3cfJ3z1t1": "magache@certinia.com"
+      },
+      "votingEndTime": 1743067200000,
+      "createdAt": 1742546445780,
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "lfisk@certinia.com",
+        "magache@certinia.com",
+        "ashields@certinia.com",
+        "award@certinia.com",
+        "lyim@certinia.com"
+      ],
+      "updatedAt": 1742546445780
+    },
+    {
+      "id": "0lW0sciV7dLP1HLZPZiV",
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "magache@certinia.com",
+        "lfisk@certinia.com"
+      ],
+      "votes": {},
+      "votingStartTime": 1745421900000,
+      "winner": "lfisk@certinia.com",
+      "createdAt": 1744644794675,
+      "updatedAt": 1744644794675,
+      "winnerDeclared": false,
+      "meetingName": "Mob Review",
+      "startTime": 1745422200000,
+      "votingEndTime": 1745422500000
+    },
+    {
+      "id": "0ogNuRA5xnYbhXkAEanS",
+      "votingEndTime": 1744817700000,
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "magache@certinia.com",
+        "lfisk@certinia.com"
+      ],
+      "meetingName": "Mob Review",
+      "updatedAt": 1744644794675,
+      "winnerDeclared": false,
+      "startTime": 1744817400000,
+      "votes": {},
+      "votingStartTime": 1744817100000,
+      "createdAt": 1744644794675,
+      "winner": ""
+    },
+    {
+      "id": "0yEsV8IRpCLbb1iexUX2",
+      "updatedAt": 1744644817986,
+      "startTime": 1744645200000,
+      "meetingName": "Mob Review",
+      "votingEndTime": 1744645500000,
+      "votes": {
+        "HE62m76RRabblz5z4dZXn9PY05k2": "rspencer@certinia.com",
+        "lc06fHfLwYgNtY0m66r0QmOHuu52": "rspencer@certinia.com"
+      },
+      "winner": "rspencer@certinia.com",
+      "createdAt": 1744644817986,
+      "votingStartTime": 1744644900000,
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "magache@certinia.com",
+        "lfisk@certinia.com"
+      ],
+      "winnerDeclared": true
+    },
+    {
+      "id": "11JdQqHsL1dYJSiT89m4",
+      "votingStartTime": 1745827800000,
+      "meetingName": "Stand up",
+      "winner": "",
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "lfisk@certinia.com",
+        "magache@certinia.com",
+        "ashields@certinia.com",
+        "award@certinia.com",
+        "lyim@certinia.com"
+      ],
+      "updatedAt": 1745507072093,
+      "createdAt": 1745507072093,
+      "winnerDeclared": false,
+      "votingEndTime": 1745828400000,
+      "votes": {},
+      "startTime": 1745828100000
+    },
+    {
+      "id": "124eKPFkrQLRygWKfuUa",
+      "meetingName": "Stand Up",
+      "votingStartTime": 1741770600000,
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "lfisk@certinia.com",
+        "magache@certinia.com",
+        "ashields@certinia.com",
+        "award@certinia.com",
+        "lyim@certinia.com"
+      ],
+      "startTime": 1741770900000,
+      "votes": {
+        "lc06fHfLwYgNtY0m66r0QmOHuu52": "dpinchen@certinia.com",
+        "9oWcaE0t41SRFLEAwZk3cfJ3z1t1": "dpinchen@certinia.com"
+      },
+      "createdAt": 1741761824896,
+      "winnerDeclared": true,
+      "updatedAt": 1741761824896,
+      "votingEndTime": 1741771200000,
+      "winner": "dpinchen@certinia.com"
+    },
+    {
+      "id": "15IWTcVG3O9rDizTi1xM",
+      "startTime": 1744039800000,
+      "votingStartTime": 1744039500000,
+      "winner": "",
+      "meetingName": "Mob Review",
+      "winnerDeclared": false,
+      "votingEndTime": 1744040100000,
+      "votes": {},
+      "createdAt": 1743668189619,
+      "updatedAt": 1743668189619,
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "lfisk@certinia.com",
+        "magache@certinia.com"
+      ]
+    },
+    {
+      "id": "1VYqzrNhFVoNhGTGl7HV",
+      "startTime": 1745508600000,
+      "winnerDeclared": false,
+      "updatedAt": 1744644794675,
+      "winner": "",
+      "votingStartTime": 1745508300000,
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "magache@certinia.com",
+        "lfisk@certinia.com"
+      ],
+      "createdAt": 1744644794675,
+      "meetingName": "Mob Review",
+      "votingEndTime": 1745508900000,
+      "votes": {}
+    },
+    {
+      "id": "1lmUsAUPdPb6WhfFHzoK",
+      "startTime": 1744126200000,
+      "winner": "magache@certinia.com",
+      "votingStartTime": 1744125900000,
+      "votingEndTime": 1744126500000,
+      "updatedAt": 1743668189619,
+      "votes": {
+        "9oWcaE0t41SRFLEAwZk3cfJ3z1t1": "magache@certinia.com"
+      },
+      "winnerDeclared": true,
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "lfisk@certinia.com",
+        "magache@certinia.com"
+      ],
+      "createdAt": 1743668189619,
+      "meetingName": "Mob Review"
+    },
+    {
+      "id": "2BMfVkjujbnYXffzVsyA",
+      "createdAt": 1745831729300,
+      "meetingName": "random meeting to give rick more votes",
+      "winner": "rspencer@certinia.com",
+      "votingStartTime": 1745831460000,
+      "votingEndTime": 1745832060000,
+      "updatedAt": 1745831729300,
+      "votes": [
+        {
+          "userId": "HE62m76RRabblz5z4dZXn9PY05k2",
+          "email": "rspencer@certinia.com"
+        },
+        {
+          "userId": "GexXUMYeRadO9qrgUh7AdiZsY7l2",
+          "email": "rspencer@certinia.com"
+        }
+      ],
+      "participants": [
+        "rspencer@certinia.com",
+        "lfisk@certinia.com"
+      ],
+      "startTime": 1745831760000
+    },
+    {
+      "id": "2UxPTYEnti7MqNOJIunV",
+      "winnerDeclared": true,
+      "updatedAt": 1740605240519,
+      "votingEndTime": 1740993600000,
+      "startTime": 1740993300000,
+      "votingStartTime": 1740993000000,
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "lfisk@certinia.com",
+        "magache@certinia.com",
+        "ashields@certinia.com",
+        "award@certinia.com",
+        "lyim@certinia.com"
+      ],
+      "votes": {
+        "lc06fHfLwYgNtY0m66r0QmOHuu52": "dpinchen@certinia.com"
+      },
+      "createdAt": 1740605240519,
+      "meetingName": "Stand Up",
+      "winner": "dpinchen@certinia.com"
+    },
+    {
+      "id": "3irkGeLPjeAWoe15H8Op",
+      "startTime": 1746692100000,
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "lyim@certinia.com",
+        "award@certinia.com",
+        "alenthall@certinia.com",
+        "lfisk@certinia.com",
+        "ashields@certinia.com",
+        "magache@certinia.com"
+      ],
+      "meetingName": "Stand Up",
+      "createdAt": 1745992271224,
+      "winner": null,
+      "votingEndTime": 1746692400000,
+      "votes": [],
+      "votingStartTime": 1746691800000,
+      "updatedAt": 1745992271224
+    },
+    {
+      "id": "442foMy0ibMGjyMH9Wqe",
+      "startTime": 1741857300000,
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "lfisk@certinia.com",
+        "magache@certinia.com",
+        "ashields@certinia.com",
+        "award@certinia.com",
+        "lyim@certinia.com"
+      ],
+      "updatedAt": 1741761824896,
+      "votes": {
+        "HE62m76RRabblz5z4dZXn9PY05k2": "rspencer@certinia.com",
+        "lc06fHfLwYgNtY0m66r0QmOHuu52": "rspencer@certinia.com",
+        "9oWcaE0t41SRFLEAwZk3cfJ3z1t1": "rspencer@certinia.com"
+      },
+      "createdAt": 1741761824896,
+      "votingStartTime": 1741857000000,
+      "winner": "rspencer@certinia.com",
+      "meetingName": "Stand Up",
+      "winnerDeclared": true,
+      "votingEndTime": 1741857600000
+    },
+    {
+      "id": "5IpRyka4ndla2cZ8kyef",
+      "votingEndTime": 1741624500000,
+      "startTime": 1741624200000,
+      "meetingName": "Mob Review",
+      "votes": {},
+      "winnerDeclared": false,
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "lfisk@certinia.com",
+        "magache@certinia.com"
+      ],
+      "votingStartTime": 1741623900000,
+      "winner": "",
+      "createdAt": 1740605964868,
+      "updatedAt": 1740605964868
+    },
+    {
+      "id": "5isxcOUobrlbXC7h7z7a",
+      "createdAt": 1742202681363,
+      "winnerDeclared": true,
+      "votingEndTime": 1742315700000,
+      "updatedAt": 1742202681363,
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "magache@certinia.com",
+        "lfisk@certinia.com",
+        "ashields@certinia.com",
+        "award@certinia.com",
+        "lyim@certinia.com"
+      ],
+      "votingStartTime": 1742315100000,
+      "startTime": 1742315400000,
+      "winner": "dpinchen@certinia.com",
+      "meetingName": "Mob Review",
+      "votes": {
+        "HE62m76RRabblz5z4dZXn9PY05k2": "dpinchen@certinia.com",
+        "9oWcaE0t41SRFLEAwZk3cfJ3z1t1": "dpinchen@certinia.com",
+        "lc06fHfLwYgNtY0m66r0QmOHuu52": "dpinchen@certinia.com"
+      }
+    },
+    {
+      "id": "631z8GKxg9c7BQMmFQYY",
+      "votingStartTime": 1745745000000,
+      "updatedAt": 1745568895593,
+      "meetingName": "Refinement",
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "lfisk@certinia.com",
+        "magache@certinia.com",
+        "ashields@certinia.com",
+        "lyim@certinia.com",
+        "award@certinia.com"
+      ],
+      "winner": [],
+      "createdAt": 1745568895593,
+      "startTime": 1745831700000,
+      "votingEndTime": 1745745600000,
+      "votes": []
+    },
+    {
+      "id": "6ELCcB5FcZYf9wIwruMU",
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "lfisk@certinia.com",
+        "magache@certinia.com"
+      ],
+      "votes": {},
+      "startTime": 1744039800000,
+      "updatedAt": 1743668189619,
+      "meetingName": "Mob Review",
+      "winner": "",
+      "votingEndTime": 1744040100000,
+      "createdAt": 1743668189619,
+      "winnerDeclared": false,
+      "votingStartTime": 1744039500000
+    },
+    {
+      "id": "7nADnJySlGGX89aIAVgN",
+      "winnerDeclared": true,
+      "startTime": 1741883400000,
+      "createdAt": 1741761849389,
+      "votingStartTime": 1741883100000,
+      "votes": {
+        "9oWcaE0t41SRFLEAwZk3cfJ3z1t1": "dpinchen@certinia.com"
+      },
+      "updatedAt": 1741761849389,
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "lfisk@certinia.com",
+        "magache@certinia.com"
+      ],
+      "votingEndTime": 1741883700000,
+      "winner": "dpinchen@certinia.com",
+      "meetingName": "Mob Review"
+    },
+    {
+      "id": "7yqhxKqoAcPIztLBieCJ",
+      "startTime": 1742203020000,
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "magache@certinia.com",
+        "lfisk@certinia.com",
+        "ashields@certinia.com",
+        "award@certinia.com",
+        "lyim@certinia.com"
+      ],
+      "updatedAt": 1742202661284,
+      "votes": {
+        "9oWcaE0t41SRFLEAwZk3cfJ3z1t1": "magache@certinia.com",
+        "lc06fHfLwYgNtY0m66r0QmOHuu52": "magache@certinia.com"
+      },
+      "createdAt": 1742202661284,
+      "votingStartTime": 1742202720000,
+      "winner": "magache@certinia.com",
+      "meetingName": "Stand Up",
+      "winnerDeclared": true,
+      "votingEndTime": 1742203320000
+    },
+    {
+      "id": "81EghU9RrtinLynYfUTT",
+      "updatedAt": 1744644776232,
+      "meetingName": "Stand up",
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "magache@certinia.com",
+        "lfisk@certinia.com",
+        "ashields@certinia.com",
+        "award@certinia.com",
+        "lyim@certinia.com"
+      ],
+      "votes": {},
+      "createdAt": 1744644776232,
+      "votingStartTime": 1745309400000,
+      "winnerDeclared": false,
+      "startTime": 1745309700000,
+      "votingEndTime": 1745310000000,
+      "winner": ""
+    },
+    {
+      "id": "84UbuWFUBw3n8uDyZkES",
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "lfisk@certinia.com",
+        "magache@certinia.com",
+        "ashields@certinia.com",
+        "award@certinia.com",
+        "lyim@certinia.com"
+      ],
+      "winnerDeclared": false,
+      "winner": "",
+      "createdAt": 1745507072093,
+      "votingStartTime": 1745568600000,
+      "votingEndTime": 1745569200000,
+      "updatedAt": 1745507072093,
+      "votes": {},
+      "startTime": 1745568900000,
+      "meetingName": "Stand up"
+    },
+    {
+      "id": "9HIbVsMDxsA9MBSk9aiD",
+      "votes": {
+        "9oWcaE0t41SRFLEAwZk3cfJ3z1t1": "dpinchen@certinia.com",
+        "GexXUMYeRadO9qrgUh7AdiZsY7l2": "dpinchen@certinia.com",
+        "lc06fHfLwYgNtY0m66r0QmOHuu52": "dpinchen@certinia.com"
+      },
+      "createdAt": 1742202661284,
+      "startTime": 1742462220000,
+      "votingStartTime": 1742461920000,
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "magache@certinia.com",
+        "lfisk@certinia.com",
+        "ashields@certinia.com",
+        "award@certinia.com",
+        "lyim@certinia.com"
+      ],
+      "updatedAt": 1742202661284,
+      "votingEndTime": 1742462520000,
+      "winnerDeclared": true,
+      "meetingName": "Stand Up",
+      "winner": "dpinchen@certinia.com"
+    },
+    {
+      "id": "A893gfOdXJx7bFXz9Hyt",
+      "startTime": 1743408900000,
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "lfisk@certinia.com",
+        "magache@certinia.com",
+        "ashields@certinia.com",
+        "award@certinia.com",
+        "lyim@certinia.com"
+      ],
+      "updatedAt": 1742546445780,
+      "votingStartTime": 1743408600000,
+      "createdAt": 1742546445780,
+      "winnerDeclared": true,
+      "meetingName": "Stand up",
+      "votes": {
+        "lc06fHfLwYgNtY0m66r0QmOHuu52": "dpinchen@certinia.com"
+      },
+      "votingEndTime": 1743409200000,
+      "winner": "dpinchen@certinia.com"
+    },
+    {
+      "id": "AsGmGnYg1Pf3Nv4xpqXN",
+      "votes": {},
+      "votingEndTime": 1745223600000,
+      "votingStartTime": 1745223000000,
+      "meetingName": "Stand up",
+      "startTime": 1745223300000,
+      "winnerDeclared": false,
+      "winner": "",
+      "updatedAt": 1744644776232,
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "magache@certinia.com",
+        "lfisk@certinia.com",
+        "ashields@certinia.com",
+        "award@certinia.com",
+        "lyim@certinia.com"
+      ],
+      "createdAt": 1744644776232
+    },
+    {
+      "id": "BuV1FrcBtEnyI0HbOLfb",
+      "votingStartTime": 1744644300000,
+      "meetingName": "Mob Review",
+      "updatedAt": 1743668189619,
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "lfisk@certinia.com",
+        "magache@certinia.com"
+      ],
+      "winner": "rspencer@certinia.com",
+      "winnerDeclared": true,
+      "createdAt": 1743668189619,
+      "startTime": 1744644600000,
+      "votingEndTime": 1744644900000,
+      "votes": {
+        "9oWcaE0t41SRFLEAwZk3cfJ3z1t1": "rspencer@certinia.com"
+      }
+    },
+    {
+      "id": "Bv9X6lZHcRhVtP8o6GMw",
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "lfisk@certinia.com",
+        "magache@certinia.com",
+        "ashields@certinia.com",
+        "award@certinia.com",
+        "lyim@certinia.com"
+      ],
+      "votingStartTime": 1744359000000,
+      "votes": {
+        "HE62m76RRabblz5z4dZXn9PY05k2": "lyim@certinia.com"
+      },
+      "startTime": 1744359300000,
+      "meetingName": "Stand Up",
+      "winnerDeclared": true,
+      "updatedAt": 1743668173390,
+      "createdAt": 1743668173390,
+      "winner": "lyim@certinia.com",
+      "votingEndTime": 1744359600000
+    },
+    {
+      "id": "C7S3JZPc4Q891jcLianu",
+      "meetingName": "Mob Review",
+      "updatedAt": 1745507090087,
+      "winner": "",
+      "votingStartTime": 1745852100000,
+      "votingEndTime": 1745852700000,
+      "startTime": 1745852400000,
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "lfisk@certinia.com",
+        "magache@certinia.com"
+      ],
+      "createdAt": 1745507090087,
+      "winnerDeclared": false,
+      "votes": {}
+    },
+    {
+      "id": "E1kyV3v3PaRtjdwM2G8J",
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "lfisk@certinia.com",
+        "magache@certinia.com"
+      ],
+      "startTime": 1746802800000,
+      "votes": [],
+      "winner": null,
+      "createdAt": 1745992286573,
+      "meetingName": "Mob Review",
+      "updatedAt": 1745992286573,
+      "votingStartTime": 1746802500000,
+      "votingEndTime": 1746803100000
+    },
+    {
+      "id": "EI1inSidqKpixnYHloGw",
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "lfisk@certinia.com",
+        "magache@certinia.com",
+        "ashields@certinia.com",
+        "award@certinia.com",
+        "lyim@certinia.com"
+      ],
+      "votingStartTime": 1741252200000,
+      "meetingName": "Stand Up",
+      "createdAt": 1740605240519,
+      "startTime": 1741252500000,
+      "winnerDeclared": true,
+      "votingEndTime": 1741252800000,
+      "votes": {
+        "lc06fHfLwYgNtY0m66r0QmOHuu52": "magache@certinia.com",
+        "GexXUMYeRadO9qrgUh7AdiZsY7l2": "magache@certinia.com",
+        "9oWcaE0t41SRFLEAwZk3cfJ3z1t1": "magache@certinia.com"
+      },
+      "winner": "magache@certinia.com",
+      "updatedAt": 1740605240519
+    },
+    {
+      "id": "EKrRCBJcHI5vRGOvcTPh",
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "magache@certinia.com",
+        "lfisk@certinia.com",
+        "ashields@certinia.com",
+        "award@certinia.com",
+        "lyim@certinia.com"
+      ],
+      "createdAt": 1742202681363,
+      "winnerDeclared": true,
+      "votingEndTime": 1742574900000,
+      "startTime": 1742574600000,
+      "updatedAt": 1742202681363,
+      "winner": "dpinchen@certinia.com",
+      "meetingName": "Mob Review",
+      "votes": {
+        "lc06fHfLwYgNtY0m66r0QmOHuu52": "dpinchen@certinia.com"
+      },
+      "votingStartTime": 1742574300000
+    },
+    {
+      "id": "F4CMEqFyDd3U6BTh6Tpo",
+      "meetingName": "Stand up",
+      "startTime": 1744964100000,
+      "createdAt": 1744644776232,
+      "winner": "",
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "magache@certinia.com",
+        "lfisk@certinia.com",
+        "ashields@certinia.com",
+        "award@certinia.com",
+        "lyim@certinia.com"
+      ],
+      "votingStartTime": 1744963800000,
+      "winnerDeclared": false,
+      "votingEndTime": 1744964400000,
+      "votes": {},
+      "updatedAt": 1744644776232
+    },
+    {
+      "id": "FBWpoKl9vQZCZqXKbsFm",
+      "votingStartTime": 1746087000000,
+      "createdAt": 1745992271224,
+      "votingEndTime": 1746087600000,
+      "startTime": 1746087300000,
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "lyim@certinia.com",
+        "award@certinia.com",
+        "alenthall@certinia.com",
+        "lfisk@certinia.com",
+        "ashields@certinia.com",
+        "magache@certinia.com"
+      ],
+      "winner": null,
+      "updatedAt": 1745992271224,
+      "votes": [],
+      "meetingName": "Stand Up"
+    },
+    {
+      "id": "FQAsSweJux4KRKrgMFsL",
+      "updatedAt": 1740605964868,
+      "winner": "",
+      "startTime": 1741365000000,
+      "createdAt": 1740605964868,
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "lfisk@certinia.com",
+        "magache@certinia.com"
+      ],
+      "votes": {},
+      "votingEndTime": 1741365300000,
+      "votingStartTime": 1741364700000,
+      "winnerDeclared": false,
+      "meetingName": "Mob Review"
+    },
+    {
+      "id": "FnIudjOtZVBNKz0w2b07",
+      "winner": null,
+      "votingEndTime": 1746803100000,
+      "votingStartTime": 1746802500000,
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "lfisk@certinia.com",
+        "magache@certinia.com"
+      ],
+      "createdAt": 1745992314805,
+      "startTime": 1746802800000,
+      "meetingName": "Virtual Team Activity",
+      "updatedAt": 1745992314805,
+      "votes": []
+    },
+    {
+      "id": "Fv2RDWvht19gUrddjG2E",
+      "createdAt": 1745992286573,
+      "votingStartTime": 1746197700000,
+      "meetingName": "Mob Review",
+      "votes": [],
+      "updatedAt": 1745992286573,
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "lfisk@certinia.com",
+        "magache@certinia.com"
+      ],
+      "votingEndTime": 1746198300000,
+      "winner": null,
+      "startTime": 1746198000000
+    },
+    {
+      "id": "GGK0Vf6lAfxDINo84ycm",
+      "meetingName": "Mob Review",
+      "votingEndTime": 1743608100000,
+      "updatedAt": 1742546457308,
+      "votes": {
+        "lc06fHfLwYgNtY0m66r0QmOHuu52": "rspencer@certinia.com",
+        "HE62m76RRabblz5z4dZXn9PY05k2": "rspencer@certinia.com",
+        "9oWcaE0t41SRFLEAwZk3cfJ3z1t1": "rspencer@certinia.com"
+      },
+      "votingStartTime": 1743607500000,
+      "createdAt": 1742546457308,
+      "winnerDeclared": true,
+      "startTime": 1743607800000,
+      "winner": "rspencer@certinia.com",
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "lfisk@certinia.com",
+        "magache@certinia.com"
+      ]
+    },
+    {
+      "id": "Gz5k9eQGdpvhxpMVbZic",
+      "winner": null,
+      "createdAt": 1745992271224,
+      "votingStartTime": 1746432600000,
+      "votes": [],
+      "updatedAt": 1745992271224,
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "lyim@certinia.com",
+        "award@certinia.com",
+        "alenthall@certinia.com",
+        "lfisk@certinia.com",
+        "ashields@certinia.com",
+        "magache@certinia.com"
+      ],
+      "votingEndTime": 1746433200000,
+      "meetingName": "Stand Up",
+      "startTime": 1746432900000
+    },
+    {
+      "id": "Hp6xafnkDDeayzhXg67o",
+      "votingStartTime": 1741943400000,
+      "votingEndTime": 1741944000000,
+      "winnerDeclared": false,
+      "winner": "",
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "lfisk@certinia.com",
+        "magache@certinia.com",
+        "ashields@certinia.com",
+        "award@certinia.com",
+        "lyim@certinia.com"
+      ],
+      "startTime": 1741943700000,
+      "votes": {},
+      "updatedAt": 1741761824896,
+      "createdAt": 1741761824896,
+      "meetingName": "Stand Up"
+    },
+    {
+      "id": "I0oKzz8ToaATgeqtj67f",
+      "createdAt": 1744644794675,
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "magache@certinia.com",
+        "lfisk@certinia.com"
+      ],
+      "votingStartTime": 1744730700000,
+      "winner": "magache@certinia.com",
+      "startTime": 1744731000000,
+      "winnerDeclared": true,
+      "updatedAt": 1744644794675,
+      "votes": {
+        "9oWcaE0t41SRFLEAwZk3cfJ3z1t1": "magache@certinia.com"
+      },
+      "votingEndTime": 1744731300000,
+      "meetingName": "Mob Review"
+    },
+    {
+      "id": "IMCznlMWcZwh7o6cLRt0",
+      "createdAt": 1745992271224,
+      "meetingName": "Stand Up",
+      "winner": null,
+      "startTime": 1746173700000,
+      "votingEndTime": 1746174000000,
+      "votes": [],
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "lyim@certinia.com",
+        "award@certinia.com",
+        "alenthall@certinia.com",
+        "lfisk@certinia.com",
+        "ashields@certinia.com",
+        "magache@certinia.com"
+      ],
+      "updatedAt": 1745992271224,
+      "votingStartTime": 1746173400000
+    },
+    {
+      "id": "JhBX8yzcldRaKlB6SUyp",
+      "updatedAt": 1740605964868,
+      "startTime": 1741192200000,
+      "votingStartTime": 1741191900000,
+      "createdAt": 1740605964868,
+      "votingEndTime": 1741192500000,
+      "votes": {},
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "lfisk@certinia.com",
+        "magache@certinia.com"
+      ],
+      "winner": "",
+      "meetingName": "Mob Review",
+      "winnerDeclared": false
+    },
+    {
+      "id": "JoP2Ewr8UqxJ4Jq2P1oe",
+      "votes": [],
+      "votingStartTime": 1746605400000,
+      "meetingName": "Stand Up",
+      "updatedAt": 1745992271224,
+      "winner": null,
+      "startTime": 1746605700000,
+      "createdAt": 1745992271224,
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "lyim@certinia.com",
+        "award@certinia.com",
+        "alenthall@certinia.com",
+        "lfisk@certinia.com",
+        "ashields@certinia.com",
+        "magache@certinia.com"
+      ],
+      "votingEndTime": 1746606000000
+    },
+    {
+      "id": "LfsIxql2p7rwV6CZDyNN",
+      "votingStartTime": 1744989900000,
+      "winner": "",
+      "createdAt": 1744644794675,
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "magache@certinia.com",
+        "lfisk@certinia.com"
+      ],
+      "votes": {},
+      "meetingName": "Mob Review",
+      "updatedAt": 1744644794675,
+      "votingEndTime": 1744990500000,
+      "startTime": 1744990200000,
+      "winnerDeclared": false
+    },
+    {
+      "id": "LwhuUTcdsRYjeTB1onCq",
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "lfisk@certinia.com",
+        "magache@certinia.com"
+      ],
+      "createdAt": 1740605964868,
+      "startTime": 1741019400000,
+      "winnerDeclared": true,
+      "votingStartTime": 1741019100000,
+      "votes": {
+        "9oWcaE0t41SRFLEAwZk3cfJ3z1t1": "magache@certinia.com"
+      },
+      "updatedAt": 1740605964868,
+      "winner": "magache@certinia.com",
+      "votingEndTime": 1741019700000,
+      "meetingName": "Mob Review"
+    },
+    {
+      "id": "M49RQrOeOMzwGNpsam6n",
+      "createdAt": 1743668173390,
+      "winner": "magache@certinia.com",
+      "startTime": 1744013700000,
+      "updatedAt": 1743668173390,
+      "meetingName": "Stand Up",
+      "winnerDeclared": true,
+      "votes": {
+        "9oWcaE0t41SRFLEAwZk3cfJ3z1t1": "magache@certinia.com"
+      },
+      "votingEndTime": 1744014000000,
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "lfisk@certinia.com",
+        "magache@certinia.com",
+        "ashields@certinia.com",
+        "award@certinia.com",
+        "lyim@certinia.com"
+      ],
+      "votingStartTime": 1744013400000
+    },
+    {
+      "id": "MTI9qPMq6QJRsg6Sgt00",
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "lyim@certinia.com",
+        "award@certinia.com",
+        "alenthall@certinia.com",
+        "lfisk@certinia.com",
+        "ashields@certinia.com",
+        "magache@certinia.com"
+      ],
+      "meetingName": "Stand Up",
+      "votes": [],
+      "createdAt": 1745992271224,
+      "winner": null,
+      "votingStartTime": 1746778200000,
+      "votingEndTime": 1746778800000,
+      "startTime": 1746778500000,
+      "updatedAt": 1745992271224
+    },
+    {
+      "id": "MWuSEAlfWDSalifR5sBo",
+      "updatedAt": 1745992271223,
+      "votingStartTime": 1746000600000,
+      "votes": [],
+      "meetingName": "Stand Up",
+      "winner": null,
+      "createdAt": 1745992271223,
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "lyim@certinia.com",
+        "award@certinia.com",
+        "alenthall@certinia.com",
+        "lfisk@certinia.com",
+        "ashields@certinia.com",
+        "magache@certinia.com"
+      ],
+      "votingEndTime": 1746001200000,
+      "startTime": 1746000900000
+    },
+    {
+      "id": "MjMczwpqlSVd8QcLwzCe",
+      "votingStartTime": 1741105500000,
+      "meetingName": "Mob Review",
+      "votingEndTime": 1741106100000,
+      "createdAt": 1740605964868,
+      "updatedAt": 1740605964868,
+      "winner": "magache@certinia.com",
+      "winnerDeclared": true,
+      "votes": {
+        "lc06fHfLwYgNtY0m66r0QmOHuu52": "magache@certinia.com"
+      },
+      "startTime": 1741105800000,
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "lfisk@certinia.com",
+        "magache@certinia.com"
+      ]
+    },
+    {
+      "id": "Mtw7wvIAMU4v0yB8rsRm",
+      "startTime": 1744039800000,
+      "createdAt": 1743668189619,
+      "votingStartTime": 1744039500000,
+      "winnerDeclared": false,
+      "updatedAt": 1743668189619,
+      "votes": {},
+      "votingEndTime": 1744040100000,
+      "winner": "",
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "lfisk@certinia.com",
+        "magache@certinia.com"
+      ],
+      "meetingName": "Mob Review"
+    },
+    {
+      "id": "NuVVgdYXyTWUgNr07oFe",
+      "meetingName": "Stand Up",
+      "updatedAt": 1743668173390,
+      "winner": "",
+      "votingStartTime": 1744013400000,
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "lfisk@certinia.com",
+        "magache@certinia.com",
+        "ashields@certinia.com",
+        "award@certinia.com",
+        "lyim@certinia.com"
+      ],
+      "startTime": 1744013700000,
+      "createdAt": 1743668173390,
+      "votes": {},
+      "votingEndTime": 1744014000000,
+      "winnerDeclared": false
+    },
+    {
+      "id": "O7NYGd6YbxVDJLQpiQBK",
+      "meetingName": "Mob Review",
+      "createdAt": 1744644794675,
+      "votes": {
+        "HE62m76RRabblz5z4dZXn9PY05k2": "rspencer@certinia.com"
+      },
+      "votingStartTime": 1744903500000,
+      "startTime": 1744903800000,
+      "updatedAt": 1744644794675,
+      "votingEndTime": 1744904100000,
+      "winner": "rspencer@certinia.com",
+      "winnerDeclared": true,
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "magache@certinia.com",
+        "lfisk@certinia.com"
+      ]
+    },
+    {
+      "id": "OqmHLui1Gx37Euee4K9P",
+      "startTime": 1741003200000,
+      "createdAt": 1740996462059,
+      "votingStartTime": 1741002900000,
+      "winnerDeclared": true,
+      "updatedAt": 1740996462059,
+      "votes": {
+        "lc06fHfLwYgNtY0m66r0QmOHuu52": "rspencer@certinia.com",
+        "9oWcaE0t41SRFLEAwZk3cfJ3z1t1": "rspencer@certinia.com"
+      },
+      "votingEndTime": 1741003500000,
+      "winner": "rspencer@certinia.com",
+      "participants": [
+        "magache@certinia.com",
+        "lfisk@certinia.com",
+        "alenthall@certinia.com",
+        "dpinchen@certinia.com",
+        "rspencer@certinia.com"
+      ],
+      "meetingName": "Developer Efficiency Review"
+    },
+    {
+      "id": "P7GZVaXFu59ro3V4LHv1",
+      "winner": "magache@certinia.com",
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "lfisk@certinia.com",
+        "magache@certinia.com",
+        "ashields@certinia.com",
+        "award@certinia.com",
+        "lyim@certinia.com"
+      ],
+      "meetingName": "Stand Up",
+      "votingEndTime": 1741166400000,
+      "votes": {
+        "lc06fHfLwYgNtY0m66r0QmOHuu52": "magache@certinia.com",
+        "9oWcaE0t41SRFLEAwZk3cfJ3z1t1": "magache@certinia.com"
+      },
+      "startTime": 1741166100000,
+      "updatedAt": 1740605240519,
+      "winnerDeclared": true,
+      "createdAt": 1740605240519,
+      "votingStartTime": 1741165800000
+    },
+    {
+      "id": "QAR3jT5ttDmtWJz88zKN",
+      "startTime": 1746543600000,
+      "updatedAt": 1745992286573,
+      "winner": null,
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "lfisk@certinia.com",
+        "magache@certinia.com"
+      ],
+      "meetingName": "Mob Review",
+      "votingStartTime": 1746543300000,
+      "votes": [],
+      "votingEndTime": 1746543900000,
+      "createdAt": 1745992286573
+    },
+    {
+      "id": "QQh8bdSvAc3pF4oLjuzb",
+      "meetingName": "Stand up",
+      "createdAt": 1744644776232,
+      "votes": {
+        "lc06fHfLwYgNtY0m66r0QmOHuu52": "dpinchen@certinia.com"
+      },
+      "votingStartTime": 1745395800000,
+      "startTime": 1745396100000,
+      "updatedAt": 1744644776232,
+      "votingEndTime": 1745396400000,
+      "winner": "dpinchen@certinia.com",
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "magache@certinia.com",
+        "lfisk@certinia.com",
+        "ashields@certinia.com",
+        "award@certinia.com",
+        "lyim@certinia.com"
+      ],
+      "winnerDeclared": true
+    },
+    {
+      "id": "Qdplekt1ifuo9pDbzwuk",
+      "updatedAt": 1742546445780,
+      "createdAt": 1742546445780,
+      "meetingName": "Stand up",
+      "startTime": 1742894100000,
+      "votingStartTime": 1742893800000,
+      "votes": {
+        "lc06fHfLwYgNtY0m66r0QmOHuu52": "rspencer@certinia.com"
+      },
+      "winner": "rspencer@certinia.com",
+      "votingEndTime": 1742894400000,
+      "winnerDeclared": true,
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "lfisk@certinia.com",
+        "magache@certinia.com",
+        "ashields@certinia.com",
+        "award@certinia.com",
+        "lyim@certinia.com"
+      ]
+    },
+    {
+      "id": "Ru5bTrjCL0aSyc2Rryrw",
+      "votes": {
+        "lc06fHfLwYgNtY0m66r0QmOHuu52": "rspencer@certinia.com",
+        "HE62m76RRabblz5z4dZXn9PY05k2": "rspencer@certinia.com"
+      },
+      "startTime": 1744704900000,
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "magache@certinia.com",
+        "lfisk@certinia.com",
+        "ashields@certinia.com",
+        "award@certinia.com",
+        "lyim@certinia.com"
+      ],
+      "updatedAt": 1744644776232,
+      "meetingName": "Stand up",
+      "createdAt": 1744644776232,
+      "winner": "rspencer@certinia.com",
+      "votingEndTime": 1744705200000,
+      "votingStartTime": 1744704600000,
+      "winnerDeclared": true
+    },
+    {
+      "id": "S6I5LMINZkatGa3CfKI6",
+      "startTime": 1743435000000,
+      "winner": "",
+      "meetingName": "Mob Review",
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "lfisk@certinia.com",
+        "magache@certinia.com"
+      ],
+      "updatedAt": 1742546457308,
+      "votingStartTime": 1743434700000,
+      "votes": {},
+      "createdAt": 1742546457308,
+      "votingEndTime": 1743435300000,
+      "winnerDeclared": false
+    },
+    {
+      "id": "SIHsiDbeJcEl3vwPqrjz",
+      "votes": {},
+      "winnerDeclared": false,
+      "startTime": 1741601700000,
+      "votingStartTime": 1741601400000,
+      "winner": "",
+      "createdAt": 1740647695471,
+      "votingEndTime": 1741602000000,
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "lfisk@certinia.com",
+        "magache@certinia.com",
+        "ashields@certinia.com",
+        "award@certinia.com",
+        "lyim@certinia.com"
+      ],
+      "updatedAt": 1740647695471,
+      "meetingName": "Refinement"
+    },
+    {
+      "id": "SO2rV7wrJjH19jJMxEvu",
+      "votes": [],
+      "startTime": 1746111600000,
+      "votingEndTime": 1746111900000,
+      "meetingName": "Mob Review",
+      "votingStartTime": 1746111300000,
+      "createdAt": 1745992286573,
+      "winner": null,
+      "updatedAt": 1745992286573,
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "lfisk@certinia.com",
+        "magache@certinia.com"
+      ]
+    },
+    {
+      "id": "SSgJA81rFABR0VUu7VKY",
+      "votingEndTime": 1743694500000,
+      "updatedAt": 1743668189619,
+      "startTime": 1743694200000,
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "lfisk@certinia.com",
+        "magache@certinia.com"
+      ],
+      "winner": "",
+      "meetingName": "Mob Review",
+      "createdAt": 1743668189619,
+      "votes": {},
+      "votingStartTime": 1743693900000,
+      "winnerDeclared": false
+    },
+    {
+      "id": "T0l3dW8P3Mn6igdj4C0O",
+      "startTime": 1746198000000,
+      "winner": null,
+      "meetingName": "Virtual Team Activity",
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "lfisk@certinia.com",
+        "magache@certinia.com"
+      ],
+      "votingStartTime": 1746197700000,
+      "updatedAt": 1745992314805,
+      "votes": [],
+      "createdAt": 1745992314805,
+      "votingEndTime": 1746198300000
+    },
+    {
+      "id": "T1EJHS95TSKw0YgwKTV2",
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "lfisk@certinia.com",
+        "magache@certinia.com"
+      ],
+      "winnerDeclared": false,
+      "votingEndTime": 1744212900000,
+      "startTime": 1744212600000,
+      "votingStartTime": 1744212300000,
+      "createdAt": 1743668189619,
+      "meetingName": "Mob Review",
+      "updatedAt": 1743668189619,
+      "votes": {},
+      "winner": ""
+    },
+    {
+      "id": "T3Edn6y5koy7FZDHrmoM",
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "lfisk@certinia.com",
+        "magache@certinia.com",
+        "ashields@certinia.com",
+        "award@certinia.com",
+        "lyim@certinia.com"
+      ],
+      "votingEndTime": 1743495600000,
+      "createdAt": 1742546445780,
+      "winnerDeclared": true,
+      "startTime": 1743495300000,
+      "updatedAt": 1742546445780,
+      "winner": "rspencer@certinia.com",
+      "votes": {
+        "lc06fHfLwYgNtY0m66r0QmOHuu52": "rspencer@certinia.com"
+      },
+      "meetingName": "Stand up",
+      "votingStartTime": 1743495000000
+    },
+    {
+      "id": "T3eqAih0Loj0SBm7pT5w",
+      "updatedAt": 1742546457308,
+      "votingStartTime": 1743434700000,
+      "winner": "",
+      "votes": {},
+      "startTime": 1743435000000,
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "lfisk@certinia.com",
+        "magache@certinia.com"
+      ],
+      "meetingName": "Mob Review",
+      "createdAt": 1742546457308,
+      "votingEndTime": 1743435300000,
+      "winnerDeclared": false
+    },
+    {
+      "id": "TgnMnroCYSV9DFNRRFa8",
+      "updatedAt": 1743668173390,
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "lfisk@certinia.com",
+        "magache@certinia.com",
+        "ashields@certinia.com",
+        "award@certinia.com",
+        "lyim@certinia.com"
+      ],
+      "createdAt": 1743668173390,
+      "winner": "",
+      "startTime": 1743754500000,
+      "votingEndTime": 1743754800000,
+      "votingStartTime": 1743754200000,
+      "votes": {},
+      "winnerDeclared": false,
+      "meetingName": "Stand Up"
+    },
+    {
+      "id": "UTfx9xsfPBq3g9hZQkkr",
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "lfisk@certinia.com",
+        "magache@certinia.com"
+      ],
+      "meetingName": "Mob Review",
+      "votes": {
+        "lc06fHfLwYgNtY0m66r0QmOHuu52": "dpinchen@certinia.com"
+      },
+      "createdAt": 1742546457308,
+      "votingEndTime": 1742920500000,
+      "updatedAt": 1742546457308,
+      "winnerDeclared": true,
+      "winner": "dpinchen@certinia.com",
+      "startTime": 1742920200000,
+      "votingStartTime": 1742919900000
+    },
+    {
+      "id": "VBn53sZMk7H1TYbY3xQ5",
+      "meetingName": "Mob Review",
+      "votingStartTime": 1746629700000,
+      "updatedAt": 1745992286573,
+      "votingEndTime": 1746630300000,
+      "votes": [],
+      "createdAt": 1745992286573,
+      "startTime": 1746630000000,
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "lfisk@certinia.com",
+        "magache@certinia.com"
+      ],
+      "winner": null
+    },
+    {
+      "id": "VrkhGxAnwOI7FJi8UwLF",
+      "votes": [],
+      "votingStartTime": 1746456900000,
+      "updatedAt": 1745992286573,
+      "votingEndTime": 1746457500000,
+      "createdAt": 1745992286573,
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "lfisk@certinia.com",
+        "magache@certinia.com"
+      ],
+      "winner": null,
+      "startTime": 1746457200000,
+      "meetingName": "Mob Review"
+    },
+    {
+      "id": "WJdzmoHLLXdzyAE0y8Au",
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "lfisk@certinia.com",
+        "magache@certinia.com",
+        "ashields@certinia.com",
+        "award@certinia.com",
+        "lyim@certinia.com"
+      ],
+      "votes": {
+        "9oWcaE0t41SRFLEAwZk3cfJ3z1t1": "magache@certinia.com",
+        "HE62m76RRabblz5z4dZXn9PY05k2": "magache@certinia.com"
+      },
+      "updatedAt": 1742546445780,
+      "startTime": 1742807700000,
+      "winner": "magache@certinia.com",
+      "meetingName": "Stand up",
+      "votingEndTime": 1742808000000,
+      "createdAt": 1742546445780,
+      "winnerDeclared": true,
+      "votingStartTime": 1742807400000
+    },
+    {
+      "id": "WOyiX01qNot1V3cvlmZL",
+      "updatedAt": 1745914911546,
+      "meetingName": "Mob Review",
+      "votingEndTime": 1745939100000,
+      "votes": [
+        {
+          "email": "lfisk@certinia.com",
+          "userId": "lc06fHfLwYgNtY0m66r0QmOHuu52"
+        }
+      ],
+      "startTime": 1745938800000,
+      "createdAt": 1745914911546,
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "lfisk@certinia.com"
+      ],
+      "winner": "lfisk@certinia.com",
+      "votingStartTime": 1745938500000
+    },
+    {
+      "id": "WddLSdA7waTk3tcg7Akn",
+      "updatedAt": 1745992286573,
+      "startTime": 1746716400000,
+      "votingEndTime": 1746716700000,
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "lfisk@certinia.com",
+        "magache@certinia.com"
+      ],
+      "createdAt": 1745992286573,
+      "winner": null,
+      "meetingName": "Mob Review",
+      "votes": [],
+      "votingStartTime": 1746716100000
+    },
+    {
+      "id": "XsJ2F22PpVGzFUavDnvt",
+      "createdAt": 1743668189619,
+      "votes": {},
+      "winner": "",
+      "meetingName": "Mob Review",
+      "votingStartTime": 1744385100000,
+      "updatedAt": 1743668189619,
+      "startTime": 1744385400000,
+      "winnerDeclared": false,
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "lfisk@certinia.com",
+        "magache@certinia.com"
+      ],
+      "votingEndTime": 1744385700000
+    },
+    {
+      "id": "ZD4UeBuy9xVlKjZoHdcx",
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "lfisk@certinia.com",
+        "magache@certinia.com"
+      ],
+      "winnerDeclared": false,
+      "meetingName": "Mob Review",
+      "votingEndTime": 1742834100000,
+      "winner": "",
+      "createdAt": 1742546457308,
+      "updatedAt": 1742546457308,
+      "startTime": 1742833800000,
+      "votes": {},
+      "votingStartTime": 1742833500000
+    },
+    {
+      "id": "beFRdLvhBlryN0azDMoO",
+      "createdAt": 1742546457308,
+      "meetingName": "Mob Review",
+      "winner": "",
+      "votes": {},
+      "votingStartTime": 1743179100000,
+      "startTime": 1743179400000,
+      "votingEndTime": 1743179700000,
+      "winnerDeclared": false,
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "lfisk@certinia.com",
+        "magache@certinia.com"
+      ],
+      "updatedAt": 1742546457308
+    },
+    {
+      "id": "bjJZOUlvwnN0HTYD3Yxg",
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "lfisk@certinia.com",
+        "magache@certinia.com",
+        "ashields@certinia.com",
+        "award@certinia.com",
+        "lyim@certinia.com"
+      ],
+      "votingEndTime": 1743409200000,
+      "createdAt": 1742546445780,
+      "winnerDeclared": false,
+      "startTime": 1743408900000,
+      "updatedAt": 1742546445780,
+      "winner": "",
+      "votes": {},
+      "meetingName": "Stand up",
+      "votingStartTime": 1743408600000
+    },
+    {
+      "id": "c7Scjp2tmyXnOd6Cfd37",
+      "votes": {
+        "9oWcaE0t41SRFLEAwZk3cfJ3z1t1": "dpinchen@certinia.com",
+        "HE62m76RRabblz5z4dZXn9PY05k2": "rspencer@certinia.com",
+        "lc06fHfLwYgNtY0m66r0QmOHuu52": "rspencer@certinia.com"
+      },
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "lfisk@certinia.com",
+        "magache@certinia.com",
+        "ashields@certinia.com",
+        "award@certinia.com",
+        "lyim@certinia.com"
+      ],
+      "meetingName": "Stand Up",
+      "winnerDeclared": true,
+      "winner": "rspencer@certinia.com",
+      "votingStartTime": 1741079400000,
+      "startTime": 1741079700000,
+      "updatedAt": 1740605240519,
+      "createdAt": 1740605240519,
+      "votingEndTime": 1741080000000
+    },
+    {
+      "id": "dU52NA3Qg5On0wCSmxBe",
+      "votingEndTime": 1741194300000,
+      "votingStartTime": 1741193700000,
+      "updatedAt": 1741193692203,
+      "winnerDeclared": true,
+      "createdAt": 1741193692203,
+      "meetingName": "Mob Review",
+      "startTime": 1741194000000,
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "lfisk@certinia.com",
+        "magache@certinia.com"
+      ],
+      "votes": {
+        "lc06fHfLwYgNtY0m66r0QmOHuu52": "rspencer@certinia.com"
+      },
+      "winner": "rspencer@certinia.com"
+    },
+    {
+      "id": "dfc6bOMU4elvLIuJkfvu",
+      "winnerDeclared": false,
+      "votes": {},
+      "winner": "",
+      "createdAt": 1742546445780,
+      "votingEndTime": 1743153600000,
+      "updatedAt": 1742546445780,
+      "votingStartTime": 1743153000000,
+      "meetingName": "Stand up",
+      "startTime": 1743153300000,
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "lfisk@certinia.com",
+        "magache@certinia.com",
+        "ashields@certinia.com",
+        "award@certinia.com",
+        "lyim@certinia.com"
+      ]
+    },
+    {
+      "id": "fndqqphfxW8FdIIrp4oV",
+      "updatedAt": 1742202661284,
+      "votingStartTime": 1742548320000,
+      "createdAt": 1742202661284,
+      "startTime": 1742548620000,
+      "votingEndTime": 1742548920000,
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "magache@certinia.com",
+        "lfisk@certinia.com",
+        "ashields@certinia.com",
+        "award@certinia.com",
+        "lyim@certinia.com"
+      ],
+      "winnerDeclared": true,
+      "meetingName": "Stand Up",
+      "winner": "dpinchen@certinia.com",
+      "votes": {
+        "lc06fHfLwYgNtY0m66r0QmOHuu52": "dpinchen@certinia.com"
+      }
+    },
+    {
+      "id": "gBGok5D3HjyQXySb6SdZ",
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "lfisk@certinia.com",
+        "magache@certinia.com"
+      ],
+      "votes": {
+        "GexXUMYeRadO9qrgUh7AdiZsY7l2": "magache@certinia.com"
+      },
+      "votingStartTime": 1741796700000,
+      "startTime": 1741797000000,
+      "votingEndTime": 1741797300000,
+      "winnerDeclared": true,
+      "meetingName": "Mob Review",
+      "updatedAt": 1741761849389,
+      "createdAt": 1741761849389,
+      "winner": "magache@certinia.com"
+    },
+    {
+      "id": "gHsxG6mJt2OYHV42JRtN",
+      "updatedAt": 1742202661284,
+      "createdAt": 1742202661284,
+      "meetingName": "Stand Up",
+      "votes": {
+        "lc06fHfLwYgNtY0m66r0QmOHuu52": "magache@certinia.com",
+        "9oWcaE0t41SRFLEAwZk3cfJ3z1t1": "magache@certinia.com"
+      },
+      "votingStartTime": 1742289120000,
+      "startTime": 1742289420000,
+      "votingEndTime": 1742289720000,
+      "winner": "magache@certinia.com",
+      "winnerDeclared": true,
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "magache@certinia.com",
+        "lfisk@certinia.com",
+        "ashields@certinia.com",
+        "award@certinia.com",
+        "lyim@certinia.com"
+      ]
+    },
+    {
+      "id": "gWPmMfp453vxXP7pmcGg",
+      "winner": "",
+      "winnerDeclared": false,
+      "updatedAt": 1742546445780,
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "lfisk@certinia.com",
+        "magache@certinia.com",
+        "ashields@certinia.com",
+        "award@certinia.com",
+        "lyim@certinia.com"
+      ],
+      "meetingName": "Stand up",
+      "createdAt": 1742546445780,
+      "votingStartTime": 1743581400000,
+      "startTime": 1743581700000,
+      "votingEndTime": 1743582000000,
+      "votes": {}
+    },
+    {
+      "id": "gp3CjVH397rpOUSDhZ6M",
+      "winnerDeclared": false,
+      "createdAt": 1743668173390,
+      "votes": {},
+      "updatedAt": 1743668173390,
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "lfisk@certinia.com",
+        "magache@certinia.com",
+        "ashields@certinia.com",
+        "award@certinia.com",
+        "lyim@certinia.com"
+      ],
+      "votingEndTime": 1744014000000,
+      "winner": "",
+      "votingStartTime": 1744013400000,
+      "meetingName": "Stand Up",
+      "startTime": 1744013700000
+    },
+    {
+      "id": "jE82lH1R06fi4ySNXrZC",
+      "winnerDeclared": false,
+      "votingStartTime": 1744877400000,
+      "winner": "",
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "magache@certinia.com",
+        "lfisk@certinia.com",
+        "ashields@certinia.com",
+        "award@certinia.com",
+        "lyim@certinia.com"
+      ],
+      "createdAt": 1744644776232,
+      "meetingName": "Stand up",
+      "votes": {},
+      "updatedAt": 1744644776232,
+      "startTime": 1744877700000,
+      "votingEndTime": 1744878000000
+    },
+    {
+      "id": "kXMi2H9bcscFsnxslKOC",
+      "meetingName": "Mob Review",
+      "votes": {
+        "9oWcaE0t41SRFLEAwZk3cfJ3z1t1": "dpinchen@certinia.com",
+        "lc06fHfLwYgNtY0m66r0QmOHuu52": "dpinchen@certinia.com"
+      },
+      "votingEndTime": 1742488500000,
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "magache@certinia.com",
+        "lfisk@certinia.com",
+        "ashields@certinia.com",
+        "award@certinia.com",
+        "lyim@certinia.com"
+      ],
+      "votingStartTime": 1742487900000,
+      "winnerDeclared": true,
+      "startTime": 1742488200000,
+      "createdAt": 1742202681363,
+      "updatedAt": 1742202681363,
+      "winner": "dpinchen@certinia.com"
+    },
+    {
+      "id": "kt8874Tp0BfBElgdp0tu",
+      "votingStartTime": 1740733800000,
+      "createdAt": 1740605240519,
+      "updatedAt": 1740605240519,
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "lfisk@certinia.com",
+        "magache@certinia.com",
+        "ashields@certinia.com",
+        "award@certinia.com",
+        "lyim@certinia.com"
+      ],
+      "meetingName": "Stand Up",
+      "winner": "",
+      "votes": {},
+      "votingEndTime": 1740734400000,
+      "winnerDeclared": false,
+      "startTime": 1740734100000
+    },
+    {
+      "id": "kvM2Rw1bb3FdboOeDbt6",
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "lfisk@certinia.com",
+        "magache@certinia.com",
+        "ashields@certinia.com",
+        "award@certinia.com",
+        "lyim@certinia.com"
+      ],
+      "votingEndTime": 1744100400000,
+      "votingStartTime": 1744099800000,
+      "createdAt": 1743668173390,
+      "winner": "dpinchen@certinia.com",
+      "winnerDeclared": true,
+      "votes": {
+        "lc06fHfLwYgNtY0m66r0QmOHuu52": "dpinchen@certinia.com",
+        "9oWcaE0t41SRFLEAwZk3cfJ3z1t1": "dpinchen@certinia.com"
+      },
+      "meetingName": "Stand Up",
+      "updatedAt": 1743668173390,
+      "startTime": 1744100100000
+    },
+    {
+      "id": "lJYUNo9X9HTkNvczgAM4",
+      "votingEndTime": 1744618800000,
+      "votes": {},
+      "meetingName": "Stand Up",
+      "votingStartTime": 1744618200000,
+      "createdAt": 1743668173390,
+      "updatedAt": 1743668173390,
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "lfisk@certinia.com",
+        "magache@certinia.com",
+        "ashields@certinia.com",
+        "award@certinia.com",
+        "lyim@certinia.com"
+      ],
+      "winner": "",
+      "winnerDeclared": false,
+      "startTime": 1744618500000
+    },
+    {
+      "id": "ns7zgzc7oynaq5zA1A7V",
+      "meetingName": "Stand up",
+      "startTime": 1742980500000,
+      "votingEndTime": 1742980800000,
+      "winnerDeclared": false,
+      "updatedAt": 1742546445780,
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "lfisk@certinia.com",
+        "magache@certinia.com",
+        "ashields@certinia.com",
+        "award@certinia.com",
+        "lyim@certinia.com"
+      ],
+      "winner": "",
+      "votingStartTime": 1742980200000,
+      "votes": {},
+      "createdAt": 1742546445780
+    },
+    {
+      "id": "ovtYkoxxPOsUZ2bTezVz",
+      "updatedAt": 1743668173390,
+      "createdAt": 1743668173390,
+      "meetingName": "Stand Up",
+      "votingStartTime": 1744186200000,
+      "votes": {
+        "9oWcaE0t41SRFLEAwZk3cfJ3z1t1": "magache@certinia.com"
+      },
+      "startTime": 1744186500000,
+      "winner": "magache@certinia.com",
+      "votingEndTime": 1744186800000,
+      "winnerDeclared": true,
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "lfisk@certinia.com",
+        "magache@certinia.com",
+        "ashields@certinia.com",
+        "award@certinia.com",
+        "lyim@certinia.com"
+      ]
+    },
+    {
+      "id": "ow3ZtKEeAkWNLpsvJRVH",
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "lfisk@certinia.com",
+        "magache@certinia.com",
+        "ashields@certinia.com",
+        "award@certinia.com",
+        "lyim@certinia.com"
+      ],
+      "meetingName": "Refinement",
+      "winnerDeclared": true,
+      "votingStartTime": 1740996600000,
+      "votes": {
+        "lc06fHfLwYgNtY0m66r0QmOHuu52": "dpinchen@certinia.com"
+      },
+      "createdAt": 1740647695471,
+      "updatedAt": 1740647695471,
+      "winner": "dpinchen@certinia.com",
+      "startTime": 1740996900000,
+      "votingEndTime": 1740997200000
+    },
+    {
+      "id": "owqHjsyZ9NrFml8OH0q3",
+      "createdAt": 1744644776232,
+      "votes": {
+        "lc06fHfLwYgNtY0m66r0QmOHuu52": "rspencer@certinia.com"
+      },
+      "startTime": 1745482500000,
+      "votingStartTime": 1745482200000,
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "magache@certinia.com",
+        "lfisk@certinia.com",
+        "ashields@certinia.com",
+        "award@certinia.com",
+        "lyim@certinia.com"
+      ],
+      "updatedAt": 1744644776232,
+      "votingEndTime": 1745482800000,
+      "winnerDeclared": true,
+      "meetingName": "Stand up",
+      "winner": "rspencer@certinia.com"
+    },
+    {
+      "id": "pQ9sxGMlJUx7r8IkTv22",
+      "createdAt": 1740605964868,
+      "votes": {
+        "9oWcaE0t41SRFLEAwZk3cfJ3z1t1": "dpinchen@certinia.com",
+        "lc06fHfLwYgNtY0m66r0QmOHuu52": "dpinchen@certinia.com",
+        "GexXUMYeRadO9qrgUh7AdiZsY7l2": "dpinchen@certinia.com",
+        "HE62m76RRabblz5z4dZXn9PY05k2": "lyim@certinia.com"
+      },
+      "startTime": 1740673800000,
+      "votingEndTime": 1740674100000,
+      "winner": "dpinchen@certinia.com",
+      "meetingName": "Mob Review",
+      "winnerDeclared": true,
+      "updatedAt": 1740605964868,
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "lfisk@certinia.com",
+        "magache@certinia.com"
+      ],
+      "votingStartTime": 1740673500000
+    },
+    {
+      "id": "pdJ5nL4ywuHOfIsmzD6d",
+      "startTime": 1744272900000,
+      "updatedAt": 1743668173390,
+      "meetingName": "Stand Up",
+      "votes": {
+        "9oWcaE0t41SRFLEAwZk3cfJ3z1t1": "lyim@certinia.com"
+      },
+      "winnerDeclared": true,
+      "createdAt": 1743668173390,
+      "votingEndTime": 1744273200000,
+      "winner": "lyim@certinia.com",
+      "votingStartTime": 1744272600000,
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "lfisk@certinia.com",
+        "magache@certinia.com",
+        "ashields@certinia.com",
+        "award@certinia.com",
+        "lyim@certinia.com"
+      ]
+    },
+    {
+      "id": "peKwWDI1TLy3h3ES4SIu",
+      "createdAt": 1741761849389,
+      "winner": "",
+      "meetingName": "Mob Review",
+      "votes": {},
+      "votingStartTime": 1741969500000,
+      "votingEndTime": 1741970100000,
+      "startTime": 1741969800000,
+      "winnerDeclared": false,
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "lfisk@certinia.com",
+        "magache@certinia.com"
+      ],
+      "updatedAt": 1741761849389
+    },
+    {
+      "id": "q8E3m95OzzxEwyt2szrn",
+      "updatedAt": 1742546457308,
+      "votingStartTime": 1743092700000,
+      "createdAt": 1742546457308,
+      "votingEndTime": 1743093300000,
+      "startTime": 1743093000000,
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "lfisk@certinia.com",
+        "magache@certinia.com"
+      ],
+      "winnerDeclared": true,
+      "meetingName": "Mob Review",
+      "winner": "dpinchen@certinia.com",
+      "votes": {
+        "9oWcaE0t41SRFLEAwZk3cfJ3z1t1": "dpinchen@certinia.com",
+        "lc06fHfLwYgNtY0m66r0QmOHuu52": "dpinchen@certinia.com"
+      }
+    },
+    {
+      "id": "qxEubXc7jWENpTVPPJx4",
+      "startTime": 1745914500000,
+      "votes": [
+        {
+          "email": "dpinchen@certinia.com",
+          "userId": "lc06fHfLwYgNtY0m66r0QmOHuu52"
+        },
+        {
+          "userId": "HE62m76RRabblz5z4dZXn9PY05k2",
+          "email": "dpinchen@certinia.com"
+        },
+        {
+          "email": "dpinchen@certinia.com",
+          "userId": "GexXUMYeRadO9qrgUh7AdiZsY7l2"
+        }
+      ],
+      "meetingName": "Stand up",
+      "updatedAt": 1745914285271,
+      "createdAt": 1745914285271,
+      "votingEndTime": 1745914800000,
+      "winner": "dpinchen@certinia.com",
+      "votingStartTime": 1745914200000,
+      "participants": [
+        "rspencer@certinia.com",
+        "award@certinia.com",
+        "lyim@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "lfisk@certinia.com",
+        "magache@certinia.com",
+        "ashields@certinia.com"
+      ]
+    },
+    {
+      "id": "rF9ltf8ep1q4MIMd55a6",
+      "winner": "dpinchen@certinia.com",
+      "createdAt": 1742546457308,
+      "winnerDeclared": true,
+      "startTime": 1743521400000,
+      "votingStartTime": 1743521100000,
+      "votingEndTime": 1743521700000,
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "lfisk@certinia.com",
+        "magache@certinia.com"
+      ],
+      "meetingName": "Mob Review",
+      "votes": {
+        "9oWcaE0t41SRFLEAwZk3cfJ3z1t1": "dpinchen@certinia.com"
+      },
+      "updatedAt": 1742546457308
+    },
+    {
+      "id": "rxMTEYUUDY9j1F4tj3xZ",
+      "createdAt": 1745507090087,
+      "winnerDeclared": false,
+      "votes": {},
+      "updatedAt": 1745507090087,
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "lfisk@certinia.com",
+        "magache@certinia.com",
+        "ashields@certinia.com",
+        "award@certinia.com",
+        "lyim@certinia.com"
+      ],
+      "votingEndTime": 1745593500000,
+      "winner": "",
+      "votingStartTime": 1745592900000,
+      "meetingName": "Mob Review",
+      "startTime": 1745593200000
+    },
+    {
+      "id": "sDsV5w6UaWuy97V3l22P",
+      "votingStartTime": 1743408600000,
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "lfisk@certinia.com",
+        "magache@certinia.com",
+        "ashields@certinia.com",
+        "award@certinia.com",
+        "lyim@certinia.com"
+      ],
+      "createdAt": 1742546445780,
+      "winnerDeclared": false,
+      "startTime": 1743408900000,
+      "winner": "",
+      "votes": {},
+      "updatedAt": 1742546445780,
+      "votingEndTime": 1743409200000,
+      "meetingName": "Stand up"
+    },
+    {
+      "id": "sfZPkZZbmyrD8zxaWfYY",
+      "meetingName": "Mob Review",
+      "updatedAt": 1742546457308,
+      "votingEndTime": 1743006900000,
+      "createdAt": 1742546457308,
+      "winnerDeclared": true,
+      "votes": {
+        "9oWcaE0t41SRFLEAwZk3cfJ3z1t1": "magache@certinia.com"
+      },
+      "startTime": 1743006600000,
+      "winner": "magache@certinia.com",
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "lfisk@certinia.com",
+        "magache@certinia.com"
+      ],
+      "votingStartTime": 1743006300000
+    },
+    {
+      "id": "sj4tLxcS4WygLNhMAZCP",
+      "createdAt": 1740605240519,
+      "winnerDeclared": true,
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "lfisk@certinia.com",
+        "magache@certinia.com",
+        "ashields@certinia.com",
+        "award@certinia.com",
+        "lyim@certinia.com"
+      ],
+      "startTime": 1740647700000,
+      "winner": "rspencer@certinia.com",
+      "votes": {
+        "lc06fHfLwYgNtY0m66r0QmOHuu52": "rspencer@certinia.com",
+        "HE62m76RRabblz5z4dZXn9PY05k2": "rspencer@certinia.com"
+      },
+      "updatedAt": 1740605240519,
+      "votingEndTime": 1740648000000,
+      "votingStartTime": 1740647400000,
+      "meetingName": "Stand Up"
+    },
+    {
+      "id": "skfrfzsDTCjG2Ls42Hlk",
+      "winnerDeclared": false,
+      "startTime": 1743780600000,
+      "votingStartTime": 1743780300000,
+      "votingEndTime": 1743780900000,
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "lfisk@certinia.com",
+        "magache@certinia.com"
+      ],
+      "meetingName": "Mob Review",
+      "votes": {},
+      "createdAt": 1743668189619,
+      "winner": "",
+      "updatedAt": 1743668189619
+    },
+    {
+      "id": "tuYCnZ6KHgaWOXF0wsX0",
+      "winner": "lfisk@certinia.com",
+      "createdAt": 1744644794675,
+      "votes": {},
+      "updatedAt": 1744644794675,
+      "startTime": 1745335800000,
+      "winnerDeclared": true,
+      "votingEndTime": 1745336100000,
+      "meetingName": "Mob Review",
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "magache@certinia.com",
+        "lfisk@certinia.com"
+      ],
+      "votingStartTime": 1745335500000
+    },
+    {
+      "id": "u5Xr772AsxPTgPJdoCWH",
+      "createdAt": 1740605964868,
+      "winnerDeclared": false,
+      "winner": "",
+      "votingStartTime": 1741278300000,
+      "updatedAt": 1740605964868,
+      "votingEndTime": 1741278900000,
+      "startTime": 1741278600000,
+      "meetingName": "Mob Review",
+      "votes": {},
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "lfisk@certinia.com",
+        "magache@certinia.com"
+      ]
+    },
+    {
+      "id": "vKqXMQmzOKLQkE08UwRl",
+      "winner": "dpinchen@certinia.com",
+      "votes": [
+        {
+          "email": "dpinchen@certinia.com",
+          "userId": "GexXUMYeRadO9qrgUh7AdiZsY7l2"
+        },
+        {
+          "userId": "lc06fHfLwYgNtY0m66r0QmOHuu52",
+          "email": "dpinchen@certinia.com"
+        }
+      ],
+      "votingEndTime": 1745595300000,
+      "startTime": 1745595000000,
+      "updatedAt": 1745589651815,
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "lfisk@certinia.com",
+        "magache@certinia.com"
+      ],
+      "createdAt": 1745589651815,
+      "votingStartTime": 1745594700000,
+      "meetingName": "Team Virtual Activity"
+    },
+    {
+      "id": "vOdVeCgZ38P5V4MBKpCn",
+      "updatedAt": 1744644776232,
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "magache@certinia.com",
+        "lfisk@certinia.com",
+        "ashields@certinia.com",
+        "award@certinia.com",
+        "lyim@certinia.com"
+      ],
+      "startTime": 1744791300000,
+      "votes": {},
+      "winnerDeclared": false,
+      "meetingName": "Stand up",
+      "votingStartTime": 1744791000000,
+      "votingEndTime": 1744791600000,
+      "createdAt": 1744644776232,
+      "winner": ""
+    },
+    {
+      "id": "w4zzsXOZJVXUxlaluslw",
+      "startTime": 1742229000000,
+      "updatedAt": 1742202681363,
+      "votes": {
+        "9oWcaE0t41SRFLEAwZk3cfJ3z1t1": "magache@certinia.com"
+      },
+      "meetingName": "Mob Review",
+      "winnerDeclared": true,
+      "createdAt": 1742202681363,
+      "votingEndTime": 1742229300000,
+      "winner": "magache@certinia.com",
+      "votingStartTime": 1742228700000,
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "magache@certinia.com",
+        "lfisk@certinia.com",
+        "ashields@certinia.com",
+        "award@certinia.com",
+        "lyim@certinia.com"
+      ]
+    },
+    {
+      "id": "wCjMdcG6n2YKjA7JtvTy",
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "lfisk@certinia.com",
+        "magache@certinia.com"
+      ],
+      "votingStartTime": 1746024900000,
+      "votingEndTime": 1746025500000,
+      "winner": null,
+      "votes": [],
+      "updatedAt": 1745992286573,
+      "startTime": 1746025200000,
+      "meetingName": "Mob Review",
+      "createdAt": 1745992286573
+    },
+    {
+      "id": "xp1XQD9xkhPtZSWVV9g2",
+      "startTime": 1743435000000,
+      "createdAt": 1742546457308,
+      "meetingName": "Mob Review",
+      "winner": "",
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "lfisk@certinia.com",
+        "magache@certinia.com"
+      ],
+      "votes": {},
+      "votingStartTime": 1743434700000,
+      "updatedAt": 1742546457308,
+      "votingEndTime": 1743435300000,
+      "winnerDeclared": false
+    },
+    {
+      "id": "yVkcQgNA8ROrREfnzuT2",
+      "votingStartTime": 1742375520000,
+      "meetingName": "Stand Up",
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "magache@certinia.com",
+        "lfisk@certinia.com",
+        "ashields@certinia.com",
+        "award@certinia.com",
+        "lyim@certinia.com"
+      ],
+      "votingEndTime": 1742376120000,
+      "startTime": 1742375820000,
+      "winner": "",
+      "updatedAt": 1742202661284,
+      "createdAt": 1742202661284,
+      "votes": {},
+      "winnerDeclared": false
+    },
+    {
+      "id": "yg3eODLk4AwUsZnBS7WU",
+      "winnerDeclared": false,
+      "meetingName": "Mob Review",
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "lfisk@certinia.com",
+        "magache@certinia.com"
+      ],
+      "winner": "",
+      "votingStartTime": 1740759900000,
+      "startTime": 1740760200000,
+      "votingEndTime": 1740760500000,
+      "updatedAt": 1740605964868,
+      "createdAt": 1740605964868,
+      "votes": {}
+    },
+    {
+      "id": "z2fbKuYlxwCRbQC8vxM3",
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "lfisk@certinia.com",
+        "magache@certinia.com"
+      ],
+      "votes": {
+        "lc06fHfLwYgNtY0m66r0QmOHuu52": "magache@certinia.com",
+        "9oWcaE0t41SRFLEAwZk3cfJ3z1t1": "magache@certinia.com"
+      },
+      "votingStartTime": 1744298700000,
+      "votingEndTime": 1744299300000,
+      "winnerDeclared": true,
+      "winner": "magache@certinia.com",
+      "createdAt": 1743668189619,
+      "startTime": 1744299000000,
+      "meetingName": "Mob Review",
+      "updatedAt": 1743668189619
+    },
+    {
+      "id": "zQ89UJRnLrTAvVYWpv5a",
+      "votingStartTime": 1742401500000,
+      "createdAt": 1742202681363,
+      "updatedAt": 1742202681363,
+      "votes": {
+        "9oWcaE0t41SRFLEAwZk3cfJ3z1t1": "magache@certinia.com"
+      },
+      "startTime": 1742401800000,
+      "meetingName": "Mob Review",
+      "winnerDeclared": true,
+      "votingEndTime": 1742402100000,
+      "winner": "magache@certinia.com",
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "magache@certinia.com",
+        "lfisk@certinia.com",
+        "ashields@certinia.com",
+        "award@certinia.com",
+        "lyim@certinia.com"
+      ]
+    },
+    {
+      "id": "zY0y0lO5FVbrpKGBxdVb",
+      "votingEndTime": 1741598400000,
+      "votes": {
+        "9oWcaE0t41SRFLEAwZk3cfJ3z1t1": "magache@certinia.com"
+      },
+      "winner": "magache@certinia.com",
+      "createdAt": 1740605240519,
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "lfisk@certinia.com",
+        "magache@certinia.com",
+        "ashields@certinia.com",
+        "award@certinia.com",
+        "lyim@certinia.com"
+      ],
+      "winnerDeclared": true,
+      "meetingName": "Stand Up",
+      "startTime": 1741598100000,
+      "votingStartTime": 1741597800000,
+      "updatedAt": 1740605240519
+    },
+    {
+      "id": "zbhySgDRP7RnMrFRPZUL",
+      "winner": "rspencer@certinia.com",
+      "startTime": 1745575200000,
+      "meetingName": "How to architect the services forecasting recipe",
+      "createdAt": 1745574317944,
+      "votingStartTime": 1745574900000,
+      "updatedAt": 1745574317944,
+      "votingEndTime": 1745575500000,
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "alenthall@certinia.com",
+        "lfisk@certinia.com"
+      ],
+      "votes": [
+        {
+          "userId": "lc06fHfLwYgNtY0m66r0QmOHuu52",
+          "email": "rspencer@certinia.com"
+        }
+      ]
+    },
+    {
+      "id": "zhKLHiMj8j6UDFfXVkvl",
+      "createdAt": 1745992271224,
+      "meetingName": "Stand Up",
+      "winner": null,
+      "updatedAt": 1745992271224,
+      "votes": [],
+      "votingEndTime": 1746519600000,
+      "participants": [
+        "rspencer@certinia.com",
+        "dpinchen@certinia.com",
+        "lyim@certinia.com",
+        "award@certinia.com",
+        "alenthall@certinia.com",
+        "lfisk@certinia.com",
+        "ashields@certinia.com",
+        "magache@certinia.com"
+      ],
+      "startTime": 1746519300000,
+      "votingStartTime": 1746519000000
+    }
+  ]
+}
