@@ -175,8 +175,10 @@ export function Calendar({
   };
 
   const handleEditMeeting = (meeting: Meeting) => {
-    setEditMeeting(meeting);
-    setEditModalOpen(true);
+    if (isAdmin) {
+      setEditMeeting(meeting);
+      setEditModalOpen(true);
+    }
   };
 
   const handleMeetingUpdated = (updated: Meeting) => {
