@@ -14,19 +14,16 @@ import { getInitials } from "@/lib/utils";
 import { VotingHeatmap } from "@/components/voting-heatmap";
 import { VotingPreferencesChart } from "@/components/voting-preferences-chart";
 import { Mail, Calendar, Vote } from "lucide-react";
+import { User } from "@/types";
 
 export default function AccountPage() {
   const { user, loading } = useAuth() as {
-    user: import("firebase/auth").User | null;
+    user: User | null;
     loading: boolean;
   };
   const router = useRouter();
-  type UserData = {
-    displayName: string | null;
-    email: string | null;
-    photoURL: string | null;
+  type UserData = User & {
     createdAt: string;
-    uid: string;
   };
   const [userData, setUserData] = useState<UserData | null>(null);
   const [votingData, setVotingData] = useState({
@@ -68,13 +65,13 @@ export default function AccountPage() {
         const meetingsSnapshot = await getDocs(meetingsQuery);
 
         let totalVotes = 0;
-        const votesByRecipient = {};
-        const votesByDate = {};
-        const votesForUserCount: Record<string, number> = {};
+        const votesByRecipient: Record<string, number> = {}; // Explicitly type votesByRecipient
+        const votesByDate: Record<string, number> = {}; // Explicitly type votesByDate
+        const votesForUserCount: Record<string, number> = {}; // Explicitly type votesForUserCount
 
         meetingsSnapshot.forEach((doc) => {
           const meeting = doc.data();
-          const votes = meeting.votes || [];
+          const votes: Record<string, string> = meeting.votes || {};
 
           // Find votes by this user
           const userVotes = Object.entries(votes)
@@ -98,7 +95,10 @@ export default function AccountPage() {
 
           // Count votes for the user
           Object.entries(votes).forEach(([voterUid, votedForEmail]) => {
-            if (votedForEmail === user.email) {
+            if (
+              typeof votedForEmail === "string" &&
+              votedForEmail === user.email
+            ) {
               votesForUserCount[voterUid] =
                 (votesForUserCount[voterUid] || 0) + 1;
             }
@@ -116,7 +116,7 @@ export default function AccountPage() {
         // Fetch user display names for those who voted for this user
         const userIds = Object.keys(votesForUserCount);
         const usersSnapshot = await getDocs(collection(db, "users"));
-        const uidToName: Record<string, string> = {};
+        const uidToName: Record<string, string> = {}; // Explicitly type uidToName
         usersSnapshot.forEach((userDoc) => {
           const data = userDoc.data();
           if (data && data.displayName && userIds.includes(userDoc.id)) {
@@ -159,8 +159,9 @@ export default function AccountPage() {
   // Get top voted person
   let topVotedPerson = { email: "None", count: 0 };
   Object.entries(votingData.votesByRecipient).forEach(([email, count]) => {
-    if (count > topVotedPerson.count) {
-      topVotedPerson = { email, count: count as number };
+    const countNumber = typeof count === "number" ? count : Number(count);
+    if (countNumber > topVotedPerson.count) {
+      topVotedPerson = { email, count: countNumber };
     }
   });
 
@@ -178,10 +179,10 @@ export default function AccountPage() {
             <Avatar className="h-24 w-24 border-2 border-green-800">
               <AvatarImage
                 src={userData.photoURL || ""}
-                alt={userData.displayName}
+                alt={userData.displayName || undefined}
               />
               <AvatarFallback className="bg-green-900 text-green-300 text-2xl">
-                {getInitials(userData.displayName)}
+                {getInitials(userData.displayName ?? "")}
               </AvatarFallback>
             </Avatar>
 
@@ -258,7 +259,9 @@ export default function AccountPage() {
                             <td className="py-2 px-4 truncate">
                               {email.split("@")[0]}
                             </td>
-                            <td className="text-right py-2 px-4">{count}</td>
+                            <td className="text-right py-2 px-4">
+                              {String(count)}
+                            </td>
                           </tr>
                         ))}
                     </tbody>
