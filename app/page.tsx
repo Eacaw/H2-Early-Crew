@@ -8,6 +8,7 @@ import { MetricCards } from "@/components/metric-cards";
 import { VotingPanel } from "@/components/voting-panel";
 import { UpcomingMeeting } from "@/components/upcoming-meeting";
 import { db } from "@/lib/firebase";
+import { User, Vote } from "@/types";
 import {
   collection,
   getDocs,
@@ -18,13 +19,11 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Skeleton } from "@/components/ui/skeleton";
 
-type Vote = {
-  email: string;
-  // Add other properties if needed
-};
-
 export default function Home() {
-  const { user, loading } = useAuth();
+  const { user, loading } = useAuth() as {
+    user: User | null;
+    loading: boolean;
+  };
   const router = useRouter();
   const [metrics, setMetrics] = useState({
     totalUsers: 0,
@@ -90,7 +89,6 @@ export default function Home() {
         setDataLoading(false);
       } catch (error) {
         console.error("Error fetching metrics:", error);
-        setDataLoading(false);
       }
     };
 
@@ -106,41 +104,67 @@ export default function Home() {
         const now = Date.now();
         const pastMeetingsQuery = query(
           collection(db, "meetings"),
-          where("votingEndTime", "<", now),
-          where("winner", "==", null)
+          where("votingEndTime", "<", now)
+          // winner or winnerAvatarUrl is null
+          // Firestore doesn't support OR queries directly, so we'll fetch meetings where votingEndTime < now,
+          // and filter in-memory for those with missing winner or winnerAvatarUrl
         );
 
         const pastMeetingsSnapshot = await getDocs(pastMeetingsQuery);
 
-        // Process each meeting without a winner
+        // Get all users for avatar lookup
+        const usersSnapshot = await getDocs(collection(db, "users"));
+        const usersByEmail: Record<string, User> = {};
+        usersSnapshot.forEach((doc) => {
+          const userData = doc.data() as User;
+          usersByEmail[userData.email || doc.id] = userData;
+        });
+
+        // Process each meeting that needs winner or winnerAvatarUrl
         pastMeetingsSnapshot.forEach(async (doc) => {
           const meeting = doc.data();
-          const votes = meeting.votes || [];
+          const needsWinner = meeting.winner == null;
+          const needsAvatar = meeting.winnerAvatarUrl == null;
 
-          // Count votes for each participant
-          const voteCounts: { [email: string]: number } = {};
-          votes.forEach((vote: Vote) => {
-            voteCounts[vote.email] = (voteCounts[vote.email] || 0) + 1;
-          });
+          let winnerEmail: string | string[] | null = meeting.winner || null;
 
-          // Find the maximum vote count
-          let maxVotes = 0;
-          Object.values(voteCounts).forEach((count) => {
-            maxVotes = Math.max(maxVotes, count as number);
-          });
+          // If winner is missing, determine winner(s)
+          if (needsWinner) {
+            const votes = meeting.votes || [];
+            const voteCounts: Record<string, number> = {};
+            votes.forEach((vote: Vote) => {
+              voteCounts[vote.email] = (voteCounts[vote.email] || 0) + 1;
+            });
 
-          // Find all participants with the maximum vote count (could be multiple in case of a tie)
-          const winners = Object.entries(voteCounts)
-            .filter(([_, count]) => count === maxVotes)
-            .map(([email]) => email);
+            let maxVotes = 0;
+            Object.values(voteCounts).forEach((count) => {
+              maxVotes = Math.max(maxVotes, count as number);
+            });
 
-          // Update the meeting with the winner(s)
-          await updateDoc(doc.ref, {
-            winner: winners.length === 1 ? winners[0] : winners,
-          });
+            const winners = Object.entries(voteCounts)
+              .filter(([_, count]) => count === maxVotes)
+              .map(([email]) => email);
+
+            winnerEmail = winners.length === 1 ? winners[0] : winners;
+
+            // Update winner (and possibly avatar below)
+            await updateDoc(doc.ref, {
+              winner: winnerEmail,
+            });
+          }
+
+          // If winnerAvatarUrl is missing and we have a single winner, update it
+          if (needsAvatar && winnerEmail && typeof winnerEmail === "string") {
+            const winnerUser = usersByEmail[winnerEmail];
+            if (winnerUser && winnerUser.photoURL) {
+              await updateDoc(doc.ref, {
+                winnerAvatarUrl: winnerUser.photoURL,
+              });
+            }
+          }
         });
       } catch (error) {
-        console.error("Error determining winners:", error);
+        console.error("Error determining winners or updating avatars:", error);
       }
     };
 
