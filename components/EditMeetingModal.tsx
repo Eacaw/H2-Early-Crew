@@ -28,6 +28,8 @@ type Meeting = {
   meetingName: string;
   startTime: number;
   participants?: string[];
+  votingStartTime?: number;
+  votingEndTime?: number;
   [key: string]: any;
 };
 
@@ -47,6 +49,8 @@ export function EditMeetingModal({
   const [meetingName, setMeetingName] = useState("");
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
+  const [votingStartTime, setVotingStartTime] = useState<string>("N/A");
+  const [votingEndTime, setVotingEndTime] = useState<string>("N/A");
   const [selectedParticipants, setSelectedParticipants] = useState<string[]>(
     []
   );
@@ -58,10 +62,31 @@ export function EditMeetingModal({
       setDate(dt.toISOString().slice(0, 10));
       setTime(dt.toTimeString().slice(0, 5));
       setSelectedParticipants(meeting.participants || []);
+      if (meeting.votingStartTime && meeting.votingEndTime) {
+        setVotingStartTime(
+          new Date(meeting.votingStartTime).toLocaleTimeString()
+        );
+        setVotingEndTime(new Date(meeting.votingEndTime).toLocaleTimeString());
+      }
     }
   }, [meeting]);
 
-  if (!meeting) return null;
+  const updateVotingTimes = (newDate: Date) => {
+    const votingStart = new Date(newDate.getTime() - 5 * 60 * 1000);
+    const votingEnd = new Date(newDate.getTime() + 5 * 60 * 1000);
+    setVotingStartTime(votingStart.toLocaleTimeString());
+    setVotingEndTime(votingEnd.toLocaleTimeString());
+  };
+
+  const handleTimeChange = (newTime: string) => {
+    setTime(newTime);
+    if (date) {
+      const [hours, minutes] = newTime.split(":").map(Number);
+      const newDate = new Date(date);
+      newDate.setHours(hours, minutes, 0, 0);
+      updateVotingTimes(newDate);
+    }
+  };
 
   const toggleParticipant = (email: string) => {
     setSelectedParticipants((prev) =>
@@ -81,11 +106,20 @@ export function EditMeetingModal({
       startTime: newDate.getTime(),
       participants: selectedParticipants,
     };
+    // Calculate voting start/end times (5 minutes before/after meeting start)
+    const votingStartTimeEpoch = updatedMeeting.startTime - 5 * 60 * 1000;
+    const votingEndTimeEpoch = updatedMeeting.startTime + 5 * 60 * 1000;
+
     await updateDoc(doc(db, "meetings", String(meeting.id)), {
       meetingName: updatedMeeting.meetingName,
       startTime: updatedMeeting.startTime,
       participants: updatedMeeting.participants,
+      votingStartTime: votingStartTimeEpoch,
+      votingEndTime: votingEndTimeEpoch,
     });
+
+    updatedMeeting.votingStartTime = votingStartTimeEpoch;
+    updatedMeeting.votingEndTime = votingEndTimeEpoch;
     onMeetingUpdated(updatedMeeting);
     onClose();
   };
@@ -124,7 +158,29 @@ export function EditMeetingModal({
               <Input
                 type="time"
                 value={time}
-                onChange={(e) => setTime(e.target.value)}
+                onChange={(e) => handleTimeChange(e.target.value)}
+              />
+            </div>
+          </div>
+          <div className="flex gap-2">
+            <div>
+              <label className="block text-xs mb-1">Voting Start Time</label>
+              <Input
+                type="text"
+                value={votingStartTime}
+                readOnly
+                className="cursor-not-allowed"
+                disabled
+              />
+            </div>
+            <div>
+              <label className="block text-xs mb-1">Voting End Time</label>
+              <Input
+                type="text"
+                value={votingEndTime}
+                readOnly
+                className="cursor-not-allowed"
+                disabled
               />
             </div>
           </div>
