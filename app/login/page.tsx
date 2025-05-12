@@ -1,39 +1,46 @@
-"use client"
+"use client";
 
-import { useEffect } from "react"
-import { useRouter } from "next/navigation"
-import { useAuth } from "@/components/auth-provider"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { useToast } from "@/components/ui/use-toast"
-import { Clock, Users } from "lucide-react"
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/components/auth-provider";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { useToast } from "@/components/ui/use-toast";
+import { Clock, Users } from "lucide-react";
 
 export default function LoginPage() {
-  const { signInWithGoogle, user, loading } = useAuth()
-  const router = useRouter()
-  const { toast } = useToast()
+  const { signInWithGoogle, user, loading } = useAuth();
+  const router = useRouter();
+  const { toast } = useToast();
 
   useEffect(() => {
     if (!loading && user) {
-      router.push("/")
+      router.push("/");
     }
-  }, [user, loading, router])
+  }, [user, loading, router]);
 
   const handleGoogleSignIn = async () => {
     try {
-      await signInWithGoogle()
-      router.push("/")
-    } catch (error) {
+      await signInWithGoogle();
+      router.push("/");
+    } catch (error: any) {
       toast({
         title: "Error signing in",
-        description: error.message,
+        description: error.message || "An unknown error occurred",
         variant: "destructive",
-      })
+      });
     }
-  }
+  };
 
   if (loading) {
-    return null
+    return null;
   }
 
   return (
@@ -46,10 +53,16 @@ export default function LoginPage() {
             </div>
           </div>
           <CardTitle className="text-2xl text-center">H2 Early Crew</CardTitle>
-          <CardDescription className="text-center">Track and gamify who arrives at meetings first</CardDescription>
+          <CardDescription className="text-center">
+            Track and gamify who arrives at meetings first
+          </CardDescription>
         </CardHeader>
         <CardContent className="flex justify-center">
-          <Button onClick={handleGoogleSignIn} className="w-full bg-zinc-800 hover:bg-zinc-700 text-white" size="lg">
+          <Button
+            onClick={handleGoogleSignIn}
+            className="w-full bg-zinc-800 hover:bg-zinc-700 text-white"
+            size="lg"
+          >
             <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24">
               <path
                 fill="currentColor"
@@ -80,5 +93,5 @@ export default function LoginPage() {
         </CardFooter>
       </Card>
     </div>
-  )
+  );
 }
