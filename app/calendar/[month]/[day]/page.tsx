@@ -29,25 +29,16 @@ import {
   orderBy,
 } from "firebase/firestore";
 import { startOfWeek } from "date-fns";
+import { Meeting, User } from "@/types";
 
 export default function CalendarPage() {
-  interface AuthUser {
-    uid: string;
-    [key: string]: any;
-  }
   const { user, loading } = useAuth() as {
-    user: AuthUser | null;
+    user: User | null;
     loading: boolean;
   };
   const router = useRouter();
   const params = useParams();
   const [isAdmin, setIsAdmin] = useState(false);
-  interface Meeting {
-    id: string;
-    meetingName: string;
-    startTime: number;
-    [key: string]: any;
-  }
   const [meetings, setMeetings] = useState<Meeting[]>([]);
   const [dataLoading, setDataLoading] = useState(true);
   const [showNewMeetingModal, setShowNewMeetingModal] = useState(false);
@@ -110,15 +101,31 @@ export default function CalendarPage() {
         orderBy("startTime", "asc")
       );
       const meetingsSnapshot = await getDocs(meetingsQuery);
-      const meetingsData = meetingsSnapshot.docs.map((doc) => {
-        const data = doc.data();
-        return {
-          id: doc.id,
-          meetingName: data.meetingName,
-          startTime: data.startTime,
-          ...data,
-        };
-      });
+      const meetingsData = await Promise.all(
+        meetingsSnapshot.docs.map(async (meetingDoc) => {
+          const data = meetingDoc.data() as Record<string, any>; // Explicitly type data
+          let winnerAvatarUrl: string | undefined = undefined;
+          if (data.winnerId) {
+            const winnerDoc = await getDoc(doc(db, "users", data.winnerId));
+            winnerAvatarUrl = winnerDoc.exists()
+              ? (winnerDoc.data().photoURL as string)
+              : undefined;
+          }
+          return {
+            id: meetingDoc.id,
+            meetingName: data.meetingName,
+            startTime: data.startTime,
+            votes:
+              typeof data.votes === "object"
+                ? Object.keys(data.votes).length
+                : data.votes || 0,
+            hasVotes: data.votes && Object.keys(data.votes).length > 0,
+            winnerAvatarUrl,
+            votingEndTime: data.votingEndTime,
+            ...data,
+          };
+        })
+      );
 
       setMeetings(meetingsData);
     } catch (error) {
