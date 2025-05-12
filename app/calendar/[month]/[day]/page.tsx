@@ -273,13 +273,6 @@ export default function CalendarPage() {
             <ul className="list-disc list-inside text-gray-200 space-y-1 mt-4">
               <li className="flex items-center gap-2 text-sm">
                 <span>
-                  <Link className="h-4 w-4" />
-                </span>
-                Calendar routing by URL, pages now load data based on the URL,
-                navigating between weeks will show relevant data
-              </li>
-              <li className="flex items-center gap-2 text-sm">
-                <span>
                   <Wrench className="h-4 w-4" />
                 </span>
                 Fix: When editing meetings, voting times will now also move.
