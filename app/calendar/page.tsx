@@ -8,7 +8,6 @@ export default function CalendarPage() {
   const pathname = usePathname();
 
   useEffect(() => {
-    // Only redirect if we're at /calendar (not a sub-route)
     if (pathname === "/calendar") {
       const now = new Date();
       const sunday = new Date(now);
