@@ -17,14 +17,7 @@ import { cn } from "@/lib/utils";
 import { db } from "@/lib/firebase";
 import { MeetingBlock } from "@/components/MeetingBlock";
 import { EditMeetingModal } from "@/components/EditMeetingModal";
-
-type Meeting = {
-  id: string | number;
-  meetingName: string;
-  startTime: number;
-  participants?: string[];
-  [key: string]: any;
-};
+import { Meeting } from "@/types";
 
 export interface CalendarProps {
   meetings: Meeting[];
@@ -44,13 +37,13 @@ export function Calendar({
   currentWeekStart,
   onWeekChange,
 }: CalendarProps) {
-  const [currentDate, setCurrentDate] = useState(
+  const [currentDate, setCurrentDate] = useState<Date>(
     currentWeekStart || new Date()
   );
   const [currentWeek, setCurrentWeek] = useState<Date[]>([]);
   const [timeSlots, setTimeSlots] = useState<number[]>([]);
   const [editMeeting, setEditMeeting] = useState<Meeting | null>(null);
-  const [editModalOpen, setEditModalOpen] = useState(false);
+  const [editModalOpen, setEditModalOpen] = useState<boolean>(false);
   const [localMeetings, setLocalMeetings] = useState<Meeting[]>(meetings);
   const scrollRef = useRef<HTMLDivElement>(null);
   const [nowLine, setNowLine] = useState<{
@@ -71,7 +64,7 @@ export function Calendar({
     setCurrentWeek(days);
 
     // Generate time slots from 8 AM to 6 PM
-    const slots = [];
+    const slots: number[] = [];
     for (let hour = 8; hour <= 18; hour++) {
       slots.push(hour);
     }
@@ -310,8 +303,10 @@ export function Calendar({
                   >
                     {meetingsInSlot.map((meeting) => (
                       <MeetingBlock
-                        key={meeting.id}
-                        meeting={meeting}
+                        key={String(meeting.id)}
+                        meeting={{
+                          ...meeting,
+                        }}
                         onEdit={() => handleEditMeeting(meeting)}
                       />
                     ))}
