@@ -14,6 +14,8 @@ import {
   FilePenLine,
   AlignVerticalJustifyCenter,
   CircleX,
+  ChevronDown,
+  ChevronUp,
 } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { db } from "@/lib/firebase";
@@ -52,6 +54,16 @@ export default function CalendarPage() {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [selectedTime, setSelectedTime] = useState<number | null>(null);
   const [showNewFeatures, setShowNewFeatures] = useState(true);
+  const [featuresExpanded, setFeaturesExpanded] = useState(false);
+  const featuresLastUpdated = new Date(2025, 3, 30); // Replace with actual last updated date
+  const isNewFeatures =
+    (new Date().getTime() - featuresLastUpdated.getTime()) /
+      (1000 * 60 * 60 * 24) <=
+    10;
+
+  const toggleFeatures = () => {
+    setFeaturesExpanded((prev) => !prev);
+  };
 
   // Get the week start (Sunday) from the URL params
   const getWeekStartFromParams = () => {
@@ -218,56 +230,71 @@ export default function CalendarPage() {
           </Button>
         )}
       </div>
-      {isAdmin && showNewFeatures && (
-        <div className="bg-gray-800 rounded-lg p-4 mb-4 relative">
-          <button
-            className="absolute top-2 right-2 text-gray-400 hover:text-white"
-            onClick={() => setShowNewFeatures(false)}
-            aria-label="Close"
-            type="button"
-          >
-            <CircleX className="h-6 w-6" />
-          </button>
-          <h2 className="text-md font-semibold text-white mb-2">
-            New Features
-          </h2>
-          {/* Add your feature list here */}
-          <ul className="list-disc list-inside text-gray-200 space-y-1">
-            <li className="flex items-center gap-2 text-sm">
-              <span>
-                <Link className="h-4 w-4" />
+      {isAdmin && (
+        <div className="bg-gray-800 rounded-lg p-4 mb-4">
+          <div className="flex justify-between items-center">
+            <div className="flex items-center gap-2">
+              <h2 className="text-md font-semibold text-white">New Features</h2>
+              <span className="text-sm text-gray-400">
+                (Last updated: {featuresLastUpdated.toLocaleDateString()})
               </span>
-              Calendar routing by URL, pages now load data based on the URL,
-              navigating between weeks will show relevant data
-            </li>
-            <li className="flex items-center gap-2 text-sm">
-              <span>
-                <AlignEndVertical className="h-4 w-4" />
-              </span>
-              Alignment of columns is no longer affected by the scroll bar
-            </li>
-            <li className="flex items-center gap-2 text-sm">
-              <span>
-                <CalendarCheck className="h-4 w-4" />
-              </span>
-              New 'This Week' button to bring you back to the current week
-            </li>
-            <li className="flex items-center gap-2 text-sm">
-              <span>
-                <FilePenLine className="h-4 w-4" />
-              </span>
-              Editable meetings - You can now click on a meeting to view an edit
-              modal which will allow you to change the date/time of a specific
-              meeting.
-            </li>
-            <li className="flex items-center gap-2 text-sm">
-              <span>
-                <AlignVerticalJustifyCenter className="h-4 w-4" />
-              </span>
-              Today indication is less garish and shows a 'now' marker for the
-              current time
-            </li>
-          </ul>
+              {isNewFeatures && (
+                <span className="ml-2 bg-green-600 text-white text-xs font-bold px-2 py-1 rounded">
+                  New
+                </span>
+              )}
+            </div>
+            <button
+              className="text-gray-400 hover:text-white"
+              onClick={toggleFeatures}
+              aria-label="Toggle Features"
+              type="button"
+            >
+              {featuresExpanded ? (
+                <ChevronUp className="h-6 w-6" />
+              ) : (
+                <ChevronDown className="h-6 w-6" />
+              )}
+            </button>
+          </div>
+          {featuresExpanded && (
+            <ul className="list-disc list-inside text-gray-200 space-y-1 mt-4">
+              <li className="flex items-center gap-2 text-sm">
+                <span>
+                  <Link className="h-4 w-4" />
+                </span>
+                Calendar routing by URL, pages now load data based on the URL,
+                navigating between weeks will show relevant data
+              </li>
+              <li className="flex items-center gap-2 text-sm">
+                <span>
+                  <AlignEndVertical className="h-4 w-4" />
+                </span>
+                Alignment of columns is no longer affected by the scroll bar
+              </li>
+              <li className="flex items-center gap-2 text-sm">
+                <span>
+                  <CalendarCheck className="h-4 w-4" />
+                </span>
+                New 'This Week' button to bring you back to the current week
+              </li>
+              <li className="flex items-center gap-2 text-sm">
+                <span>
+                  <FilePenLine className="h-4 w-4" />
+                </span>
+                Editable meetings - You can now click on a meeting to view an
+                edit modal which will allow you to change the date/time of a
+                specific meeting.
+              </li>
+              <li className="flex items-center gap-2 text-sm">
+                <span>
+                  <AlignVerticalJustifyCenter className="h-4 w-4" />
+                </span>
+                Today indication is less garish and shows a 'now' marker for the
+                current time
+              </li>
+            </ul>
+          )}
         </div>
       )}
 
