@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Trash2 } from "lucide-react";
 import { db } from "@/lib/firebase";
 import { doc, updateDoc, deleteDoc } from "firebase/firestore";
+import { Meeting } from "@/types";
 
 export const participantEmails = {
   Rick: "rspencer@certinia.com",
@@ -21,16 +22,6 @@ export const participantEmails = {
   Anne: "ashields@certinia.com",
   Wordie: "award@certinia.com",
   Gemma: "lyim@certinia.com",
-};
-
-type Meeting = {
-  id: string | number;
-  meetingName: string;
-  startTime: number;
-  participants?: string[];
-  votingStartTime?: number;
-  votingEndTime?: number;
-  [key: string]: any;
 };
 
 export function EditMeetingModal({
@@ -95,7 +86,7 @@ export function EditMeetingModal({
   };
 
   const handleSave = async () => {
-    if (!date || !time) return;
+    if (!meeting || !date || !time) return;
     const [hours, minutes] = time.split(":").map(Number);
     const newDate = new Date(date);
     newDate.setHours(hours, minutes, 0, 0);
@@ -125,6 +116,7 @@ export function EditMeetingModal({
   };
 
   const handleDelete = async () => {
+    if (!meeting) return;
     await deleteDoc(doc(db, "meetings", String(meeting.id)));
     onMeetingDeleted(meeting.id);
     onClose();
