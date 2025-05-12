@@ -16,6 +16,11 @@ import {
   CircleX,
   ChevronDown,
   ChevronUp,
+  Wrench,
+  Clock,
+  BadgeCheck,
+  Vote,
+  CircleCheck,
 } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { db } from "@/lib/firebase";
@@ -46,7 +51,7 @@ export default function CalendarPage() {
   const [selectedTime, setSelectedTime] = useState<number | null>(null);
   const [showNewFeatures, setShowNewFeatures] = useState(true);
   const [featuresExpanded, setFeaturesExpanded] = useState(false);
-  const featuresLastUpdated = new Date(2025, 3, 30); // Replace with actual last updated date
+  const featuresLastUpdated = new Date(2025, 4, 12); // Replace with actual last updated date
   const isNewFeatures =
     (new Date().getTime() - featuresLastUpdated.getTime()) /
       (1000 * 60 * 60 * 24) <=
@@ -275,31 +280,51 @@ export default function CalendarPage() {
               </li>
               <li className="flex items-center gap-2 text-sm">
                 <span>
-                  <AlignEndVertical className="h-4 w-4" />
+                  <Wrench className="h-4 w-4" />
                 </span>
-                Alignment of columns is no longer affected by the scroll bar
+                Fix: When editing meetings, voting times will now also move.
               </li>
               <li className="flex items-center gap-2 text-sm">
                 <span>
-                  <CalendarCheck className="h-4 w-4" />
+                  <Clock className="h-4 w-4" />
                 </span>
-                New 'This Week' button to bring you back to the current week
+                Feature: When editing meetings, voting times will now be
+                displayed in the modal.
               </li>
               <li className="flex items-center gap-2 text-sm">
                 <span>
-                  <FilePenLine className="h-4 w-4" />
+                  <BadgeCheck className="h-4 w-4" />
                 </span>
-                Editable meetings - You can now click on a meeting to view an
-                edit modal which will allow you to change the date/time of a
-                specific meeting.
+                Feature: Meeting cards for previous meetings will now display
+                badges for:
               </li>
-              <li className="flex items-center gap-2 text-sm">
-                <span>
-                  <AlignVerticalJustifyCenter className="h-4 w-4" />
-                </span>
-                Today indication is less garish and shows a 'now' marker for the
-                current time
-              </li>
+              <ul className="list-disc list-inside text-gray-200 space-y-1 mt-2 ml-48">
+                <li className="flex items-center gap-2 text-sm">
+                  <span>
+                    <CircleX className="h-4 w-4 text-red-500" />
+                  </span>
+                  No votes received for this meeting
+                </li>
+                <li className="flex items-center gap-2 text-sm">
+                  <span>
+                    <CircleCheck className="h-4 w-4 text-green-500" />
+                  </span>
+                  Votes were received for this meeting
+                </li>
+
+                <li className="flex items-center gap-2 text-sm">
+                  <span>
+                    <Vote className="h-4 w-4" />
+                  </span>
+                  Number of votes
+                </li>
+                <li className="flex items-center gap-2 text-sm">
+                  <span>
+                    <FilePenLine className="h-4 w-4" />
+                  </span>
+                  Winner of this meeting (avatar)
+                </li>
+              </ul>
             </ul>
           )}
         </div>
