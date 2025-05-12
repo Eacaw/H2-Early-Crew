@@ -1,47 +1,56 @@
-"use client"
+"use client";
 
-import { createContext, useContext, useEffect, useState } from "react"
+import { createContext, useContext, useEffect, useState } from "react";
 import {
   getAuth,
   onAuthStateChanged,
   GoogleAuthProvider,
   signInWithPopup,
   signOut as firebaseSignOut,
-} from "firebase/auth"
-import { doc, setDoc, getDoc } from "firebase/firestore"
-import { db } from "@/lib/firebase"
-import { useToast } from "@/components/ui/use-toast"
+} from "firebase/auth";
+import { doc, setDoc, getDoc } from "firebase/firestore";
+import { db } from "@/lib/firebase";
+import { useToast } from "@/components/ui/use-toast";
 
-const AuthContext = createContext(null)
+type AuthContextType = {
+  user: import("firebase/auth").User | null;
+  loading: boolean;
+  signInWithGoogle: () => Promise<import("firebase/auth").User>;
+  signOut: () => Promise<void>;
+};
 
-export function AuthProvider({ children }) {
-  const [user, setUser] = useState(null)
-  const [loading, setLoading] = useState(true)
-  const auth = getAuth()
-  const { toast } = useToast()
+const AuthContext = createContext<AuthContextType | null>(null);
+
+import { ReactNode } from "react";
+
+export function AuthProvider({ children }: { children: ReactNode }) {
+  const [user, setUser] = useState<import("firebase/auth").User | null>(null);
+  const [loading, setLoading] = useState(true);
+  const auth = getAuth();
+  const { toast } = useToast();
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
-        setUser(user)
+        setUser(user);
       } else {
-        setUser(null)
+        setUser(null);
       }
-      setLoading(false)
-    })
+      setLoading(false);
+    });
 
-    return () => unsubscribe()
-  }, [auth])
+    return () => unsubscribe();
+  }, [auth]);
 
   const signInWithGoogle = async () => {
     try {
-      const provider = new GoogleAuthProvider()
-      const userCredential = await signInWithPopup(auth, provider)
-      const user = userCredential.user
+      const provider = new GoogleAuthProvider();
+      const userCredential = await signInWithPopup(auth, provider);
+      const user = userCredential.user;
 
       // Check if user document exists
-      const userDocRef = doc(db, "users", user.uid)
-      const userDoc = await getDoc(userDocRef)
+      const userDocRef = doc(db, "users", user.uid);
+      const userDoc = await getDoc(userDocRef);
 
       if (!userDoc.exists()) {
         // Create user document in Firestore if it doesn't exist
@@ -51,46 +60,50 @@ export function AuthProvider({ children }) {
           displayName: user.displayName || "",
           photoURL: user.photoURL || "",
           isAdmin: false, // Default to non-admin
-        })
+        });
       }
 
-      setUser(user)
-      return user
+      setUser(user);
+      return user;
     } catch (error) {
-      console.error("Error signing in with Google:", error)
+      console.error("Error signing in with Google:", error);
       toast({
         title: "Error signing in",
-        description: error.message,
+        description: error instanceof Error ? error.message : String(error),
         variant: "destructive",
-      })
-      throw error
+      });
+      throw error;
     }
-  }
+  };
 
   const signOut = async () => {
     try {
-      await firebaseSignOut(auth)
-      setUser(null)
+      await firebaseSignOut(auth);
+      setUser(null);
       toast({
         title: "Signed out successfully",
-      })
+      });
     } catch (error) {
-      console.error("Error signing out:", error)
+      console.error("Error signing out:", error);
       toast({
         title: "Error signing out",
-        description: error.message,
+        description: error instanceof Error ? error.message : String(error),
         variant: "destructive",
-      })
+      });
     }
-  }
+  };
 
-  return <AuthContext.Provider value={{ user, loading, signInWithGoogle, signOut }}>{children}</AuthContext.Provider>
+  return (
+    <AuthContext.Provider value={{ user, loading, signInWithGoogle, signOut }}>
+      {children}
+    </AuthContext.Provider>
+  );
 }
 
 export const useAuth = () => {
-  const context = useContext(AuthContext)
+  const context = useContext(AuthContext);
   if (context === null) {
-    throw new Error("useAuth must be used within an AuthProvider")
+    throw new Error("useAuth must be used within an AuthProvider");
   }
-  return context
-}
+  return context;
+};
