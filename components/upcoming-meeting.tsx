@@ -53,8 +53,9 @@ export function UpcomingMeeting() {
           const data = doc.data();
           if (typeof data.startTime === "number") {
             const meetingData: Meeting = {
-              ...data,
               id: doc.id,
+              startTime: data.startTime,
+              ...data,
             };
             setMeeting(meetingData);
           } else {
@@ -77,6 +78,7 @@ export function UpcomingMeeting() {
             if (typeof data.startTime === "number") {
               const meetingData: Meeting = {
                 id: doc.id,
+                startTime: data.startTime,
                 ...data,
               };
               setMeeting(meetingData);
@@ -129,7 +131,6 @@ export function UpcomingMeeting() {
       });
       setTimeRemaining(`Voting opens ${timeToStart}`);
     } else if (now >= votingStartTime && now <= votingEndTime) {
-      console.log("meetingStarted:", meetingStarted);
       setVotingStatus("active");
       setMeetingStarted(true);
 
