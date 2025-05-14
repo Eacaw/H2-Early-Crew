@@ -15,7 +15,7 @@ Eager Beaver helps teams run engaging and accountable early meetings by allowing
 ### Login (`/login`)
 
 - If the user is not authenticated, they are redirected to the login page on first load.
-- Allows users to authenticate and access the dashboard.
+- Allows users to authenticate and access the dashboard. Currently they must be within the predetermined list, a future update will resolve this.
 
 ### Dashboard (`/`)
 
